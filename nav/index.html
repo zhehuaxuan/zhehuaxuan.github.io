@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8"> 
+   <title>前端导航|zhehua's note</title>
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <style>
+   	.header{
+   		height: 50px;
+   		background: #EEEEEE;
+   		padding: 0px 50px;
+   	}
+   	.line-height-50 {
+   		line-height: 50px;
+   	}
+   	.list-inline{
+   		height: 100%;
+   	}
+   	.list-inline li a{
+   		font-size: 14px;
+   	}
+   	.category_item{
+   		padding: 0px 50px;
+   	}
+   	.padding-none{
+   		padding:0px;
+   	}
+   	.category_item h4{
+   		padding-bottom: 10px;
+   		border-bottom:2px solid #EEEEEE;
+   	}
+   	.items li{
+   		height: 34px;
+   		line-height: 34px;
+   		margin: 0px 10px;
+   	}
+   	.items li a{
+   		color:#9B4D4D;
+   	}
+   	.items li a:hover{
+   		text-decoration: none;
+   		color: #863B3B;
+   	}
+   	.text-dark{
+   		color:darkgray;
+   	}
+   	@media screen and (max-width: 600px) {
+    .header UL{
+        display: none;
+    }
+}
+   </style>  
+   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row header">
+			<div class="col-lg-12">
+				<a href="/"><img width="40" src="image/avatar.gif" alt="..." style="margin-top:3px;margin-left:20px;" class="img-circle"></a>
+				<ul class="list-inline pull-right line-height-50">
+					<li><a href="#Community">Community</a></li>
+					<li><a href="#css-html">CSS/HTML</a></li>
+					<li><a href="#JavaScript">JavaScript</a></li>
+					<li><a href="#Document">Document</a></li>
+					<li><a href="#Resource">Resource</a></li>
+					<li><a href="#SoftWare">SoftWare/Tools</a></li>
+					<li><a href="#Hunt">Hunt</a></li>
+					<li><a href="#Me">Me</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row category_item" id="Community">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Community</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							收藏博客
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							前端社区
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://github.com" target="_blank">GitHub</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>	
+		<div class="row category_item" id="css-html">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;CSS/HTML</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							CSS
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							HTML5
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="row category_item" id="JavaScript">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span>&nbsp;JavaScript</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							原生JavaScript
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							框架
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							Node.js
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="row category_item" id="Document">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp;Document</h4>
+			</div>
+		</div>
+		<div class="row category_item" id="Resource">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Resource</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							收藏博客
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							前端社区
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="row category_item" id="SoftWare">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;SoftWare/Tools</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							收藏博客
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							前端社区
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="row category_item" id="Hunt">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>&nbsp;Hunt</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							收藏博客
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							前端社区
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://huruji.github.io/FE-Interview/#/" target="_blank">灰风GreyWind</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="row category_item" id="Me">
+			<div class="col-lg-12">
+				<h4 class="text-dark"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Me</h4>
+			</div>
+			<div class="col-lg-12">
+					<div class="col-lg-1 padding-none">
+						<button class="btn btn-default btn-block">
+							博客
+						</button>
+					</div>
+					<div class="col-lg-11">
+						<ul class="list-inline items">
+							<li><a href="https://www.zhehuaxuan.vip" target="_blank">ZheHuaXuan's Note</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
