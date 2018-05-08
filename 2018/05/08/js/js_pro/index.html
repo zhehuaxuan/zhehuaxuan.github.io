@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vue,Vs-Code,vetur," />
+  <meta name="keywords" content="typeof,instance of," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="更改vetur配置            vscode-&amp;gt;首选项-&amp;gt;设置-&amp;gt;搜索（vetur）12// Validate vue-html in &amp;lt;template&amp;gt; using eslint-plugin-vue&amp;quot;vetur.va">
-<meta name="keywords" content="Vue,Vs-Code,vetur">
+<meta name="description" content="今天看完一道javascript的基础面试题：    问题：如何准确判断一个变量时数组类型答案：1234var arr1 = [];  console.log(arr1 instanceof Array); //打印结果：true。  console.log(typeof arr1);           //打印结果">
+<meta name="keywords" content="typeof,instance of">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&lt;strong&gt;vue-language-server&lt;&#x2F;strong&gt; Elements in iteration expect to have &#39;v-bind:key&#39; directives.问题解决">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2017/12/09/vue/Vetur插件问题解决/index.html">
+<meta property="og:title" content="在JAVASCRIPT中 typeof 和 instanceof 的区别和联系">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="更改vetur配置            vscode-&amp;gt;首选项-&amp;gt;设置-&amp;gt;搜索（vetur）12// Validate vue-html in &amp;lt;template&amp;gt; using eslint-plugin-vue&amp;quot;vetur.validation.template&amp;quot;: true, 改为“vetur.validation.template”: fa">
+<meta property="og:description" content="今天看完一道javascript的基础面试题：    问题：如何准确判断一个变量时数组类型答案：1234var arr1 = [];  console.log(arr1 instanceof Array); //打印结果：true。  console.log(typeof arr1);           //打印结果：object.  提示：typeof 方法无法判断是否为数组  从中引出了ty">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-09T08:10:13.573Z">
+<meta property="og:updated_time" content="2018-05-08T16:02:16.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&lt;strong&gt;vue-language-server&lt;&#x2F;strong&gt; Elements in iteration expect to have &#39;v-bind:key&#39; directives.问题解决">
-<meta name="twitter:description" content="更改vetur配置            vscode-&amp;gt;首选项-&amp;gt;设置-&amp;gt;搜索（vetur）12// Validate vue-html in &amp;lt;template&amp;gt; using eslint-plugin-vue&amp;quot;vetur.validation.template&amp;quot;: true, 改为“vetur.validation.template”: fa">
+<meta name="twitter:title" content="在JAVASCRIPT中 typeof 和 instanceof 的区别和联系">
+<meta name="twitter:description" content="今天看完一道javascript的基础面试题：    问题：如何准确判断一个变量时数组类型答案：1234var arr1 = [];  console.log(arr1 instanceof Array); //打印结果：true。  console.log(typeof arr1);           //打印结果：object.  提示：typeof 方法无法判断是否为数组  从中引出了ty">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2017/12/09/vue/Vetur插件问题解决/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/"/>
 
 
 
 
 
-  <title><strong>vue-language-server</strong> Elements in iteration expect to have 'v-bind:key' directives.问题解决 | zhehua's note</title>
+  <title>在JAVASCRIPT中 typeof 和 instanceof 的区别和联系 | zhehua's note</title>
   
 
 
@@ -283,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2017/12/09/vue/Vetur插件问题解决/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -300,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"><strong>vue-language-server</strong> Elements in iteration expect to have 'v-bind:key' directives.问题解决</h1>
+          <h1 class="post-title" itemprop="name headline">在JAVASCRIPT中 typeof 和 instanceof 的区别和联系</h1>
         
 
         <div class="post-meta">
@@ -312,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-09T15:59:23+08:00">
-                2017-12-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T23:43:23+08:00">
+                2018-05-08
               </time>
             
 
@@ -335,8 +335,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IDE/" itemprop="url" rel="index">
-                    <span itemprop="name">IDE</span>
+                  <a href="/categories/JAVASCRIPT/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASCRIPT</span>
                   </a>
                 </span>
 
@@ -372,8 +372,68 @@
       
 
       
-        <p>更改vetur配置            vscode-&gt;首选项-&gt;设置-&gt;搜索（vetur）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Validate vue-html in &lt;template&gt; using eslint-plugin-vue</span><br><span class="line">&quot;vetur.validation.template&quot;: true,</span><br></pre></td></tr></table></figure></p>
-<p>改为<br>“vetur.validation.template”: false</p>
+        <p>今天看完一道javascript的基础面试题：  </p>
+<blockquote>
+<p>问题：如何准确判断一个变量时数组类型<br>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [];  </span><br><span class="line">console.log(arr1 instanceof Array); //打印结果：true。  </span><br><span class="line">console.log(typeof arr1);           //打印结果：object.  </span><br><span class="line">提示：typeof 方法无法判断是否为数组</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>从中引出了typeof 和 instanceof 的区别和联系<br>查看了MDN的官方手册对于两者的用法如下：  </p>
+<blockquote>
+<p>1.typeof操作符返回一个字符串，表示未经计算的操作数的类型。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof operand</span><br><span class="line">or</span><br><span class="line">typeof (operand)</span><br></pre></td></tr></table></figure></p>
+<p>typeof可能的返回值如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:left">结果 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undefined</td>
+<td style="text-align:left">“undefined” </td>
+</tr>
+<tr>
+<td>Null</td>
+<td style="text-align:left">“object”（见下文）</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td style="text-align:left">“boolean”</td>
+</tr>
+<tr>
+<td>Number</td>
+<td style="text-align:left">“number”</td>
+</tr>
+<tr>
+<td>String</td>
+<td style="text-align:left">“string”</td>
+</tr>
+<tr>
+<td>Symbol （ECMAScript 6 新增）</td>
+<td style="text-align:left">“symbol”</td>
+</tr>
+<tr>
+<td>宿主对象（由JS环境提供）</td>
+<td style="text-align:left">Implementation-dependent</td>
+</tr>
+<tr>
+<td>函数对象（[[Call]] 在ECMA-262条款中实现了）</td>
+<td style="text-align:left">“function”</td>
+</tr>
+<tr>
+<td>任何其他对象</td>
+<td style="text-align:left">“object”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>从上图可以反映出：typeof operand返回的结果为基本类型，对于引用类型其都返回object，所以var a = [];console.log(a);返回object。<br><strong>注： 使用typeof操作符的时候,如果检测对象是函数,那么操作符返回”function” ,如果检测对象是正则表达式的时候,在Safari和Chrome中使用typeof的时候会错误的返回”function”。</strong><br>2.instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">object instanceof constructor</span><br><span class="line"></span><br><span class="line">//object</span><br><span class="line">//要检测的对象.</span><br><span class="line">//constructor</span><br><span class="line">//某个构造函数</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>官方例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 定义构造函数</span><br><span class="line">function C()&#123;&#125; </span><br><span class="line">function D()&#123;&#125; </span><br><span class="line"></span><br><span class="line">var o = new C();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o instanceof C; // true，因为 Object.getPrototypeOf(o) === C.prototype</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o instanceof D; // false，因为 D.prototype不在o的原型链上</span><br><span class="line"></span><br><span class="line">o instanceof Object; // true,因为Object.prototype.isPrototypeOf(o)返回true</span><br><span class="line">C.prototype instanceof Object // true,同上</span><br><span class="line"></span><br><span class="line">C.prototype = &#123;&#125;;</span><br><span class="line">var o2 = new C();</span><br><span class="line"></span><br><span class="line">o2 instanceof C; // true</span><br><span class="line"></span><br><span class="line">o instanceof C; // false,C.prototype指向了一个空对象,这个空对象不在o的原型链上.</span><br><span class="line"></span><br><span class="line">D.prototype = new C(); // 继承</span><br><span class="line">var o3 = new D();</span><br><span class="line">o3 instanceof D; // true</span><br><span class="line">o3 instanceof C; // true</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注：如果表达式 obj instanceof Foo 返回true，则并不意味着该表达式会永远返回true，因为Foo.prototype属性的值有可能会改变，改变之后的值很有可能不存在于obj的原型链上，这时原表达式的值就会成为false。另外一种情况下，原表达式的值也会改变，就是改变对象obj的原型链的情况，虽然在目前的ES规范中，我们只能读取对象的原型而不能改变它，但借助于非标准的<strong>proto</strong>魔法属性，是可以实现的。比如执行obj.<strong>proto</strong> = {}之后，obj instanceof Foo就会返回false了。<br>所以对于typeof和instanceof的用法——<font color="red">typeof一般是检测的是基本数据类型,instanceof主要检测的是引用类型!</font></p>
+</blockquote>
 
       
     </div>
@@ -391,11 +451,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
+            <a href="/tags/typeof/" rel="tag"># typeof</a>
           
-            <a href="/tags/Vs-Code/" rel="tag"># Vs-Code</a>
-          
-            <a href="/tags/vetur/" rel="tag"># vetur</a>
+            <a href="/tags/instance-of/" rel="tag"># instance of</a>
           
         </div>
       
@@ -408,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/25/design_pattern/单例模式/" rel="next" title="设计模式の单例模式">
-                <i class="fa fa-chevron-left"></i> 设计模式の单例模式
+              <a href="/2018/05/03/tools/vscode高效开发/" rel="next" title="Visual Studio Code高效开发">
+                <i class="fa fa-chevron-left"></i> Visual Studio Code高效开发
               </a>
             
           </div>
@@ -417,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/09/tools/hexo_常用命令/" rel="prev" title="Hexo 常用命令">
-                Hexo 常用命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

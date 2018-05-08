@@ -282,6 +282,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/08/js/js_pro/" itemprop="url">在JAVASCRIPT中 typeof 和 instanceof 的区别和联系</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T23:43:23+08:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASCRIPT/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASCRIPT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天看完一道javascript的基础面试题：  </p>
+<blockquote>
+<p>问题：如何准确判断一个变量时数组类型<br>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [];  </span><br><span class="line">console.log(arr1 instanceof Array); //打印结果：true。  </span><br><span class="line">console.log(typeof arr1);           //打印结果：object.  </span><br><span class="line">提示：typeof 方法无法判断是否为数组</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>从中引出了typeof 和 instanceof 的区别和联系<br>查看了MDN的官方手册对于两者的用法如下：  </p>
+<blockquote>
+<p>1.typeof操作符返回一个字符串，表示未经计算的操作数的类型。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof operand</span><br><span class="line">or</span><br><span class="line">typeof (operand)</span><br></pre></td></tr></table></figure></p>
+<p>typeof可能的返回值如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:left">结果 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undefined</td>
+<td style="text-align:left">“undefined” </td>
+</tr>
+<tr>
+<td>Null</td>
+<td style="text-align:left">“object”（见下文）</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td style="text-align:left">“boolean”</td>
+</tr>
+<tr>
+<td>Number</td>
+<td style="text-align:left">“number”</td>
+</tr>
+<tr>
+<td>String</td>
+<td style="text-align:left">“string”</td>
+</tr>
+<tr>
+<td>Symbol （ECMAScript 6 新增）</td>
+<td style="text-align:left">“symbol”</td>
+</tr>
+<tr>
+<td>宿主对象（由JS环境提供）</td>
+<td style="text-align:left">Implementation-dependent</td>
+</tr>
+<tr>
+<td>函数对象（[[Call]] 在ECMA-262条款中实现了）</td>
+<td style="text-align:left">“function”</td>
+</tr>
+<tr>
+<td>任何其他对象</td>
+<td style="text-align:left">“object”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>从上图可以反映出：typeof operand返回的结果为基本类型，对于引用类型其都返回object，所以var a = [];console.log(a);返回object。<br><strong>注： 使用typeof操作符的时候,如果检测对象是函数,那么操作符返回”function” ,如果检测对象是正则表达式的时候,在Safari和Chrome中使用typeof的时候会错误的返回”function”。</strong><br>2.instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">object instanceof constructor</span><br><span class="line"></span><br><span class="line">//object</span><br><span class="line">//要检测的对象.</span><br><span class="line">//constructor</span><br><span class="line">//某个构造函数</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>官方例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 定义构造函数</span><br><span class="line">function C()&#123;&#125; </span><br><span class="line">function D()&#123;&#125; </span><br><span class="line"></span><br><span class="line">var o = new C();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o instanceof C; // true，因为 Object.getPrototypeOf(o) === C.prototype</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o instanceof D; // false，因为 D.prototype不在o的原型链上</span><br><span class="line"></span><br><span class="line">o instanceof Object; // true,因为Object.prototype.isPrototypeOf(o)返回true</span><br><span class="line">C.prototype instanceof Object // true,同上</span><br><span class="line"></span><br><span class="line">C.prototype = &#123;&#125;;</span><br><span class="line">var o2 = new C();</span><br><span class="line"></span><br><span class="line">o2 instanceof C; // true</span><br><span class="line"></span><br><span class="line">o instanceof C; // false,C.prototype指向了一个空对象,这个空对象不在o的原型链上.</span><br><span class="line"></span><br><span class="line">D.prototype = new C(); // 继承</span><br><span class="line">var o3 = new D();</span><br><span class="line">o3 instanceof D; // true</span><br><span class="line">o3 instanceof C; // true</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注：如果表达式 obj instanceof Foo 返回true，则并不意味着该表达式会永远返回true，因为Foo.prototype属性的值有可能会改变，改变之后的值很有可能不存在于obj的原型链上，这时原表达式的值就会成为false。另外一种情况下，原表达式的值也会改变，就是改变对象obj的原型链的情况，虽然在目前的ES规范中，我们只能读取对象的原型而不能改变它，但借助于非标准的<strong>proto</strong>魔法属性，是可以实现的。比如执行obj.<strong>proto</strong> = {}之后，obj instanceof Foo就会返回false了。<br>所以对于typeof和instanceof的用法——<font color="red">typeof一般是检测的是基本数据类型,instanceof主要检测的是引用类型!</font></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/03/tools/vscode高效开发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1105,7 +1308,7 @@ Singleton.getInstance().publicMethod();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1116,7 +1319,7 @@ Singleton.getInstance().publicMethod();
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1127,7 +1330,7 @@ Singleton.getInstance().publicMethod();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
