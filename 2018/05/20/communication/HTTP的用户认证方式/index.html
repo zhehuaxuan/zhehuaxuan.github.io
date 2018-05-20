@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="typeof,instance of," />
+  <meta name="keywords" content="Http 用户认证," />
 
 
 
@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="今天看完一道javascript的基础面试题：    问题：如何准确判断一个变量时数组类型答案：1234var arr1 = [];  console.log(arr1 instanceof Array); //打印结果：true。  console.log(typeof arr1);           //打印结果">
-<meta name="keywords" content="typeof,instance of">
+<meta name="description" content="HTTP的用户认证方式1. Basic认证  步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm） 步骤二">
+<meta name="keywords" content="Http 用户认证">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在JAVASCRIPT中 typeof 和 instanceof 的区别和联系">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/index.html">
+<meta property="og:title" content="HTTP的用户认证方式">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="今天看完一道javascript的基础面试题：    问题：如何准确判断一个变量时数组类型答案：1234var arr1 = [];  console.log(arr1 instanceof Array); //打印结果：true。  console.log(typeof arr1);           //打印结果：object.  提示：typeof 方法无法判断是否为数组  从中引出了ty">
+<meta property="og:description" content="HTTP的用户认证方式1. Basic认证  步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm） 步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示 步骤三：对认证信息的正确性">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-08T16:02:16.855Z">
+<meta property="og:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png">
+<meta property="og:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717389002.png">
+<meta property="og:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526718629646.png">
+<meta property="og:updated_time" content="2018-05-20T07:27:55.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在JAVASCRIPT中 typeof 和 instanceof 的区别和联系">
-<meta name="twitter:description" content="今天看完一道javascript的基础面试题：    问题：如何准确判断一个变量时数组类型答案：1234var arr1 = [];  console.log(arr1 instanceof Array); //打印结果：true。  console.log(typeof arr1);           //打印结果：object.  提示：typeof 方法无法判断是否为数组  从中引出了ty">
+<meta name="twitter:title" content="HTTP的用户认证方式">
+<meta name="twitter:description" content="HTTP的用户认证方式1. Basic认证  步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm） 步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示 步骤三：对认证信息的正确性">
+<meta name="twitter:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/"/>
 
 
 
 
 
-  <title>在JAVASCRIPT中 typeof 和 instanceof 的区别和联系 | zhehua's note</title>
+  <title>HTTP的用户认证方式 | zhehua's note</title>
   
 
 
@@ -283,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/08/js/js_pro/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -300,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在JAVASCRIPT中 typeof 和 instanceof 的区别和联系</h1>
+          <h1 class="post-title" itemprop="name headline">HTTP的用户认证方式</h1>
         
 
         <div class="post-meta">
@@ -312,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T23:43:23+08:00">
-                2018-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T15:27:13+08:00">
+                2018-05-20
               </time>
             
 
@@ -335,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASCRIPT/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASCRIPT</span>
+                  <a href="/categories/通信/" itemprop="url" rel="index">
+                    <span itemprop="name">通信</span>
                   </a>
                 </span>
 
@@ -372,68 +376,27 @@
       
 
       
-        <p>今天看完一道javascript的基础面试题：  </p>
+        <h3 id="HTTP的用户认证方式"><a href="#HTTP的用户认证方式" class="headerlink" title="HTTP的用户认证方式"></a>HTTP的用户认证方式</h3><h4 id="1-Basic认证"><a href="#1-Basic认证" class="headerlink" title="1. Basic认证"></a>1. Basic认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png" alt="1526717218205"></p>
+<ul>
+<li>步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm）</li>
+<li>步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示</li>
+<li>步骤三：对认证信息的正确性进行验证。如验证通过，则返回一条包含 Request-URI 资源的响应</li>
+</ul>
+<p><strong>缺点：</strong>使用Base64编码，安全性不高，并且认证使用上不够便捷灵活</p>
+<h4 id="2-Digest认证"><a href="#2-Digest认证" class="headerlink" title="2. Digest认证"></a>2. Digest认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717389002.png" alt="1526717389002"></p>
+<p>DIGEST 认证提供了高于 BASIC 认证的安全等级，但是和 HTTPS 的客户端认证相比仍旧很弱。DIGEST 认证提供防止密码被窃听的保护机制，但并不存在防止用户伪装的保护机制。</p>
+<h4 id="3-SSL认证"><a href="#3-SSL认证" class="headerlink" title="3. SSL认证"></a>3. SSL认证</h4><p>SSL 客户端认证采用双因素认证</p>
 <blockquote>
-<p>问题：如何准确判断一个变量时数组类型<br>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [];  </span><br><span class="line">console.log(arr1 instanceof Array); //打印结果：true。  </span><br><span class="line">console.log(typeof arr1);           //打印结果：object.  </span><br><span class="line">提示：typeof 方法无法判断是否为数组</span><br></pre></td></tr></table></figure></p>
+<p>双因素认证就是指，认证过程中不仅需要用户名，密码这一个因素，还需要申请认证者提供其他持有信息。与其组合使用的认证方式就是双因素认证</p>
+<p>第一个认证因素的 SSL 客户端证书用来认证客户端计算机</p>
+<p>另一个认证因素的密码则用来确定这是用户本人的行为。</p>
 </blockquote>
-<p>从中引出了typeof 和 instanceof 的区别和联系<br>查看了MDN的官方手册对于两者的用法如下：  </p>
-<blockquote>
-<p>1.typeof操作符返回一个字符串，表示未经计算的操作数的类型。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof operand</span><br><span class="line">or</span><br><span class="line">typeof (operand)</span><br></pre></td></tr></table></figure></p>
-<p>typeof可能的返回值如下：</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th style="text-align:left">结果 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Undefined</td>
-<td style="text-align:left">“undefined” </td>
-</tr>
-<tr>
-<td>Null</td>
-<td style="text-align:left">“object”（见下文）</td>
-</tr>
-<tr>
-<td>Boolean</td>
-<td style="text-align:left">“boolean”</td>
-</tr>
-<tr>
-<td>Number</td>
-<td style="text-align:left">“number”</td>
-</tr>
-<tr>
-<td>String</td>
-<td style="text-align:left">“string”</td>
-</tr>
-<tr>
-<td>Symbol （ECMAScript 6 新增）</td>
-<td style="text-align:left">“symbol”</td>
-</tr>
-<tr>
-<td>宿主对象（由JS环境提供）</td>
-<td style="text-align:left">Implementation-dependent</td>
-</tr>
-<tr>
-<td>函数对象（[[Call]] 在ECMA-262条款中实现了）</td>
-<td style="text-align:left">“function”</td>
-</tr>
-<tr>
-<td>任何其他对象</td>
-<td style="text-align:left">“object”</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>从上图可以反映出：typeof operand返回的结果为基本类型，对于引用类型其都返回object，所以var a = [];console.log(a);返回object。<br><strong>注： 使用typeof操作符的时候,如果检测对象是函数,那么操作符返回”function” ,如果检测对象是正则表达式的时候,在Safari和Chrome中使用typeof的时候会错误的返回”function”。</strong><br>2.instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">object instanceof constructor</span><br><span class="line"></span><br><span class="line">//object</span><br><span class="line">//要检测的对象.</span><br><span class="line">//constructor</span><br><span class="line">//某个构造函数</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>官方例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 定义构造函数</span><br><span class="line">function C()&#123;&#125; </span><br><span class="line">function D()&#123;&#125; </span><br><span class="line"></span><br><span class="line">var o = new C();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o instanceof C; // true，因为 Object.getPrototypeOf(o) === C.prototype</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o instanceof D; // false，因为 D.prototype不在o的原型链上</span><br><span class="line"></span><br><span class="line">o instanceof Object; // true,因为Object.prototype.isPrototypeOf(o)返回true</span><br><span class="line">C.prototype instanceof Object // true,同上</span><br><span class="line"></span><br><span class="line">C.prototype = &#123;&#125;;</span><br><span class="line">var o2 = new C();</span><br><span class="line"></span><br><span class="line">o2 instanceof C; // true</span><br><span class="line"></span><br><span class="line">o instanceof C; // false,C.prototype指向了一个空对象,这个空对象不在o的原型链上.</span><br><span class="line"></span><br><span class="line">D.prototype = new C(); // 继承</span><br><span class="line">var o3 = new D();</span><br><span class="line">o3 instanceof D; // true</span><br><span class="line">o3 instanceof C; // true</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注：如果表达式 obj instanceof Foo 返回true，则并不意味着该表达式会永远返回true，因为Foo.prototype属性的值有可能会改变，改变之后的值很有可能不存在于obj的原型链上，这时原表达式的值就会成为false。另外一种情况下，原表达式的值也会改变，就是改变对象obj的原型链的情况，虽然在目前的ES规范中，我们只能读取对象的原型而不能改变它，但借助于非标准的<strong>proto</strong>魔法属性，是可以实现的。比如执行obj.<strong>proto</strong> = {}之后，obj instanceof Foo就会返回false了。<br>所以对于typeof和instanceof的用法——<font color="red">typeof一般是检测的是基本数据类型,instanceof主要检测的是引用类型!</font></p>
-</blockquote>
+<h4 id="4-基于表单的认证"><a href="#4-基于表单的认证" class="headerlink" title="4. 基于表单的认证"></a>4. 基于表单的认证</h4><h5 id="4-1-Session-管理及-Cookie-应用"><a href="#4-1-Session-管理及-Cookie-应用" class="headerlink" title="4.1 Session 管理及 Cookie 应用"></a>4.1 Session 管理及 Cookie 应用</h5><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526718629646.png" alt="1526718629646"></p>
+<ul>
+<li>步骤一：客户端发送登录信息：ID和密码，使用Https进行传输保证安全性</li>
+<li>步骤二：服务器验证ID和密码，如果认证通过那么创建session，并且把sessionId通过Set-Cookie的形式发送给客户端，为减轻跨站脚本攻击（XSS）造成的损失，建议事先在 Cookie 内加上 httponly 属性</li>
+<li>步骤三：客户端获取到set-Cookie的响应头以后，就会将cookie保存在浏览器进程中不同于一般的cookie，会把cookie的信息保存在客户端所在的磁盘中，并且在后续发送的Http请求中都会以key-value</li>
+</ul>
 
       
     </div>
@@ -451,9 +414,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/typeof/" rel="tag"># typeof</a>
-          
-            <a href="/tags/instance-of/" rel="tag"># instance of</a>
+            <a href="/tags/Http-用户认证/" rel="tag"># Http 用户认证</a>
           
         </div>
       
@@ -466,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/03/tools/vscode高效开发/" rel="next" title="Visual Studio Code高效开发">
-                <i class="fa fa-chevron-left"></i> Visual Studio Code高效开发
+              <a href="/2018/05/19/communication/HTTPS协议/" rel="next" title="Https协议简介">
+                <i class="fa fa-chevron-left"></i> Https协议简介
               </a>
             
           </div>
@@ -475,10 +436,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/19/communication/HTTPS协议/" rel="prev" title="Https协议简介">
-                Https协议简介 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -530,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -611,6 +577,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的用户认证方式"><span class="nav-number">1.</span> <span class="nav-text">HTTP的用户认证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Basic认证"><span class="nav-number">1.1.</span> <span class="nav-text">1. Basic认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Digest认证"><span class="nav-number">1.2.</span> <span class="nav-text">2. Digest认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-SSL认证"><span class="nav-number">1.3.</span> <span class="nav-text">3. SSL认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-基于表单的认证"><span class="nav-number">1.4.</span> <span class="nav-text">4. 基于表单的认证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-Session-管理及-Cookie-应用"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 Session 管理及 Cookie 应用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
