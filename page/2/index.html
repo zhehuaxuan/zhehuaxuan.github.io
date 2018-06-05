@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="设计模式,单例,JavaScript,Java," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="1. 什么是单例模式？单例就是确保某一个类在软件应用的整个生命周期只有一个实例，而且能够自行实例化并向整个系统提供这个实例 2. 单例模式的特点？ 1）单例类只能有一个实例（饿汉思想：保持饥饿，直到创建单一对象  懒汉思想：初始化应用时，就创建单一对象） 2）单例类必须自己创建自己的唯一实例（构造函数必须是privat">
-<meta name="keywords" content="设计模式,单例,JavaScript,Java">
-<meta property="og:type" content="article">
-<meta property="og:title" content="设计模式の单例模式">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2017/11/25/design_pattern/单例模式/index.html">
+<meta name="description" content="知足.感恩.幸运">
+<meta property="og:type" content="website">
+<meta property="og:title" content="zhehua&#39;s note">
+<meta property="og:url" content="https://zhehuaxuan.github.io/page/2/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="1. 什么是单例模式？单例就是确保某一个类在软件应用的整个生命周期只有一个实例，而且能够自行实例化并向整个系统提供这个实例 2. 单例模式的特点？ 1）单例类只能有一个实例（饿汉思想：保持饥饿，直到创建单一对象  懒汉思想：初始化应用时，就创建单一对象） 2）单例类必须自己创建自己的唯一实例（构造函数必须是private类型，不允许其他程序使用new对象） 3）单例类必须给所有其他对象提供这一实例">
+<meta property="og:description" content="知足.感恩.幸运">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-25T13:08:57.292Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式の单例模式">
-<meta name="twitter:description" content="1. 什么是单例模式？单例就是确保某一个类在软件应用的整个生命周期只有一个实例，而且能够自行实例化并向整个系统提供这个实例 2. 单例模式的特点？ 1）单例类只能有一个实例（饿汉思想：保持饥饿，直到创建单一对象  懒汉思想：初始化应用时，就创建单一对象） 2）单例类必须自己创建自己的唯一实例（构造函数必须是private类型，不允许其他程序使用new对象） 3）单例类必须给所有其他对象提供这一实例">
+<meta name="twitter:title" content="zhehua&#39;s note">
+<meta name="twitter:description" content="知足.感恩.幸运">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2017/11/25/design_pattern/单例模式/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/page/2/"/>
 
 
 
 
 
-  <title>设计模式の单例模式 | zhehua's note</title>
+  <title>zhehua's note</title>
   
 
 
@@ -145,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,9 +267,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -300,7 +299,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">设计模式の单例模式</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/25/design_pattern/单例模式/" itemprop="url">设计模式の单例模式</a></h1>
         
 
         <div class="post-meta">
@@ -372,7 +373,9 @@
       
 
       
-        <h3 id="1-什么是单例模式？"><a href="#1-什么是单例模式？" class="headerlink" title="1. 什么是单例模式？"></a>1. 什么是单例模式？</h3><p>单例就是确保某一个类在软件应用的整个生命周期只有一个实例，而且能够自行实例化并向整个系统提供这个实例</p>
+        
+          
+            <h3 id="1-什么是单例模式？"><a href="#1-什么是单例模式？" class="headerlink" title="1. 什么是单例模式？"></a>1. 什么是单例模式？</h3><p>单例就是确保某一个类在软件应用的整个生命周期只有一个实例，而且能够自行实例化并向整个系统提供这个实例</p>
 <h3 id="2-单例模式的特点？"><a href="#2-单例模式的特点？" class="headerlink" title="2. 单例模式的特点？"></a>2. 单例模式的特点？</h3><p> 1）单例类只能有一个实例（饿汉思想：保持饥饿，直到创建单一对象  懒汉思想：初始化应用时，就创建单一对象）<br> 2）单例类必须自己创建自己的唯一实例（构造函数必须是private类型，不允许其他程序使用new对象）<br> 3）单例类必须给所有其他对象提供这一实例（提供统一的接口供其他程序调用）</p>
 <h3 id="3-单例模式有哪些用途？"><a href="#3-单例模式有哪些用途？" class="headerlink" title="3. 单例模式有哪些用途？"></a>3. 单例模式有哪些用途？</h3><p>节省资源，防止一个全局使用的类频繁的创建和销毁对象<br>比如说:</p>
 <ol>
@@ -414,6 +417,8 @@ Singleton.getInstance().publicMethod();
 </code></pre><p>参考博客：<br><a href="http://blog.csdn.net/w2765006513/article/details/53743051" target="_blank" rel="noopener">http://blog.csdn.net/w2765006513/article/details/53743051</a><br><a href="http://www.cnblogs.com/TomXu/archive/2012/02/20/2352817.html" target="_blank" rel="noopener">http://www.cnblogs.com/TomXu/archive/2012/02/20/2352817.html</a></p>
 <p>更多设计模式整理文章：<a href="https://github.com/zhehuaxuan/DesignPattern" target="_blank" rel="noopener">https://github.com/zhehuaxuan/DesignPattern</a></p>
 
+          
+        
       
     </div>
     
@@ -428,42 +433,14 @@ Singleton.getInstance().publicMethod();
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
-          
-            <a href="/tags/单例/" rel="tag"># 单例</a>
-          
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/09/vue/Vetur插件问题解决/" rel="prev" title="<strong>vue-language-server</strong> Elements in iteration expect to have 'v-bind:key' directives.问题解决">
-                <strong>vue-language-server</strong> Elements in iteration expect to have 'v-bind:key' directives.问题解决 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -473,11 +450,14 @@ Singleton.getInstance().publicMethod();
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -485,10 +465,6 @@ Singleton.getInstance().publicMethod();
 
 
           
-
-  
-
-
 
         </div>
         
@@ -509,17 +485,8 @@ Singleton.getInstance().publicMethod();
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -599,22 +566,6 @@ Singleton.getInstance().publicMethod();
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是单例模式？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是单例模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-单例模式的特点？"><span class="nav-number">2.</span> <span class="nav-text">2. 单例模式的特点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-单例模式有哪些用途？"><span class="nav-number">3.</span> <span class="nav-text">3. 单例模式有哪些用途？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-单例模式的分类"><span class="nav-number">4.</span> <span class="nav-text">4. 单例模式的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-JAVA单例模式"><span class="nav-number">5.</span> <span class="nav-text">5. JAVA单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-javascript单例模式"><span class="nav-number">6.</span> <span class="nav-text">6.javascript单例模式</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -755,10 +706,6 @@ Singleton.getInstance().publicMethod();
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
 
   
 
