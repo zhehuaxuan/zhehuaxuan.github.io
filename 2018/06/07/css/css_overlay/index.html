@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="github,microsoft," />
+  <meta name="keywords" content="模态框，遮罩层，CSS," />
 
 
 
@@ -79,20 +79,22 @@
 
 
 
-<meta name="description" content="微软75亿美元正式收购Github，Github将在微软的带领下会有一个更光明的未来！">
-<meta name="keywords" content="github,microsoft">
+<meta name="description" content="引子　　对于模态框，一般都不陌生，在面试中，总会被问到有没有自己写过控件，那么模态框的实现原理是什么呢？模态框的一个特点就是在弹出框时，用户不能编辑除了模态框以外的区域。今天主要列举使用CSS实现遮罩层的方式，比较优劣，最后总结最优的一种方式（并非绝对最优，仅供参考）。   bootstrap的模态框  正文1.使用“">
+<meta name="keywords" content="模态框，遮罩层，CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitHub被收购">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2018/06/06/news/github/index.html">
+<meta property="og:title" content="CSS Overlay技巧">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2018/06/07/css/css_overlay/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="微软75亿美元正式收购Github，Github将在微软的带领下会有一个更光明的未来！">
+<meta property="og:description" content="引子　　对于模态框，一般都不陌生，在面试中，总会被问到有没有自己写过控件，那么模态框的实现原理是什么呢？模态框的一个特点就是在弹出框时，用户不能编辑除了模态框以外的区域。今天主要列举使用CSS实现遮罩层的方式，比较优劣，最后总结最优的一种方式（并非绝对最优，仅供参考）。   bootstrap的模态框  正文1.使用“子绝父相”进行定位1234567891011121314151617181920">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%96%B0%E9%97%BB/40890924-4bad5ce0-6732-11e8-9648-192aa71f0830.png?raw=true">
-<meta property="og:updated_time" content="2018-06-05T16:17:00.258Z">
+<meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528215690199.png?raw=true">
+<meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528216778635.png?raw=true">
+<meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528217329330.png?raw=true">
+<meta property="og:updated_time" content="2018-06-05T17:12:18.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitHub被收购">
-<meta name="twitter:description" content="微软75亿美元正式收购Github，Github将在微软的带领下会有一个更光明的未来！">
-<meta name="twitter:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%96%B0%E9%97%BB/40890924-4bad5ce0-6732-11e8-9648-192aa71f0830.png?raw=true">
+<meta name="twitter:title" content="CSS Overlay技巧">
+<meta name="twitter:description" content="引子　　对于模态框，一般都不陌生，在面试中，总会被问到有没有自己写过控件，那么模态框的实现原理是什么呢？模态框的一个特点就是在弹出框时，用户不能编辑除了模态框以外的区域。今天主要列举使用CSS实现遮罩层的方式，比较优劣，最后总结最优的一种方式（并非绝对最优，仅供参考）。   bootstrap的模态框  正文1.使用“子绝父相”进行定位1234567891011121314151617181920">
+<meta name="twitter:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528215690199.png?raw=true">
 
 
 
@@ -122,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/06/06/news/github/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/06/07/css/css_overlay/"/>
 
 
 
 
 
-  <title>GitHub被收购 | zhehua's note</title>
+  <title>CSS Overlay技巧 | zhehua's note</title>
   
 
 
@@ -285,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/news/github/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/07/css/css_overlay/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -302,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GitHub被收购</h1>
+          <h1 class="post-title" itemprop="name headline">CSS Overlay技巧</h1>
         
 
         <div class="post-meta">
@@ -314,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T23:43:23+08:00">
-                2018-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T01:29:13+08:00">
+                2018-06-07
               </time>
             
 
@@ -337,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/新闻/" itemprop="url" rel="index">
-                    <span itemprop="name">新闻</span>
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
                   </a>
                 </span>
 
@@ -374,10 +376,27 @@
       
 
       
-        <p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%96%B0%E9%97%BB/40890924-4bad5ce0-6732-11e8-9648-192aa71f0830.png?raw=true" alt="img"></p>
+        <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>　　对于模态框，一般都不陌生，在面试中，总会被问到有没有自己写过控件，那么模态框的实现原理是什么呢？模态框的一个特点就是在弹出框时，用户不能编辑除了模态框以外的区域。今天主要列举使用CSS实现遮罩层的方式，比较优劣，最后总结最优的一种方式（并非绝对最优，仅供参考）。</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528215690199.png?raw=true" alt="1528215690199"></p>
 <blockquote>
-<p>微软75亿美元正式收购Github，Github将在微软的带领下会有一个更<a href="https://blog.github.com/2018-06-04-github-microsoft/" target="_blank" rel="noopener">光明的未来</a>！</p>
+<p>bootstrap的模态框</p>
 </blockquote>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="1-使用“子绝父相”进行定位"><a href="#1-使用“子绝父相”进行定位" class="headerlink" title="1.使用“子绝父相”进行定位"></a>1.使用“子绝父相”进行定位</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">head</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">        <span class="selector-tag">html</span>,</span><br><span class="line">        <span class="selector-tag">body</span> &#123;</span><br><span class="line">            <span class="attribute">min-height</span>: <span class="number">100%</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="selector-tag">body</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: relative;<span class="attribute">margin</span>: <span class="number">0px</span>;</span><br><span class="line">            <span class="attribute">background</span>: <span class="number">#ddd</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="selector-class">.overlay</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: absolute;</span><br><span class="line">            <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">            <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">            <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">            <span class="attribute">opacity</span>:<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;a href="https://www.baidu.com"&gt;百度&lt;/a&gt;</span><br><span class="line">    &lt;div class="overlay"&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528216778635.png?raw=true" alt="1528216778635"></p>
+<blockquote>
+<p>.overlay为一层透明的遮罩层，这个时候用户点击百度是没有反应的，模态框的信息可以显示在overlay的遮罩层中，且z-index高于overlay</p>
+</blockquote>
+<p>但是overlay必须是body的子元素，秉承“子绝父相”的原则。</p>
+<h4 id="2-Fixed定位解决问题"><a href="#2-Fixed定位解决问题" class="headerlink" title="2.Fixed定位解决问题"></a>2.Fixed定位解决问题</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.overlay</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed; </span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>; </span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>; </span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>; </span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">    <span class="attribute">opacity</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果由于第1种方法，Bootstrap的modal就是使用的此方法，如下图所示：</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528217329330.png?raw=true" alt="1528217329330"></p>
+<p>在<a href="http://www.w3cplus.com/css/css-overlay-techniques.html" target="_blank" rel="noopener">大漠</a>的文章中还提及了outline和box-shadow，但是经过试验发现不能达到模态框的要求。</p>
+<p>所以使用第二种的方式来制作遮罩层，比较适合。</p>
+<p>参考文献：</p>
+<ol>
+<li><a href="http://www.w3cplus.com/css/css-overlay-techniques.html" target="_blank" rel="noopener">http://www.w3cplus.com/css/css-overlay-techniques.html</a></li>
+</ol>
+<p># </p>
 
       
     </div>
@@ -395,9 +414,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/github/" rel="tag"># github</a>
-          
-            <a href="/tags/microsoft/" rel="tag"># microsoft</a>
+            <a href="/tags/模态框，遮罩层，CSS/" rel="tag"># 模态框，遮罩层，CSS</a>
           
         </div>
       
@@ -410,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/25/algo/sort/" rel="next" title="排序算法整理">
-                <i class="fa fa-chevron-left"></i> 排序算法整理
+              <a href="/2018/06/06/news/github/" rel="next" title="GitHub被收购">
+                <i class="fa fa-chevron-left"></i> GitHub被收购
               </a>
             
           </div>
@@ -419,10 +436,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/07/css/css_overlay/" rel="prev" title="CSS Overlay技巧">
-                CSS Overlay技巧 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -474,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -555,6 +577,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引子"><span class="nav-number">1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-使用“子绝父相”进行定位"><span class="nav-number">2.1.</span> <span class="nav-text">1.使用“子绝父相”进行定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Fixed定位解决问题"><span class="nav-number">2.2.</span> <span class="nav-text">2.Fixed定位解决问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
