@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="__proto__和prototype的区别">
+<meta name="description" content="上图表明了__proto__和prototype的区别，new Foo()对象的构造函数是Foo(){}，那么new Foo()对象的__proto__就是Foo.prototype  口诀：  1.每个对象都具有一个名为__proto__的属性； 2.每个构造函数（构造函数标准为大写开头，如Function()，Ob">
 <meta name="keywords" content="Prototype,__proto__">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prototype和__proto__">
 <meta property="og:url" content="https://zhehuaxuan.github.io/2018/06/06/js/prototype/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="__proto__和prototype的区别">
+<meta property="og:description" content="上图表明了__proto__和prototype的区别，new Foo()对象的构造函数是Foo(){}，那么new Foo()对象的__proto__就是Foo.prototype  口诀：  1.每个对象都具有一个名为__proto__的属性； 2.每个构造函数（构造函数标准为大写开头，如Function()，Object()等等JS中自带的构造函数，以及自己创建的）都具有一个名为prot">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/JS/1528291176757.png?raw=true">
-<meta property="og:updated_time" content="2018-06-06T13:21:50.268Z">
+<meta property="og:updated_time" content="2018-06-06T13:35:03.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prototype和__proto__">
-<meta name="twitter:description" content="__proto__和prototype的区别">
+<meta name="twitter:description" content="上图表明了__proto__和prototype的区别，new Foo()对象的构造函数是Foo(){}，那么new Foo()对象的__proto__就是Foo.prototype  口诀：  1.每个对象都具有一个名为__proto__的属性； 2.每个构造函数（构造函数标准为大写开头，如Function()，Object()等等JS中自带的构造函数，以及自己创建的）都具有一个名为prot">
 <meta name="twitter:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/JS/1528291176757.png?raw=true">
 
 
@@ -376,7 +376,13 @@
       
         <p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/JS/1528291176757.png?raw=true" alt="1528291176757"></p>
 <blockquote>
-<p><code>__proto__</code>和prototype的区别</p>
+<p>上图表明了<code>__proto__</code>和prototype的区别，new Foo()对象的构造函数是Foo(){}，那么new Foo()对象的<code>__proto__</code>就是Foo.prototype</p>
+</blockquote>
+<p>口诀：</p>
+<blockquote>
+<p>1.每个对象都具有一个名为<code>__proto__</code>的属性；</p>
+<p>2.每个构造函数（构造函数标准为大写开头，如Function()，Object()等等JS中自带的构造函数，以及自己创建的）都具有一个名为prototype的方法（注意：既然是方法，那么就是一个对象（JS中函数同样是对象），所以prototype同样带有<code>__proto__</code>属性）；</p>
+<p><em>3.每个对象的<code>__proto__</code>属性指向自身构造函数的prototype；</em></p>
 </blockquote>
 
       
