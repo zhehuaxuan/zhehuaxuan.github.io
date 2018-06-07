@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Http 用户认证," />
+  <meta name="keywords" content="CSS3," />
 
 
 
@@ -79,22 +79,21 @@
 
 
 
-<meta name="description" content="HTTP的用户认证方式1. Basic认证  步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm） 步骤二">
-<meta name="keywords" content="Http 用户认证">
+<meta name="description" content="写在前面本文主要用于项目中碰到的关于css的疑难点或者易忘点的总结。 布局篇 flex布局 Flex布局以后，子元素的float、clear和vertical-align属性将失效。    flex布局示意图  12345678910111213.container &amp;#123;    display:-web">
+<meta name="keywords" content="CSS3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTP的用户认证方式">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/index.html">
+<meta property="og:title" content="CSS疑难总结">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2018/06/07/css/difficulty/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="HTTP的用户认证方式1. Basic认证  步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm） 步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示 步骤三：对认证信息的正确性">
+<meta property="og:description" content="写在前面本文主要用于项目中碰到的关于css的疑难点或者易忘点的总结。 布局篇 flex布局 Flex布局以后，子元素的float、clear和vertical-align属性将失效。    flex布局示意图  12345678910111213.container &amp;#123;    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png">
-<meta property="og:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717389002.png">
-<meta property="og:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526718629646.png">
-<meta property="og:updated_time" content="2018-05-20T07:27:55.077Z">
+<meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809079.png?raw=true">
+<meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809078.png?raw=true">
+<meta property="og:updated_time" content="2018-06-07T16:36:34.351Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTTP的用户认证方式">
-<meta name="twitter:description" content="HTTP的用户认证方式1. Basic认证  步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm） 步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示 步骤三：对认证信息的正确性">
-<meta name="twitter:image" content="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png">
+<meta name="twitter:title" content="CSS疑难总结">
+<meta name="twitter:description" content="写在前面本文主要用于项目中碰到的关于css的疑难点或者易忘点的总结。 布局篇 flex布局 Flex布局以后，子元素的float、clear和vertical-align属性将失效。    flex布局示意图  12345678910111213.container &amp;#123;    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核">
+<meta name="twitter:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809079.png?raw=true">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/06/07/css/difficulty/"/>
 
 
 
 
 
-  <title>HTTP的用户认证方式 | zhehua's note</title>
+  <title>CSS疑难总结 | zhehua's note</title>
   
 
 
@@ -287,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/07/css/difficulty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -304,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HTTP的用户认证方式</h1>
+          <h1 class="post-title" itemprop="name headline">CSS疑难总结</h1>
         
 
         <div class="post-meta">
@@ -316,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T15:27:13+08:00">
-                2018-05-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T21:29:13+08:00">
+                2018-06-07
               </time>
             
 
@@ -339,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/通信/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
                   </a>
                 </span>
 
@@ -376,27 +375,36 @@
       
 
       
-        <h3 id="HTTP的用户认证方式"><a href="#HTTP的用户认证方式" class="headerlink" title="HTTP的用户认证方式"></a>HTTP的用户认证方式</h3><h4 id="1-Basic认证"><a href="#1-Basic认证" class="headerlink" title="1. Basic认证"></a>1. Basic认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png" alt="1526717218205"></p>
-<ul>
-<li>步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm）</li>
-<li>步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示</li>
-<li>步骤三：对认证信息的正确性进行验证。如验证通过，则返回一条包含 Request-URI 资源的响应</li>
-</ul>
-<p><strong>缺点：</strong>使用Base64编码，安全性不高，并且认证使用上不够便捷灵活</p>
-<h4 id="2-Digest认证"><a href="#2-Digest认证" class="headerlink" title="2. Digest认证"></a>2. Digest认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717389002.png" alt="1526717389002"></p>
-<p>DIGEST 认证提供了高于 BASIC 认证的安全等级，但是和 HTTPS 的客户端认证相比仍旧很弱。DIGEST 认证提供防止密码被窃听的保护机制，但并不存在防止用户伪装的保护机制。</p>
-<h4 id="3-SSL认证"><a href="#3-SSL认证" class="headerlink" title="3. SSL认证"></a>3. SSL认证</h4><p>SSL 客户端认证采用双因素认证</p>
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>本文主要用于项目中碰到的关于css的疑难点或者易忘点的总结。</p>
+<h3 id="布局篇"><a href="#布局篇" class="headerlink" title="布局篇"></a>布局篇</h3><ol>
+<li><p>flex布局</p>
+<p><code>Flex布局以后，子元素的float、clear和vertical-align属性将失效。</code></p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809079.png?raw=true" alt="img"> </p>
 <blockquote>
-<p>双因素认证就是指，认证过程中不仅需要用户名，密码这一个因素，还需要申请认证者提供其他持有信息。与其组合使用的认证方式就是双因素认证</p>
-<p>第一个认证因素的 SSL 客户端证书用来认证客户端计算机</p>
-<p>另一个认证因素的密码则用来确定这是用户本人的行为。</p>
+<p>flex布局示意图</p>
 </blockquote>
-<h4 id="4-基于表单的认证"><a href="#4-基于表单的认证" class="headerlink" title="4. 基于表单的认证"></a>4. 基于表单的认证</h4><h5 id="4-1-Session-管理及-Cookie-应用"><a href="#4-1-Session-管理及-Cookie-应用" class="headerlink" title="4.1 Session 管理及 Cookie 应用"></a>4.1 Session 管理及 Cookie 应用</h5><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526718629646.png" alt="1526718629646"></p>
-<ul>
-<li>步骤一：客户端发送登录信息：ID和密码，使用Https进行传输保证安全性</li>
-<li>步骤二：服务器验证ID和密码，如果认证通过那么创建session，并且把sessionId通过Set-Cookie的形式发送给客户端，为减轻跨站脚本攻击（XSS）造成的损失，建议事先在 Cookie 内加上 httponly 属性</li>
-<li>步骤三：客户端获取到set-Cookie的响应头以后，就会将cookie保存在浏览器进程中不同于一般的cookie，会把cookie的信息保存在客户端所在的磁盘中，并且在后续发送的Http请求中都会以key-value</li>
-</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核</span><br><span class="line">  	<span class="selector-tag">display</span>: <span class="selector-tag">flex</span>;</span><br><span class="line">  	flex-flow: row | row-reverse | column | column-reverse [nowrap|wrap|wrap-reverse];//前半部分为伸缩项目的伸缩方向  后半部分为是否另起一行</span><br><span class="line">    justify-content: flex-start | flex-end | center | space-between | space-around;  //伸缩项目的对齐方式</span><br><span class="line">    align-items: flex-start | flex-end | center | baseline | stretch;  //上下对齐</span><br><span class="line">    align-content: flex-start | flex-end | center | space-between | space-around | stretch; //多根轴线的对齐方式 </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.tems</span> &#123;</span><br><span class="line">    flex：none | &lt;' flex-grow '&gt; &lt;' flex-shrink &gt;'? || &lt;' flex-basis '&gt;</span><br><span class="line">    order: &lt;integer&gt;;  //数值越小越靠前</span><br><span class="line">    align-self: auto | flex-start | flex-end | center | baseline | stretch;  //单个项目可以自定义伸缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   对于flex属性的参数解析可以参考CSS手册：</p>
+<blockquote>
+<p>&lt;’ <a href="http://css.doyoe.com/properties/flex/flex-grow.htm" target="_blank" rel="noopener">flex-grow</a> ‘&gt;：</p>
+<p>用来指定扩展比率，即剩余空间是正值时此「flex子项」相对于「flex容器」里其他「flex子项」能分配到空间比例。<br>在「flex」属性中该值如果被省略则默认为「1」</p>
+<p>&lt;’ <a href="http://css.doyoe.com/properties/flex/flex-shrink.htm" target="_blank" rel="noopener">flex-shrink</a> ‘&gt;：</p>
+<p>用来指定收缩比率，即剩余空间是负值时此「flex子项」相对于「flex容器」里其他「flex子项」能收缩的空间比例。<br>在收缩的时候收缩比率会以伸缩基准值加权<br>在「flex」属性中该值如果被省略则默认为「1」</p>
+<p>&lt;’ <a href="http://css.doyoe.com/properties/flex/flex-basis.htm" target="_blank" rel="noopener">flex-basis</a> ‘&gt;：</p>
+<p>用来指定伸缩基准值，即在根据伸缩比率计算出剩余空间的分布之前，「flex子项」长度的起始数值。<br>在「flex」属性中该值如果被省略则默认为「0%」<br>在「flex」属性中该值如果被指定为「auto」，则伸缩基准值的计算值是自身的 &lt;’ <a href="http://css.doyoe.com/properties/dimension/width.htm" target="_blank" rel="noopener">width</a> ‘&gt; 设置，如果自身的宽度没有定义，则长度取决于内容。</p>
+</blockquote>
+<p>   <img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809078.png?raw=true" alt="1528387809078"></p>
+<blockquote>
+<p>例子说明flex-grow，flex-shrink ，flex-basis之间的关系</p>
+</blockquote>
+<ol>
+<li><h3 id="BOM篇"><a href="#BOM篇" class="headerlink" title="BOM篇"></a>BOM篇</h3></li>
+<li><p>关于浏览器内核和js引擎之间的关系</p>
+</li>
+</ol>
+<p>2. </p>
 
       
     </div>
@@ -414,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Http-用户认证/" rel="tag"># Http 用户认证</a>
+            <a href="/tags/CSS3/" rel="tag"># CSS3</a>
           
         </div>
       
@@ -427,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/19/communication/HTTPS协议/" rel="next" title="Https协议简介">
-                <i class="fa fa-chevron-left"></i> Https协议简介
+              <a href="/2018/06/07/css/css_overlay/" rel="next" title="CSS Overlay技巧">
+                <i class="fa fa-chevron-left"></i> CSS Overlay技巧
               </a>
             
           </div>
@@ -437,8 +445,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/22/java/JAVA_IO/" rel="prev" title="JAVA IO">
-                JAVA IO <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/07/lintcode/p_2/" rel="prev" title="Merge Two Sorted Arrays">
+                Merge Two Sorted Arrays <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -591,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的用户认证方式"><span class="nav-number">1.</span> <span class="nav-text">HTTP的用户认证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Basic认证"><span class="nav-number">1.1.</span> <span class="nav-text">1. Basic认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Digest认证"><span class="nav-number">1.2.</span> <span class="nav-text">2. Digest认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-SSL认证"><span class="nav-number">1.3.</span> <span class="nav-text">3. SSL认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-基于表单的认证"><span class="nav-number">1.4.</span> <span class="nav-text">4. 基于表单的认证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-Session-管理及-Cookie-应用"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 Session 管理及 Cookie 应用</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局篇"><span class="nav-number">2.</span> <span class="nav-text">布局篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BOM篇"><span class="nav-number">3.</span> <span class="nav-text">BOM篇</span></a></li></ol></div>
             
 
           </div>

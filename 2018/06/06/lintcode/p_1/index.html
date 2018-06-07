@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. A + B ProblemWrite a function that add two numbers A and B. You should not use + or any arithmetic operators. ExampleGiven a=1 and b=2 return 3. Answer123456">
+<meta name="description" content="A + B ProblemWrite a function that add two numbers A and B. You should not use + or any arithmetic operators. ExampleGiven a=1 and b=2 return 3. Answer123456789">
 <meta name="keywords" content="发散思维能力">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A + B Problem">
 <meta property="og:url" content="https://zhehuaxuan.github.io/2018/06/06/lintcode/p_1/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="1. A + B ProblemWrite a function that add two numbers A and B. You should not use + or any arithmetic operators. ExampleGiven a=1 and b=2 return 3. Answer123456789101112131415161718192021public class">
+<meta property="og:description" content="A + B ProblemWrite a function that add two numbers A and B. You should not use + or any arithmetic operators. ExampleGiven a=1 and b=2 return 3. Answer123456789101112131415161718192021public class Sol">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-06T15:25:50.225Z">
+<meta property="og:updated_time" content="2018-06-07T16:37:59.193Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A + B Problem">
-<meta name="twitter:description" content="1. A + B ProblemWrite a function that add two numbers A and B. You should not use + or any arithmetic operators. ExampleGiven a=1 and b=2 return 3. Answer123456789101112131415161718192021public class">
+<meta name="twitter:description" content="A + B ProblemWrite a function that add two numbers A and B. You should not use + or any arithmetic operators. ExampleGiven a=1 and b=2 return 3. Answer123456789101112131415161718192021public class Sol">
 
 
 
@@ -372,7 +372,7 @@
       
 
       
-        <h3 id="1-A-B-Problem"><a href="#1-A-B-Problem" class="headerlink" title="1. A + B Problem"></a>1. A + B Problem</h3><p>Write a function that add two numbers A and B. You should not use <code>+</code> or any arithmetic operators.</p>
+        <h3 id="A-B-Problem"><a href="#A-B-Problem" class="headerlink" title="A + B Problem"></a>A + B Problem</h3><p>Write a function that add two numbers A and B. You should not use <code>+</code> or any arithmetic operators.</p>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Given <code>a=1</code> and <code>b=2</code> return <code>3</code>.</p>
 <h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a><strong>Answer</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The sum of a and b </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个数异或：相当于每一位相加，而不考虑进位；</span></span><br><span class="line">        <span class="comment">//如果两个数的二进制每一位都不一样  比如01和10，那么x=11;</span></span><br><span class="line">        <span class="comment">//那么如果有进位呢？比如01和01，那么应该是满2进1，如何做（a&amp;b）&lt;&lt;1=10</span></span><br><span class="line">        <span class="comment">//那么a&amp;0等于a本身，那么当b=0时，a就是两个数的和</span></span><br><span class="line">        <span class="comment">//两个数相与，并左移一位：相当于求得进位；</span></span><br><span class="line">        <span class="keyword">int</span> x = a^b;</span><br><span class="line">        <span class="keyword">int</span> y = a&amp;b;</span><br><span class="line">        <span class="keyword">if</span>(y==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> aplusb(x,y&lt;&lt;<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -405,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/06/js/js_pro/" rel="next" title="关于JAVASCRIPT中 typeof 和 instanceof">
-                <i class="fa fa-chevron-left"></i> 关于JAVASCRIPT中 typeof 和 instanceof
+              <a href="/2018/06/06/js/prototype/" rel="next" title="Prototype和__proto__">
+                <i class="fa fa-chevron-left"></i> Prototype和__proto__
               </a>
             
           </div>
@@ -415,8 +415,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/07/css/css_overlay/" rel="prev" title="CSS Overlay技巧">
-                CSS Overlay技巧 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/06/js/js_pro/" rel="prev" title="关于JAVASCRIPT中 typeof 和 instanceof">
+                关于JAVASCRIPT中 typeof 和 instanceof <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -498,7 +498,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -520,7 +520,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -569,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-A-B-Problem"><span class="nav-number">1.</span> <span class="nav-text">1. A + B Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Answer"><span class="nav-number">2.1.</span> <span class="nav-text">Answer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-B-Problem"><span class="nav-number">1.</span> <span class="nav-text">A + B Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Answer"><span class="nav-number">2.1.</span> <span class="nav-text">Answer</span></a></li></ol></li></ol></div>
             
 
           </div>

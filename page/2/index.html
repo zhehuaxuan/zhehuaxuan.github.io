@@ -282,6 +282,342 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/19/communication/HTTPS协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/19/communication/HTTPS协议/" itemprop="url">Https协议简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T22:51:13+08:00">
+                2018-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/通信/" itemprop="url" rel="index">
+                    <span itemprop="name">通信</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Https = Http+通信加密+证书+完整性保护</p>
+<p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526711621377.png" alt="1526711621377"></p>
+<p>如上图所示，Https本质上还是走的Http，Https 并非是应用层的一种新协议。只是 HTTP 通信接口部分用 SSL（Secure Socket Layer）和或者TLS（Transport Layer Security）协议代替而已。</p>
+<p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526712704537.png" alt="1526712704537"></p>
+<p>​    HTTP 直接和 TCP 通信；当使用 HTTPS时，则演变成先和 SSL 通信，再由 SSL 和 TCP通信了。</p>
+<p>​    简言之，所谓 HTTPS，其实就是身披 SSL 协议这层外壳的 HTTP，SSL让HTTP通信更安全。</p>
+<p>​    在理解Https中的SSL之前还需要了解通信中的加密方式，一般的加密方式有<code>对称加密</code>和<code>非对称加密</code>两种，即公开秘钥加密（公有秘钥加密）和共享秘钥加密。</p>
+<blockquote>
+<p>公开密钥加密：使用非对称加密，使用一把公有秘钥和一把私有秘钥，发送方使用接收方的公有秘钥进行加密，将密文发给接收方，接收方使用私有秘钥进行解密处理，这个时候不用担心<em>传输信息和私有秘钥的篡改</em></p>
+<p>共享秘钥加密：使用对称加密，发送方和接收方使用同一把秘钥，发送方在发送数据时，需要将秘钥发送给接收方</p>
+</blockquote>
+<p>​    在Https中，根据上述两种加密的特点，采用混合加密的方式，交换密钥环节使用公开密钥加密方式，之后的建立通信交换报文阶段则使用共享密钥加密方式。</p>
+<p>为什么？</p>
+<blockquote>
+<p>因为公开秘钥加密（非对称加密）使用的通信效率低下，但是安全性更高。交换秘钥环节应该使用这种方式，一旦建立连接，那么使用共享秘钥加密（对称加密）的方式，该方式效率相对较高。</p>
+<p><code>在一般的项目中，如果安全性要求不是太高的情况，在基于表单的认证的前提下，使用HTTP也是可以满足要求的。</code></p>
+</blockquote>
+<p>​      秘钥是用来保证通信之间传输信息的合法性，那么怎么保证秘钥是合法的，这里就要引入数字证书的概念，数字证书就是第三方机构颁发的能够证明秘钥合法性的“证据”，那么怎么样保证数字证书的合法性呢？</p>
+<p><strong>如何保证证书是合法的？</strong></p>
+<p>​        数字证书认证机构颁发的数字证书。通信时，服务器会将这份由数字证书认证机构颁发的<strong>公钥证书</strong>发送给客户端，以进行公开密钥加密方式通信。公钥证书也可叫做<strong>数字证书或直接称为证书</strong>。接到证书的客户端可使用数字证书认证机构的公开密钥，对那张证书上的数字签名进行验证，一旦验证通过，客户端便可明确两件事：<strong>一，认证服务器的公开密钥的是真实有效的数字证书认证机构。二，服务器的公开密钥是值得信赖的</strong>。</p>
+<p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526715535297.png" alt="1526715535297"></p>
+<p>上述是Https在初次通信时，客户端与服务器之间的通信步骤。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/03/tools/vscode高效开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/03/tools/vscode高效开发/" itemprop="url">Visual Studio Code高效开发</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T23:43:23+08:00">
+                2018-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Visual Studio Code是微软公司也利用Electron做了一个跨平台的编辑器，具有轻量，跨平台，易用性高等特点，我用着感觉非常的方便，下载地址如下：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a><br>下面简述vs code的配置:  </p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“files.autoSave”</td>
+<td style="text-align:left">“onFocusChange”</td>
+<td style="text-align:left">编辑器失去焦点时，自动保存</td>
+</tr>
+</tbody>
+</table>
+<p>下面是快捷键的说明：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键名称</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「Cmd + Shift + O」</td>
+<td style="text-align:left">如何查看代码结构</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2017/12/11/ui/响应式设计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -936,7 +1272,7 @@ Singleton.getInstance().publicMethod();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -958,7 +1294,7 @@ Singleton.getInstance().publicMethod();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
