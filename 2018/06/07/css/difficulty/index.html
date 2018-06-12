@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809079.png?raw=true">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809078.png?raw=true">
-<meta property="og:updated_time" content="2018-06-07T16:36:34.351Z">
+<meta property="og:updated_time" content="2018-06-09T09:07:35.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS疑难总结">
 <meta name="twitter:description" content="写在前面本文主要用于项目中碰到的关于css的疑难点或者易忘点的总结。 布局篇 flex布局 Flex布局以后，子元素的float、clear和vertical-align属性将失效。    flex布局示意图  12345678910111213.container &amp;#123;    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核">
@@ -383,7 +383,7 @@
 <blockquote>
 <p>flex布局示意图</p>
 </blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核</span><br><span class="line">  	<span class="selector-tag">display</span>: <span class="selector-tag">flex</span>;</span><br><span class="line">  	flex-flow: row | row-reverse | column | column-reverse [nowrap|wrap|wrap-reverse];//前半部分为伸缩项目的伸缩方向  后半部分为是否另起一行</span><br><span class="line">    justify-content: flex-start | flex-end | center | space-between | space-around;  //伸缩项目的对齐方式</span><br><span class="line">    align-items: flex-start | flex-end | center | baseline | stretch;  //上下对齐</span><br><span class="line">    align-content: flex-start | flex-end | center | space-between | space-around | stretch; //多根轴线的对齐方式 </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.tems</span> &#123;</span><br><span class="line">    flex：none | &lt;' flex-grow '&gt; &lt;' flex-shrink &gt;'? || &lt;' flex-basis '&gt;</span><br><span class="line">    order: &lt;integer&gt;;  //数值越小越靠前</span><br><span class="line">    align-self: auto | flex-start | flex-end | center | baseline | stretch;  //单个项目可以自定义伸缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核</span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">flex</span>;</span><br><span class="line">    flex-flow: row | row-reverse | column | column-reverse [nowrap|wrap|wrap-reverse];//前半部分为伸缩项目的伸缩方向  后半部分为是否另起一行</span><br><span class="line">    justify-content: flex-start | flex-end | center | space-between | space-around;  //伸缩项目的对齐方式</span><br><span class="line">    align-items: flex-start | flex-end | center | baseline | stretch;  //上下对齐</span><br><span class="line">    align-content: flex-start | flex-end | center | space-between | space-around | stretch; //多根轴线的对齐方式 </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.tems</span> &#123;</span><br><span class="line">    flex：none | &lt;' flex-grow '&gt; &lt;' flex-shrink &gt;'? || &lt;' flex-basis '&gt;</span><br><span class="line">    order: &lt;integer&gt;;  //数值越小越靠前</span><br><span class="line">    align-self: auto | flex-start | flex-end | center | baseline | stretch;  //单个项目可以自定义伸缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>   对于flex属性的参数解析可以参考CSS手册：</p>
@@ -404,7 +404,9 @@
 <li><p>关于浏览器内核和js引擎之间的关系</p>
 </li>
 </ol>
-<p>2. </p>
+<ol>
+<li><a href="https://mp.weixin.qq.com/s/9EkWfzsw2ZKxv5BqZ1ZuSg" target="_blank" rel="noopener">论浏览器中的scroll</a></li>
+</ol>
 
       
     </div>
@@ -528,7 +530,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +541,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -550,7 +552,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

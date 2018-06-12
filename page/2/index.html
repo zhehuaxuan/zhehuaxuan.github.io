@@ -282,6 +282,614 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/25/algo/sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/25/algo/sort/" itemprop="url">排序算法整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-25T21:29:13+08:00">
+                2018-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　排序一直是算法中的经典和入门，也是一个合格的程序员应该随手都能够回答的问题。但是现实是，不经常写，不经常用的话，要是一下子让写或者让讲，估计有一半的人会呛住。</p>
+<p>　　在前年求职之前，系统的复习过所有经典的排序算法，也可以做到随手写出来的地步，但是前几天接触，突然发现自己都忘的差不多了，可能随手可以写个，选择，冒泡，插入排序，但是堆排（只知道最大堆的特性，基本忘记），快排和归并（只知道思路），所以写这篇文章的目的就是再重新花几天时间系统的再整理一下，复习一下，也以便于后续的温习。</p>
+<h3 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h3><p>　　<strong>排序</strong>顾名思义就是将一堆杂乱无章的数字，按照一定的规则（最大或者最小）进行排列的过程。  </p>
+<h4 id="排序的分类"><a href="#排序的分类" class="headerlink" title="排序的分类"></a>排序的分类</h4><ul>
+<li><p>按照是否将所有的记录全部加载到内存中进行排序分为：内部排序和外部排序</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/1342514529_5795.jpg?raw=true" alt="img"> </p>
+</li>
+<li><p>按照排序是否稳定分为：稳定排序和不稳定排序</p>
+<blockquote>
+<p>何谓稳定性？</p>
+<p>假定在待排序的记录序列中，存在多个具有相同的关键字的记录，若经过排序，这些记录的相对次序保持不变，即在原序列中，ri=rj，且ri在rj之前，而在排序后的序列中，ri仍在rj之前，则称这种排序算法是稳定的；否则称为不稳定的。</p>
+</blockquote>
+</li>
+<li><p>按照原理可以分为：插入排序，选择排序，交换排序，归并排序和基数排序</p>
+</li>
+</ul>
+<h4 id="排序的方式"><a href="#排序的方式" class="headerlink" title="排序的方式"></a>排序的方式</h4><p>　　经典的排序算法大致有以下10种</p>
+<table>
+<thead>
+<tr>
+<th>排序方法</th>
+<th>时间复杂度（平均）</th>
+<th>时间复杂度（最坏)</th>
+<th>时间复杂度（最好)</th>
+<th>空间复杂度</th>
+<th>稳定性</th>
+<th>复杂性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接插入排序</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>稳定</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td><font color="red">不稳定</font></td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>直接选择排序</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(1)</td>
+<td><font color="red">不稳定</font></td>
+<td>简单</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(1)</td>
+<td><font color="red">不稳定</font></td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>稳定</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(nlog2<sup>n</sup>)</td>
+<td><font color="red">不稳定</font></td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(nlog<sub>2</sub><sup>n</sup>)</td>
+<td>O(n)</td>
+<td>稳定</td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>O(d(n+r))</td>
+<td>O(d(n+r)))</td>
+<td>O(d(n+r))</td>
+<td>O(n+r)</td>
+<td>稳定</td>
+<td>较复杂</td>
+</tr>
+</tbody>
+</table>
+<h3 id="详情"><a href="#详情" class="headerlink" title="详情"></a>详情</h3><h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><h5 id="概念和原理"><a href="#概念和原理" class="headerlink" title="概念和原理"></a>概念和原理</h5><p>插入排序简单的讲就是从一堆无序的数据集中取出一个数，加入到有序的数据集中，直到所有的无序数据集都取完，那么有序的数据集就是排序后的数。</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/1527263783206.png?raw=true" alt="1527263835518"></p>
+<blockquote>
+<p>如上图所示，形象的解释了插入排序的原理。开始时，我们的左手为空并且桌子上的牌面向下，然后我们每次从桌子上拿走一张牌并将他们插入到左手中正确的位置，插入排序的原理由此而得。</p>
+</blockquote>
+<h5 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h5><p>输入： 数组 A[1….n] </p>
+<p>步骤：</p>
+<p>​    使用j作为标志位，j的左边为有序的数字，后边为无序的数字，那么初始j=2，最后n结束;</p>
+<p>​    key=A[j]作为待插入的值，假设待加入的值是有序数组中的最大值，那么他的位置应该不变，那么如果不是呢？那么应该从有序数组的最后一个数A[i=j-1]（有序数组中的最大值）进行比较，如果小，那么把这个大的数插入到j处，依次直到i&gt;0&amp;key&gt;A[i]，继续下一轮。</p>
+<p>一句话概括：<code>插入排序就是增熵减熵的过程</code></p>
+<h5 id="伪码"><a href="#伪码" class="headerlink" title="伪码"></a>伪码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line"><span class="comment">// INSERTION-SORT</span></span><br><span class="line"> <span class="keyword">for</span> j=<span class="number">2</span> to A.length</span><br><span class="line">     key = A[j]</span><br><span class="line">     <span class="comment">//insert A[j] into the sorted sequence A[1...j-1]</span></span><br><span class="line">     i = j-<span class="number">1</span>;</span><br><span class="line">     <span class="keyword">while</span> i&gt;<span class="number">0</span> and A[i]&gt;A[j]</span><br><span class="line">        A[i+<span class="number">1</span>] = A[i]</span><br><span class="line">        i = i-<span class="number">1</span></span><br><span class="line">     A[i+<span class="number">1</span>] = key</span><br></pre></td></tr></table></figure>
+<h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>JAVA</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] insert_sort(<span class="keyword">int</span> []arrs)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;arrs.length;j++)&#123;</span><br><span class="line">          <span class="keyword">int</span> key = arrs[j];</span><br><span class="line">          <span class="keyword">int</span> i = j-<span class="number">1</span>;</span><br><span class="line">          <span class="keyword">while</span>(i&gt;=<span class="number">0</span>&amp;&amp;arrs[i]&gt;key)&#123;</span><br><span class="line">              arrs[i+<span class="number">1</span>] = arrs[i];</span><br><span class="line">              i--;</span><br><span class="line">          &#125;</span><br><span class="line">          arrs[i+<span class="number">1</span>] = key;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> arrs;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> res[] = <span class="keyword">new</span> Sort().insert_sort(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">199</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">3</span>&#125;);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> e : res) &#123;</span><br><span class="line">          System.out.println(e);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/1527412551814.png?raw=true" alt="1527412551814"></p>
+<p>JAVASCRIPT</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> insert_sort = <span class="function"><span class="keyword">function</span> (<span class="params">arrs</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">1</span>;j&lt;arrs.length;j++)&#123;</span><br><span class="line">		<span class="keyword">var</span> key = arrs[j];</span><br><span class="line">		<span class="keyword">var</span> i = j<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">while</span>(i&gt;=<span class="number">0</span>&amp;&amp;arrs[i]&gt;key)&#123;</span><br><span class="line">			arrs[i+<span class="number">1</span>] = arrs[i];</span><br><span class="line">			i--;</span><br><span class="line">		&#125;</span><br><span class="line">		arrs[i+<span class="number">1</span>] = key;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">199</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">3</span>];</span><br><span class="line">insert_sort(a)</span><br><span class="line"><span class="built_in">console</span>.log(a)  <span class="comment">//1,2,3,8,199</span></span><br></pre></td></tr></table></figure>
+<p>时间复杂度</p>
+<p>//todo</p>
+<p>空间复杂度</p>
+<p>//todo</p>
+<p>稳定性</p>
+<p>//todo</p>
+<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><h5 id="概念和原理-1"><a href="#概念和原理-1" class="headerlink" title="概念和原理"></a>概念和原理</h5><p>选择排序就是就是从一堆数字中取出一个最小的放在一边，然后再去取一个最小的数，跟刚刚取出来的数字放一起，这样直到这堆数字被取完位置。</p>
+<p>形象一点比如皇帝翻牌:heart_eyes_cat:，皇帝一天公务繁忙，晚上到了，这个时候太监就会走过来拿着下面的牌子让他选，这个是否皇帝会看一下都有哪些牌子，然后选择他最喜欢的一个妃子；如果皇帝觉得今天一个不够，还需要一个那么皇帝会在剩下的当中选择在他心中地位其次的妃子。</p>
+<p>这个时候老佛爷说，皇帝你再选一个，这个时候皇帝又会在剩下的当中选择一个最好的。</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/1527414146675.png?raw=true" alt="1527414146675"></p>
+<blockquote>
+<p>皇帝选秀就是一个典型的选择排序问题</p>
+</blockquote>
+<p>　　现实生活中选择排序的思想运用的很多：挑衣服，挑零食等等，感觉选择排序的思想有点像贪心算法。</p>
+<h5 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/2e77a3b8d2deb75592b6aeea817bf6ab.gif?raw=true" alt="1527413889306"></p>
+<blockquote>
+<p>该图阐述了选择排序的思想，从数组中遍历求出最小值，然后与连续的数组开头的组相互调换，直到所有的数都有序，排序结束</p>
+</blockquote>
+<h5 id="伪码-1"><a href="#伪码-1" class="headerlink" title="伪码"></a>伪码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECTION-SORT(A)                        </span><br><span class="line">   <span class="keyword">for</span> j = <span class="number">1</span> <span class="function">to <span class="title">Length</span><span class="params">(A)</span>                            </span></span><br><span class="line"><span class="function">       i </span>= j                                                         </span><br><span class="line">       key = A(i)                                              </span><br><span class="line">       <span class="function"><span class="keyword">for</span> i to <span class="title">Lenth</span><span class="params">(A)</span>                                   </span></span><br><span class="line"><span class="function">          <span class="keyword">if</span> key&gt;<span class="title">A</span><span class="params">(i)</span>                                         </span></span><br><span class="line"><span class="function">                key </span>= A(i)   <span class="comment">//当前最小值                                </span></span><br><span class="line">                k = i        <span class="comment">// 当前最小值的坐标                                  </span></span><br><span class="line">       A(k) = A(j)     <span class="comment">//把游标位置的数放到最小值的位置中区                                        </span></span><br><span class="line">       A(j)  = key     <span class="comment">//把最小值放入指定的游标位置</span></span><br></pre></td></tr></table></figure>
+<h5 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h5><p>JAVA</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">select_sort</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (a == <span class="keyword">null</span> || a.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">           <span class="keyword">int</span> temp = a[i];</span><br><span class="line">           <span class="keyword">int</span> flag = i; <span class="comment">// 将当前下标定义为最小值下标</span></span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; a.length; j++) &#123;</span><br><span class="line">               <span class="keyword">if</span> (a[j] &lt; temp) &#123;<span class="comment">// a[j] &lt; temp 从小到大排序；a[j] &gt; temp 从大到小排序</span></span><br><span class="line">                   temp = a[j];</span><br><span class="line">                   flag = j; <span class="comment">// 如果有小于当前最小值的关键字将此关键字的下标赋值给flag</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (flag != i) &#123;</span><br><span class="line">               a[flag] = a[i];</span><br><span class="line">               a[i] = temp;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> res[] = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">199</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">3</span> &#125;; <span class="comment">// 1,2,3,8,199</span></span><br><span class="line">       <span class="keyword">new</span> Sort().select_sort(res);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> e : res) &#123;</span><br><span class="line">           System.out.println(e);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>JAVASCRIPT</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> select_sort = <span class="function"><span class="keyword">function</span>(<span class="params">arrs</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arrs == <span class="literal">null</span> || arrs.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arrs.length; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> temp = arrs[i];</span><br><span class="line">            <span class="keyword">var</span> flag = i; <span class="comment">// 将当前下标定义为最小值下标</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; arrs.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (a[j] &lt; temp) &#123;<span class="comment">// a[j] &lt; temp 从小到大排序；a[j] &gt; temp 从大到小排序</span></span><br><span class="line">                    temp = a[j];</span><br><span class="line">                    flag = j; <span class="comment">// 如果有小于当前最小值的关键字将此关键字的下标赋值给flag</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag != i) &#123;</span><br><span class="line">                a[flag] = a[i];</span><br><span class="line">                a[i] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">199</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">3</span>]; <span class="comment">// 1,2,3,8,199</span></span><br><span class="line">select_sort(a)</span><br><span class="line"><span class="built_in">console</span>.log(a)</span><br></pre></td></tr></table></figure>
+<h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p>选择排序交换此处是处于0-（n-1）次之间，需要比较n(n-1) / 2次，赋值操作次数在0-3(n-1)次之间，因此平均时间复杂度为O(n2)</p>
+<h5 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h5><p>O(1)</p>
+<h5 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h5><p>序列{5 8 5 2 9}， 我们知道第一遍选择第1个元素5会和2交换，那么原序列中2个5的相对前后顺序就被破坏了，所以选择排序不是一个稳定的排序算法</p>
+<p><code>注：一般认为选择排序是不稳定排序，但是如果开辟一个新数组的话可以保证稳定性</code></p>
+<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><h5 id="概念与原理"><a href="#概念与原理" class="headerlink" title="概念与原理"></a>概念与原理</h5><p>​    冒泡的核心是一次bubble的过程，如下图所示，数组A[1…n]进过n-1次bubble过程就可以完成排序。</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/1527419114353.png?raw=true" alt="1527419114353"></p>
+<blockquote>
+<p>图中描述的是一次气泡（bubble）过程，小气泡12与相邻的对比，如果自己小，那么向上冒泡，一次冒泡过程就可以把最小的数冒泡到最上层。其余的无序数组也是利用类似的思想进行排序</p>
+</blockquote>
+<h5 id="伪码-2"><a href="#伪码-2" class="headerlink" title="伪码"></a>伪码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BUBBLESORT(A)  </span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span> to A.length-<span class="number">1</span>   <span class="comment">//总共bubble n-1次</span></span><br><span class="line">        <span class="keyword">for</span> j = A.length downto i + <span class="number">1</span>  <span class="comment">//bubble的范围</span></span><br><span class="line">            <span class="keyword">if</span> A[j] &lt; A[j - <span class="number">1</span>]  </span><br><span class="line">                exchange A[j] with A[j - <span class="number">1</span>]  <span class="comment">//bubble的过程</span></span><br></pre></td></tr></table></figure>
+<h5 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h5><p>JAVA</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bubble_sort</span><span class="params">(<span class="keyword">int</span> []a)</span></span>&#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++)&#123;</span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;a.length-<span class="number">1</span>-i;j++)&#123;</span><br><span class="line">               <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                   <span class="keyword">int</span> temp = a[j+<span class="number">1</span>];</span><br><span class="line">                   a[j+<span class="number">1</span>] = a[j];</span><br><span class="line">                   a[j] = temp;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>JAVASCRIPT</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bubble_sort = <span class="function"><span class="keyword">function</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;a.length<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;a.length<span class="number">-1</span>-i;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                    <span class="keyword">var</span> temp = a[j+<span class="number">1</span>];</span><br><span class="line">                    a[j+<span class="number">1</span>] = a[j];</span><br><span class="line">                    a[j] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arrs = [<span class="number">76</span>,<span class="number">18</span>,<span class="number">99</span>,<span class="number">35</span>,<span class="number">12</span>];</span><br><span class="line">bubble_sort(arrs);</span><br><span class="line"><span class="built_in">console</span>.log(arrs);<span class="comment">//12,18,35,76,99</span></span><br></pre></td></tr></table></figure>
+<h5 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/1527425711208.png?raw=true" alt="1527425711208"></p>
+<blockquote>
+<p>摘自百度百科</p>
+</blockquote>
+<h5 id="空间复杂度-1"><a href="#空间复杂度-1" class="headerlink" title="空间复杂度"></a>空间复杂度</h5><p>O(1)</p>
+<h5 id="稳定性-1"><a href="#稳定性-1" class="headerlink" title="稳定性"></a>稳定性</h5><p>冒泡排序比较是相邻的两个元素，交换也发生在这两个元素中。如果两个元素相等，不交换；如果两个相等元素没有相邻，那么即使通过前面的两两交换把两个相邻起来，这时候也不会交换，<code>所以相同元素的前后顺序并没有改变</code>，所以冒泡排序是一种<code>稳定排序算法</code>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/22/java/JAVA_IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/22/java/JAVA_IO/" itemprop="url">JAVA IO</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T23:29:13+08:00">
+                2018-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://uploadfiles.nowcoder.net/images/20150328/138512_1427527478646_1.png" alt="img"> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/20/communication/HTTP的用户认证方式/" itemprop="url">HTTP的用户认证方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T15:27:13+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/通信/" itemprop="url" rel="index">
+                    <span itemprop="name">通信</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="HTTP的用户认证方式"><a href="#HTTP的用户认证方式" class="headerlink" title="HTTP的用户认证方式"></a>HTTP的用户认证方式</h3><h4 id="1-Basic认证"><a href="#1-Basic认证" class="headerlink" title="1. Basic认证"></a>1. Basic认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png" alt="1526717218205"></p>
+<ul>
+<li>步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm）</li>
+<li>步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示</li>
+<li>步骤三：对认证信息的正确性进行验证。如验证通过，则返回一条包含 Request-URI 资源的响应</li>
+</ul>
+<p><strong>缺点：</strong>使用Base64编码，安全性不高，并且认证使用上不够便捷灵活</p>
+<h4 id="2-Digest认证"><a href="#2-Digest认证" class="headerlink" title="2. Digest认证"></a>2. Digest认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717389002.png" alt="1526717389002"></p>
+<p>DIGEST 认证提供了高于 BASIC 认证的安全等级，但是和 HTTPS 的客户端认证相比仍旧很弱。DIGEST 认证提供防止密码被窃听的保护机制，但并不存在防止用户伪装的保护机制。</p>
+<h4 id="3-SSL认证"><a href="#3-SSL认证" class="headerlink" title="3. SSL认证"></a>3. SSL认证</h4><p>SSL 客户端认证采用双因素认证</p>
+<blockquote>
+<p>双因素认证就是指，认证过程中不仅需要用户名，密码这一个因素，还需要申请认证者提供其他持有信息。与其组合使用的认证方式就是双因素认证</p>
+<p>第一个认证因素的 SSL 客户端证书用来认证客户端计算机</p>
+<p>另一个认证因素的密码则用来确定这是用户本人的行为。</p>
+</blockquote>
+<h4 id="4-基于表单的认证"><a href="#4-基于表单的认证" class="headerlink" title="4. 基于表单的认证"></a>4. 基于表单的认证</h4><h5 id="4-1-Session-管理及-Cookie-应用"><a href="#4-1-Session-管理及-Cookie-应用" class="headerlink" title="4.1 Session 管理及 Cookie 应用"></a>4.1 Session 管理及 Cookie 应用</h5><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526718629646.png" alt="1526718629646"></p>
+<ul>
+<li>步骤一：客户端发送登录信息：ID和密码，使用Https进行传输保证安全性</li>
+<li>步骤二：服务器验证ID和密码，如果认证通过那么创建session，并且把sessionId通过Set-Cookie的形式发送给客户端，为减轻跨站脚本攻击（XSS）造成的损失，建议事先在 Cookie 内加上 httponly 属性</li>
+<li>步骤三：客户端获取到set-Cookie的响应头以后，就会将cookie保存在浏览器进程中不同于一般的cookie，会把cookie的信息保存在客户端所在的磁盘中，并且在后续发送的Http请求中都会以key-value</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/19/communication/HTTPS协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1272,7 +1880,7 @@ Singleton.getInstance().publicMethod();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1283,7 +1891,7 @@ Singleton.getInstance().publicMethod();
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1294,7 +1902,7 @@ Singleton.getInstance().publicMethod();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
