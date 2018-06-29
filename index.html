@@ -282,6 +282,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/29/communication/同步异步阻塞非阻塞/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/29/communication/同步异步阻塞非阻塞/" itemprop="url">同步异步，阻塞和非阻塞</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-29T22:31:23+08:00">
+                2018-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/通信机制/" itemprop="url" rel="index">
+                    <span itemprop="name">通信机制</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>同步和异步，阻塞和非阻塞，根据字面意思也能够分出差别，但是<code>同步，异步</code>与<code>阻塞，非阻塞</code>很容易混淆，那么同步是不是就是阻塞，异步是不是就是非阻塞？</p>
+<p>答案是否定的，虽然同步意味着阻塞，异步意味着不阻塞，但是面对的对象不同，下面是摘自博客园其中一篇<a href="https://www.cnblogs.com/Anker/p/5965654.html" target="_blank" rel="noopener">博客</a>对同步、异步，阻塞、非阻塞的定义：</p>
+<blockquote>
+<p>同步、异步：</p>
+</blockquote>
+<ul>
+<li>概念：消息的通知机制</li>
+<li>解释：涉及到IO通知机制；所谓同步，就是发起调用后，被调用者处理消息，必须等处理完才直接返回结果，没处理完之前是不返回的，调用者主动等待结果；所谓异步，就是发起调用后，被调用者直接返回，但是并没有返回结果，等处理完消息后，通过状态、通知或者回调函数来通知调用者，调用者被动接收结果。阻塞、非阻塞：</li>
+</ul>
+<blockquote>
+<p>阻塞、非阻塞</p>
+</blockquote>
+<ul>
+<li>概念：程序等待调用结果时的状态</li>
+<li>解释：涉及到CPU线程调度；所谓阻塞，就是调用结果返回之前，该执行线程会被挂起，不释放CPU执行权，线程不能做其它事情，只能等待，只有等到调用结果返回了，才能接着往下执行；所谓非阻塞，就是在没有获取调用结果时，不是一直等待，线程可以往下执行，如果是同步的，通过轮询的方式检查有没有调用结果返回，如果是异步的，会通知回调。</li>
+</ul>
+<p>根据概念，他们讲的就不是同一件事情。</p>
+<p>同步和异步是用来形容消息的通知机制，通信机制就是一个Rule，一个规则，同步就是严格按照先后顺序去做事情，比如有时候我们的事情必须一件一件去做，我先开发原型界面，再前后端联调——也就是说我的开发流程这个Rule，我在没有开发完原型界面之前是不会跟后端去联调的，这就是同步；而异步在生活中就很多了，我在家里放了一只老鼠夹，我不可能在旁边看着老鼠上钩，我可以去做其他的事情，直到有一天，老鼠夹发出警报了（这是一个连着app的老鼠夹23333），我发现有老鼠上钩了，这个就是异步。所以它们针对的是Rule，前端开发流程，老鼠夹夹老鼠，这个都是一种Rule，通信机制。</p>
+<p>阻塞和非阻塞是用来形容通信一方的状态，比如我打滴滴，师傅接单了，1分钟就到，我站在路边，时刻关注着手机，我的这个状态就是阻塞状态，而如果要10分钟才到，这个时候外面又很热，那我先去买个可乐喝一下，时不时的看一下手机，看看是不是师傅快到了，这个就是非阻塞。</p>
+<p>那么为什么会出现阻塞和非阻塞呢？就是因为同步机制造成的，如果是异步，最后事情好了，通知我一声，good！！！我阻塞在那里干嘛，我该干嘛干嘛。但是同步的话我就没办法了，只能等呗，时间少一点无所谓的，那时间一长呢？做点其他的事情呗，时不时的看看后续情况，提高效率。</p>
+<p>所以同步都伴随着阻塞和非阻塞，以后再也不要把同步异步，阻塞、非阻塞搞混了。</p>
+<p>抛砖引玉，望提出宝贵意见。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/27/program_person/bad_action/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1517,150 +1680,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/lintcode/p_1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZheHuaXuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhehua's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/06/lintcode/p_1/" itemprop="url">A + B Problem</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T23:43:23+08:00">
-                2018-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algothrim-LintCode/" itemprop="url" rel="index">
-                    <span itemprop="name">Algothrim-LintCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="A-B-Problem"><a href="#A-B-Problem" class="headerlink" title="A + B Problem"></a>A + B Problem</h3><p>Write a function that add two numbers A and B. You should not use <code>+</code> or any arithmetic operators.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Given <code>a=1</code> and <code>b=2</code> return <code>3</code>.</p>
-<h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a><strong>Answer</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The sum of a and b </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个数异或：相当于每一位相加，而不考虑进位；</span></span><br><span class="line">        <span class="comment">//如果两个数的二进制每一位都不一样  比如01和10，那么x=11;</span></span><br><span class="line">        <span class="comment">//那么如果有进位呢？比如01和01，那么应该是满2进1，如何做（a&amp;b）&lt;&lt;1=10</span></span><br><span class="line">        <span class="comment">//那么a&amp;0等于a本身，那么当b=0时，a就是两个数的和</span></span><br><span class="line">        <span class="comment">//两个数相与，并左移一位：相当于求得进位；</span></span><br><span class="line">        <span class="keyword">int</span> x = a^b;</span><br><span class="line">        <span class="keyword">int</span> y = a&amp;b;</span><br><span class="line">        <span class="keyword">if</span>(y==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> aplusb(x,y&lt;&lt;<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/js/js_pro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1888,7 +1907,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/js/prototype/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/lintcode/p_1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -1907,7 +1926,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/06/js/prototype/" itemprop="url">Prototype和__proto__</a></h1>
+                <a class="post-title-link" href="/2018/06/06/lintcode/p_1/" itemprop="url">A + B Problem</a></h1>
         
 
         <div class="post-meta">
@@ -1919,7 +1938,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T21:43:23+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T23:43:23+08:00">
                 2018-06-06
               </time>
             
@@ -1942,8 +1961,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASCRIPT/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASCRIPT</span>
+                  <a href="/categories/Algothrim-LintCode/" itemprop="url" rel="index">
+                    <span itemprop="name">Algothrim-LintCode</span>
                   </a>
                 </span>
 
@@ -1981,16 +2000,9 @@
       
         
           
-            <p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/JS/1528291176757.png?raw=true" alt="1528291176757"></p>
-<blockquote>
-<p>上图表明了<code>__proto__</code>和prototype的区别，new Foo()对象的构造函数是Foo(){}，那么new Foo()对象的<code>__proto__</code>就是Foo.prototype</p>
-</blockquote>
-<p>口诀：</p>
-<blockquote>
-<p>1.每个对象都具有一个名为<code>__proto__</code>的属性；</p>
-<p>2.每个构造函数（构造函数标准为大写开头，如Function()，Object()等等JS中自带的构造函数，以及自己创建的）都具有一个名为prototype的方法（注意：既然是方法，那么就是一个对象（JS中函数同样是对象），所以prototype同样带有<code>__proto__</code>属性）；</p>
-<p><em>3.每个对象的<code>__proto__</code>属性指向自身构造函数的prototype；</em></p>
-</blockquote>
+            <h3 id="A-B-Problem"><a href="#A-B-Problem" class="headerlink" title="A + B Problem"></a>A + B Problem</h3><p>Write a function that add two numbers A and B. You should not use <code>+</code> or any arithmetic operators.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Given <code>a=1</code> and <code>b=2</code> return <code>3</code>.</p>
+<h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a><strong>Answer</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The sum of a and b </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个数异或：相当于每一位相加，而不考虑进位；</span></span><br><span class="line">        <span class="comment">//如果两个数的二进制每一位都不一样  比如01和10，那么x=11;</span></span><br><span class="line">        <span class="comment">//那么如果有进位呢？比如01和01，那么应该是满2进1，如何做（a&amp;b）&lt;&lt;1=10</span></span><br><span class="line">        <span class="comment">//那么a&amp;0等于a本身，那么当b=0时，a就是两个数的和</span></span><br><span class="line">        <span class="comment">//两个数相与，并左移一位：相当于求得进位；</span></span><br><span class="line">        <span class="keyword">int</span> x = a^b;</span><br><span class="line">        <span class="keyword">int</span> y = a&amp;b;</span><br><span class="line">        <span class="keyword">if</span>(y==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> aplusb(x,y&lt;&lt;<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2030,7 +2042,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2080,7 +2092,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2091,7 +2103,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2102,7 +2114,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
