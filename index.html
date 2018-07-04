@@ -282,6 +282,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/07/04/architecture/MVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/04/architecture/MVC/" itemprop="url">MVC,MVP,MVVM的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-04T23:29:23+08:00">
+                2018-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天看到一篇关于探讨<a href="https://segmentfault.com/a/1190000015310674" target="_blank" rel="noopener">MVC,MVP,MVVM的文章</a>，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己一些小小的看法。</p>
+<h4 id="前端MVC和后端MVC"><a href="#前端MVC和后端MVC" class="headerlink" title="前端MVC和后端MVC"></a>前端MVC和后端MVC</h4><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/%E5%89%8D%E7%AB%AFmvc%E5%92%8C%E5%90%8E%E7%AB%AFmvc.jpg?raw=true" alt="前端MVC和后端MVC"> </p>
+<blockquote>
+<p>图中主要表明了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful API的形式提供给前端，特别是目前的微服务概念很火，前后分离成为必然。</p>
+</blockquote>
+<h4 id="前端MVC-MVP和MVVM的区别"><a href="#前端MVC-MVP和MVVM的区别" class="headerlink" title="前端MVC,MVP和MVVM的区别"></a>前端MVC,MVP和MVVM的区别</h4><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/1530719845811.png?raw=true" alt="前端MVC，MVP和MVVM"></p>
+<blockquote>
+<p>MVC,MVP,MVVM的区别</p>
+</blockquote>
+<h5 id="MVC架构"><a href="#MVC架构" class="headerlink" title="MVC架构"></a>MVC架构</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvc.png?raw=true" alt="MVC"></p>
+<ul>
+<li><code>View</code>，对外暴露函用户事件监听的接口，并监听Model的数据改变事件，依赖于Model</li>
+<li><code>Controller</code>，不对外暴露任何接口，监听View的用户事件，并对Model的接口了如指掌，依赖于Model和View </li>
+<li><code>Model</code>，对外暴露函数调用接口和事件监听接口，不依赖Controller和View </li>
+</ul>
+<h5 id="MVP架构"><a href="#MVP架构" class="headerlink" title="MVP架构"></a>MVP架构</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvp.png?raw=true" alt="MVP"></p>
+<ul>
+<li><code>Model</code>，对外暴露函数调用接口和事件监听接口，对Presenter和View的存在一无所知，所以不依赖Presenter和View</li>
+<li><code>View</code>，对外暴露函数调用接口和事件监听接口，对Presenter和Model的存在一无所知，所以不依赖Presenter和View</li>
+<li><code>Presenter</code>，不对外暴露任何接口，监听View和Model的事件，并对它们的接口了如指掌，所以依赖于Model和View</li>
+</ul>
+<h5 id="MVVM架构"><a href="#MVVM架构" class="headerlink" title="MVVM架构"></a>MVVM架构</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvvm.png?raw=true" alt="MVVM架构"> </p>
+<ul>
+<li><code>Model</code>，对外暴露函数调用接口和事件监听接口，不依赖ViewModel和View</li>
+<li><code>ViewModel</code>，监听Model的事件，并对Model的接口了如指掌，依赖于Model。同时向View暴露响应逻辑的调用接口，以及所有的状态数据，并不依赖于View</li>
+<li><code>View</code>，监听用户交互事件，然后调用ViewModel的响应逻辑，同时将自己的显示状态与ViewModel的状态数据绑定在一起，所以依赖于ViewModel</li>
+</ul>
+<p>在其文中举了一个例子相当生动：</p>
+<blockquote>
+<ol>
+<li><p>View获取下拉事件，通知Controller</p>
+</li>
+<li><p>Controller向后台Model发起请求，请求内容为下拉刷新</p>
+</li>
+<li><p>Model获得10条新闻数据，传递给Controller</p>
+</li>
+<li><p>Controller拿到10条新闻数据，可能做一些数据处理，然后拿处理好的数据渲染View    </p>
+<p>MVC: 拿到UI节点，渲染10条新闻    </p>
+<p>MVP: 通过View提供的接口渲染10条新闻    </p>
+<p>MVVM: 无需操作，只要VM的数据变化，通过数据双向绑定，View直接变化</p>
+</li>
+</ol>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/29/communication/同步异步阻塞非阻塞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1894,150 +2078,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/lintcode/p_1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZheHuaXuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhehua's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/06/lintcode/p_1/" itemprop="url">A + B Problem</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T23:43:23+08:00">
-                2018-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algothrim-LintCode/" itemprop="url" rel="index">
-                    <span itemprop="name">Algothrim-LintCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="A-B-Problem"><a href="#A-B-Problem" class="headerlink" title="A + B Problem"></a>A + B Problem</h3><p>Write a function that add two numbers A and B. You should not use <code>+</code> or any arithmetic operators.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Given <code>a=1</code> and <code>b=2</code> return <code>3</code>.</p>
-<h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a><strong>Answer</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The sum of a and b </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个数异或：相当于每一位相加，而不考虑进位；</span></span><br><span class="line">        <span class="comment">//如果两个数的二进制每一位都不一样  比如01和10，那么x=11;</span></span><br><span class="line">        <span class="comment">//那么如果有进位呢？比如01和01，那么应该是满2进1，如何做（a&amp;b）&lt;&lt;1=10</span></span><br><span class="line">        <span class="comment">//那么a&amp;0等于a本身，那么当b=0时，a就是两个数的和</span></span><br><span class="line">        <span class="comment">//两个数相与，并左移一位：相当于求得进位；</span></span><br><span class="line">        <span class="keyword">int</span> x = a^b;</span><br><span class="line">        <span class="keyword">int</span> y = a&amp;b;</span><br><span class="line">        <span class="keyword">if</span>(y==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> aplusb(x,y&lt;&lt;<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2092,7 +2132,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2103,7 +2143,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2114,7 +2154,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
