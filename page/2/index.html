@@ -240,6 +240,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-think">
+          <a href="/think/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-grav"></i> <br />
+            
+            随想
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
@@ -282,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/lintcode/p_1/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/js/js_pro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -301,7 +311,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/06/lintcode/p_1/" itemprop="url">A + B Problem</a></h1>
+                <a class="post-title-link" href="/2018/06/06/js/js_pro/" itemprop="url">关于JAVASCRIPT中 typeof 和 instanceof</a></h1>
         
 
         <div class="post-meta">
@@ -336,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algothrim-LintCode/" itemprop="url" rel="index">
-                    <span itemprop="name">Algothrim-LintCode</span>
+                  <a href="/categories/JAVASCRIPT/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASCRIPT</span>
                   </a>
                 </span>
 
@@ -375,9 +385,92 @@
       
         
           
-            <h3 id="A-B-Problem"><a href="#A-B-Problem" class="headerlink" title="A + B Problem"></a>A + B Problem</h3><p>Write a function that add two numbers A and B. You should not use <code>+</code> or any arithmetic operators.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Given <code>a=1</code> and <code>b=2</code> return <code>3</code>.</p>
-<h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a><strong>Answer</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b: An integer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The sum of a and b </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个数异或：相当于每一位相加，而不考虑进位；</span></span><br><span class="line">        <span class="comment">//如果两个数的二进制每一位都不一样  比如01和10，那么x=11;</span></span><br><span class="line">        <span class="comment">//那么如果有进位呢？比如01和01，那么应该是满2进1，如何做（a&amp;b）&lt;&lt;1=10</span></span><br><span class="line">        <span class="comment">//那么a&amp;0等于a本身，那么当b=0时，a就是两个数的和</span></span><br><span class="line">        <span class="comment">//两个数相与，并左移一位：相当于求得进位；</span></span><br><span class="line">        <span class="keyword">int</span> x = a^b;</span><br><span class="line">        <span class="keyword">int</span> y = a&amp;b;</span><br><span class="line">        <span class="keyword">if</span>(y==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> aplusb(x,y&lt;&lt;<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>关于上次我总结了typeof 和 instanceof 的区别，今天在前端早读课读到对于<a href="https://mp.weixin.qq.com/s?timestamp=1528285777&amp;src=3&amp;ver=1&amp;signature=tr05shasB7Hu012j-USyVNg-G-GiPlhueua4pYPnKsG7GmVx3bh6ehzXlMkz9ELXe2voQs-9mBybQfM1C8vskY8HlQ7pe8PGUkCh3IjjYv*5Lrr2fR6uyUfAvq4HQqxm-atAsqxsf3v3wusLu8uZ8zxTVejK4OuA17JqsfOBU-0=" target="_blank" rel="noopener">typeof和instanceof的原理解析</a>，故在深入学习一下。</p>
+<p>typeof和instanceof的主要区别是typeof用于判断number, string, object, boolean, function, undefined,symbol7种基本数据类型，而instanceof用于检测Object对象的引用类型，是对typeof的补充。</p>
+<p>在<a href="https://mp.weixin.qq.com/s?timestamp=1528285777&amp;src=3&amp;ver=1&amp;signature=tr05shasB7Hu012j-USyVNg-G-GiPlhueua4pYPnKsG7GmVx3bh6ehzXlMkz9ELXe2voQs-9mBybQfM1C8vskY8HlQ7pe8PGUkCh3IjjYv*5Lrr2fR6uyUfAvq4HQqxm-atAsqxsf3v3wusLu8uZ8zxTVejK4OuA17JqsfOBU-0=" target="_blank" rel="noopener">typeof和instanceof的原理解析</a>的文章中对于typeof的本质摘抄如下：</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/JS/1528286996138.png?raw=true" alt="1528286996138"></p>
+<blockquote>
+<p>null的低1-3位也是000，所以type of null也是object</p>
+</blockquote>
+<p>而instanceof的原理可以看如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;    </span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>rightVaule与rightProto的原型链中的所有对象进行比较，如果相等就返回true。</p>
+</blockquote>
+<p>也可以使用如下方法可以判断所有类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">1</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">'hi'</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;<span class="attr">a</span>:<span class="string">'hi'</span>&#125;) <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="string">'a'</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;) <span class="comment">// "[object Function]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>) <span class="comment">// "[object Undefined]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Symbol</span>(<span class="number">1</span>)) <span class="comment">// "[object Symbol]"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>2018年5月8号</p>
+<p>今天看了一道JS的基础面试题：  </p>
+<p>问题：如何准确判断一个变量是数组类型<br>答案：  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [];  </span><br><span class="line"><span class="built_in">console</span>.log(arr1 <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">//打印结果：true。  </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> arr1);           <span class="comment">//打印结果：object.  </span></span><br><span class="line">提示：<span class="keyword">typeof</span> 方法无法判断是否为数组</span><br></pre></td></tr></table></figure>
+<p>从中引出了typeof 和 instanceof 的区别和联系<br>查看了MDN的官方手册对于两者的用法如下：  </p>
+<ol>
+<li>typeof操作符返回一个字符串，表示未经计算的操作数的类型。 </li>
+</ol>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> operand</span><br><span class="line">or</span><br><span class="line"><span class="keyword">typeof</span> (operand)</span><br></pre></td></tr></table></figure>
+<p>typeof有如下返回值：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:left">结果 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undefined</td>
+<td style="text-align:left">“undefined” </td>
+</tr>
+<tr>
+<td>Null</td>
+<td style="text-align:left">“object”（见下文）</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td style="text-align:left">“boolean”</td>
+</tr>
+<tr>
+<td>Number</td>
+<td style="text-align:left">“number”</td>
+</tr>
+<tr>
+<td>String</td>
+<td style="text-align:left">“string”</td>
+</tr>
+<tr>
+<td>Symbol （ECMAScript 6 新增）</td>
+<td style="text-align:left">“symbol”</td>
+</tr>
+<tr>
+<td>宿主对象（由JS环境提供）</td>
+<td style="text-align:left">Implementation-dependent</td>
+</tr>
+<tr>
+<td>函数对象（[[Call]] 在ECMA-262条款中实现了）</td>
+<td style="text-align:left">“function”</td>
+</tr>
+<tr>
+<td>任何其他对象</td>
+<td style="text-align:left">“object”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>从上图可以反映出：typeof operand返回的结果为基本类型，对于引用类型其都返回object，所以var a = [];console.log(a);返回object。 </p>
+</blockquote>
+<p> <code>注： 使用typeof操作符的时候,如果检测对象是函数,那么操作符返回&quot;function&quot; ,如果检测对象是正则表达式的时候,在Safari和Chrome中使用typeof的时候会错误的返回&quot;function&quot;。</code></p>
+<ol>
+<li><p>instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。  </p>
+<p>用法：</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">object <span class="keyword">instanceof</span> <span class="keyword">constructor</span></span><br><span class="line"></span><br><span class="line">//object</span><br><span class="line">//要检测的对象.</span><br><span class="line">//<span class="keyword">constructor</span></span><br><span class="line">//某个构造函数</span><br></pre></td></tr></table></figure>
+<p>如下是官方例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>)</span>&#123;&#125; </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">D</span>(<span class="params"></span>)</span>&#123;&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> C();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o <span class="keyword">instanceof</span> C; <span class="comment">// true，因为 Object.getPrototypeOf(o) === C.prototype</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">o <span class="keyword">instanceof</span> D; <span class="comment">// false，因为 D.prototype不在o的原型链上</span></span><br><span class="line"></span><br><span class="line">o <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">// true,因为Object.prototype.isPrototypeOf(o)返回true</span></span><br><span class="line">C.prototype <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true,同上</span></span><br><span class="line"></span><br><span class="line">C.prototype = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> C();</span><br><span class="line"></span><br><span class="line">o2 <span class="keyword">instanceof</span> C; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">o <span class="keyword">instanceof</span> C; <span class="comment">// false,C.prototype指向了一个空对象,这个空对象不在o的原型链上.</span></span><br><span class="line"></span><br><span class="line">D.prototype = <span class="keyword">new</span> C(); <span class="comment">// 继承</span></span><br><span class="line"><span class="keyword">var</span> o3 = <span class="keyword">new</span> D();</span><br><span class="line">o3 <span class="keyword">instanceof</span> D; <span class="comment">// true</span></span><br><span class="line">o3 <span class="keyword">instanceof</span> C; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注：如果表达式 obj instanceof Foo 返回true，则并不意味着该表达式会永远返回true，因为Foo.prototype属性的值有可能会改变，改变之后的值很有可能不存在于obj的原型链上，这时原表达式的值就会成为false。另外一种情况下，原表达式的值也会改变，就是改变对象obj的原型链的情况，虽然在目前的ES规范中，我们只能读取对象的原型而不能改变它，但借助于非标准的<strong>proto</strong>魔法属性，是可以实现的。比如执行obj.<strong>proto</strong> = {}之后，obj instanceof Foo就会返回false了。<br>所以对于typeof和instanceof的用法——<font color="red">typeof一般是检测的是基本数据类型,instanceof主要检测的是引用类型!</font></p>
+</blockquote>
 
           
         

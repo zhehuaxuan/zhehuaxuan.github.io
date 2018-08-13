@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. offsetWidth、clientWidth、scrollWidth、width的区别   属性值 说明     offsetWidth 真实的width+padding+border   clientWidth 真实的width+padding   style.width 返回DOM真实的width   sc">
+<meta name="description" content="1.ES基础知识 JS的基本数据类型  Boolean  String  Number  Null  Undefined  Symbol(ES6)  注：原始类型不包含Object  typeof 123456typeof xxx;//返回：undefined boolean number string object ">
 <meta name="keywords" content="Javascript,原生">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javascript原生释疑">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2018/06/09/js/difficulty/index.html">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2018/07/10/js/difficulty/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="1. offsetWidth、clientWidth、scrollWidth、width的区别   属性值 说明     offsetWidth 真实的width+padding+border   clientWidth 真实的width+padding   style.width 返回DOM真实的width   scrollWidth 返回元素的宽度（包括元素宽度、内边距和溢出尺寸，不包括边框和">
+<meta property="og:description" content="1.ES基础知识 JS的基本数据类型  Boolean  String  Number  Null  Undefined  Symbol(ES6)  注：原始类型不包含Object  typeof 123456typeof xxx;//返回：undefined boolean number string object function、symbol 只比基本类型多了object和function/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-09T08:37:17.960Z">
+<meta property="og:updated_time" content="2018-07-10T16:14:17.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript原生释疑">
-<meta name="twitter:description" content="1. offsetWidth、clientWidth、scrollWidth、width的区别   属性值 说明     offsetWidth 真实的width+padding+border   clientWidth 真实的width+padding   style.width 返回DOM真实的width   scrollWidth 返回元素的宽度（包括元素宽度、内边距和溢出尺寸，不包括边框和">
+<meta name="twitter:description" content="1.ES基础知识 JS的基本数据类型  Boolean  String  Number  Null  Undefined  Symbol(ES6)  注：原始类型不包含Object  typeof 123456typeof xxx;//返回：undefined boolean number string object function、symbol 只比基本类型多了object和function/">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/06/09/js/difficulty/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2018/07/10/js/difficulty/"/>
 
 
 
@@ -241,6 +241,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-think">
+          <a href="/think/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-grav"></i> <br />
+            
+            随想
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
@@ -283,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/09/js/difficulty/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/07/10/js/difficulty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -312,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-09T16:43:23+08:00">
-                2018-06-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T16:43:23+08:00">
+                2018-07-10
               </time>
             
 
@@ -372,7 +382,49 @@
       
 
       
-        <h4 id="1-offsetWidth、clientWidth、scrollWidth、width的区别"><a href="#1-offsetWidth、clientWidth、scrollWidth、width的区别" class="headerlink" title="1. offsetWidth、clientWidth、scrollWidth、width的区别"></a>1. offsetWidth、clientWidth、scrollWidth、width的区别</h4><table>
+        <h4 id="1-ES基础知识"><a href="#1-ES基础知识" class="headerlink" title="1.ES基础知识"></a>1.ES基础知识</h4><ol>
+<li><p>JS的基本数据类型</p>
+<ul>
+<li><p>Boolean</p>
+</li>
+<li><p>String</p>
+</li>
+<li><p>Number</p>
+</li>
+<li><p>Null</p>
+</li>
+<li><p>Undefined</p>
+</li>
+<li><p>Symbol(ES6)</p>
+<blockquote>
+<p>注：原始类型不包含Object</p>
+</blockquote>
+<p><strong>typeof</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> xxx;</span><br><span class="line"><span class="comment">//返回：undefined boolean number string object function、symbol 只比基本类型多了object和function</span></span><br><span class="line"><span class="comment">//注意点：</span></span><br><span class="line"><span class="comment">//1.typeof null结果是object  </span></span><br><span class="line"><span class="comment">//2.typeof [1, 2]结果是object typeof 没有array类型  引用类型只有function和object</span></span><br><span class="line"><span class="comment">//3.typeof Symbol() 用typeof获取symbol类型的值得到的是symbo</span></span><br></pre></td></tr></table></figure>
+<p><strong>instanceof</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">//true or false</span></span><br></pre></td></tr></table></figure>
+<p>instanceof和typeof的细节，可以移步<a href="http://localhost:4000/2018/06/06/js/js_pro/" target="_blank" rel="noopener">这里</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>2</p>
+</li>
+<li><p>3</p>
+</li>
+<li><p>4</p>
+</li>
+<li><p>5</p>
+</li>
+<li><p>6</p>
+</li>
+<li><p>7</p>
+</li>
+<li><p>8</p>
+</li>
+</ol>
+<h4 id="1-offsetWidth、clientWidth、scrollWidth、width的区别"><a href="#1-offsetWidth、clientWidth、scrollWidth、width的区别" class="headerlink" title="1. offsetWidth、clientWidth、scrollWidth、width的区别"></a>1. offsetWidth、clientWidth、scrollWidth、width的区别</h4><table>
 <thead>
 <tr>
 <th>属性值</th>
@@ -430,8 +482,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/09/vue/Vue_cycle_life/" rel="next" title="Vue的生命周期">
-                <i class="fa fa-chevron-left"></i> Vue的生命周期
+              <a href="/2018/07/04/architecture/MVC/" rel="next" title="MVC,MVP,MVVM的区别">
+                <i class="fa fa-chevron-left"></i> MVC,MVP,MVVM的区别
               </a>
             
           </div>
@@ -439,10 +491,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/09/css/scroller/" rel="prev" title="JavaScript 与 CSS 滚动实现最新指南">
-                JavaScript 与 CSS 滚动实现最新指南 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -594,7 +642,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-offsetWidth、clientWidth、scrollWidth、width的区别"><span class="nav-number">1.</span> <span class="nav-text">1. offsetWidth、clientWidth、scrollWidth、width的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ES基础知识"><span class="nav-number">1.</span> <span class="nav-text">1.ES基础知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-offsetWidth、clientWidth、scrollWidth、width的区别"><span class="nav-number">2.</span> <span class="nav-text">1. offsetWidth、clientWidth、scrollWidth、width的区别</span></a></li></ol></div>
             
 
           </div>

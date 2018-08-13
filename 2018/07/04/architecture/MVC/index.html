@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="今天看到一篇关于探讨MVC,MVP,MVVM的文章，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己一些小小的看法。 前端MVC和后端MVC   图中主要表明了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Mo">
+<meta name="description" content="今天看到一篇关于探讨MVC,MVP,MVVM的文章，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己的一些小小见解。 前端MVC和后端MVC   该图摘自文章，我觉得很清晰明了，讲清楚了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC">
 <meta name="keywords" content="MVC,MVP,MVVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MVC,MVP,MVVM的区别">
 <meta property="og:url" content="https://zhehuaxuan.github.io/2018/07/04/architecture/MVC/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="今天看到一篇关于探讨MVC,MVP,MVVM的文章，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己一些小小的看法。 前端MVC和后端MVC   图中主要表明了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful API的形式提供给前端，特">
+<meta property="og:description" content="今天看到一篇关于探讨MVC,MVP,MVVM的文章，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己的一些小小见解。 前端MVC和后端MVC   该图摘自文章，我觉得很清晰明了，讲清楚了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/%E5%89%8D%E7%AB%AFmvc%E5%92%8C%E5%90%8E%E7%AB%AFmvc.jpg?raw=true">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/1530719845811.png?raw=true">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvc.png?raw=true">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvp.png?raw=true">
 <meta property="og:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvvm.png?raw=true">
-<meta property="og:updated_time" content="2018-07-04T17:25:48.891Z">
+<meta property="og:updated_time" content="2018-07-10T15:52:09.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVC,MVP,MVVM的区别">
-<meta name="twitter:description" content="今天看到一篇关于探讨MVC,MVP,MVVM的文章，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己一些小小的看法。 前端MVC和后端MVC   图中主要表明了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful API的形式提供给前端，特">
+<meta name="twitter:description" content="今天看到一篇关于探讨MVC,MVP,MVVM的文章，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己的一些小小见解。 前端MVC和后端MVC   该图摘自文章，我觉得很清晰明了，讲清楚了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful">
 <meta name="twitter:image" content="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/%E5%89%8D%E7%AB%AFmvc%E5%92%8C%E5%90%8E%E7%AB%AFmvc.jpg?raw=true">
 
 
@@ -247,6 +247,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-think">
+          <a href="/think/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-grav"></i> <br />
+            
+            随想
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
@@ -378,11 +388,12 @@
       
 
       
-        <p>今天看到一篇关于探讨<a href="https://segmentfault.com/a/1190000015310674" target="_blank" rel="noopener">MVC,MVP,MVVM的文章</a>，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己一些小小的看法。</p>
+        <p>今天看到一篇关于探讨<a href="https://segmentfault.com/a/1190000015310674" target="_blank" rel="noopener">MVC,MVP,MVVM的文章</a>，我觉得讲的还是蛮透彻的，值得收藏，下面是我对它的一些摘抄，和自己的一些小小见解。</p>
 <h4 id="前端MVC和后端MVC"><a href="#前端MVC和后端MVC" class="headerlink" title="前端MVC和后端MVC"></a>前端MVC和后端MVC</h4><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/%E5%89%8D%E7%AB%AFmvc%E5%92%8C%E5%90%8E%E7%AB%AFmvc.jpg?raw=true" alt="前端MVC和后端MVC"> </p>
 <blockquote>
-<p>图中主要表明了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful API的形式提供给前端，特别是目前的微服务概念很火，前后分离成为必然。</p>
+<p>该图摘自文章，我觉得很清晰明了，讲清楚了前后端的mvc具体指的什么，不过需要指出的是，后端的MVC中的V目前很少使用了，因为逻辑的复杂性，统一交给前端的MVC去处理，而后端主要使用Model和Controller层，最后以Restful API的形式提供给前端，特别是目前的微服务概念很火，前后分离成为必然。</p>
 </blockquote>
+<p>注：Restful只是实现的一种形式，当然以nodejs把前端在服务端进行渲染（SSR），能够提高页面的性能，这时后端的V就变得厚重的多了。</p>
 <h4 id="前端MVC-MVP和MVVM的区别"><a href="#前端MVC-MVP和MVVM的区别" class="headerlink" title="前端MVC,MVP和MVVM的区别"></a>前端MVC,MVP和MVVM的区别</h4><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/1530719845811.png?raw=true" alt="前端MVC，MVP和MVVM"></p>
 <blockquote>
 <p>MVC,MVP,MVVM的区别</p>
@@ -393,12 +404,14 @@
 <li><code>Controller</code>，不对外暴露任何接口，监听View的用户事件，并对Model的接口了如指掌，依赖于Model和View </li>
 <li><code>Model</code>，对外暴露函数调用接口和事件监听接口，不依赖Controller和View </li>
 </ul>
+<p>MVC中之间的耦合性相对较高，比如在Controller层直接操纵View层过多，Controller层就变的难为维护了，所以在Model层和View层中定义接口进行交互，便于维护，这一层就是Presenter层，也就是MVP架构。</p>
 <h5 id="MVP架构"><a href="#MVP架构" class="headerlink" title="MVP架构"></a>MVP架构</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvp.png?raw=true" alt="MVP"></p>
 <ul>
 <li><code>Model</code>，对外暴露函数调用接口和事件监听接口，对Presenter和View的存在一无所知，所以不依赖Presenter和View</li>
 <li><code>View</code>，对外暴露函数调用接口和事件监听接口，对Presenter和Model的存在一无所知，所以不依赖Presenter和View</li>
 <li><code>Presenter</code>，不对外暴露任何接口，监听View和Model的事件，并对它们的接口了如指掌，所以依赖于Model和View</li>
 </ul>
+<p>一旦接口过多，也是相当复杂，如果Model层中的模型变动，View层能够相应的自动发生变动该多好？所以产生了MVVM。</p>
 <h5 id="MVVM架构"><a href="#MVVM架构" class="headerlink" title="MVVM架构"></a>MVVM架构</h5><p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/%E6%9E%B6%E6%9E%84/mvvm.png?raw=true" alt="MVVM架构"> </p>
 <ul>
 <li><code>Model</code>，对外暴露函数调用接口和事件监听接口，不依赖ViewModel和View</li>
@@ -464,6 +477,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/10/js/difficulty/" rel="prev" title="Javascript原生释疑">
+                Javascript原生释疑 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
