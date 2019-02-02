@@ -292,6 +292,351 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/07/css/difficulty/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/07/css/difficulty/" itemprop="url">CSS疑难总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T21:29:13+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>本文主要用于项目中碰到的关于css的疑难点或者易忘点的总结。</p>
+<h3 id="布局篇"><a href="#布局篇" class="headerlink" title="布局篇"></a>布局篇</h3><ol>
+<li><p>flex布局</p>
+<p><code>Flex布局以后，子元素的float、clear和vertical-align属性将失效。</code></p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809079.png?raw=true" alt="img"> </p>
+<blockquote>
+<p>flex布局示意图</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    display:-webkit-flex; //与flex一起写，是一个好习惯  ？？？什么是webkit内核</span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">flex</span>;</span><br><span class="line">    flex-flow: row | row-reverse | column | column-reverse [nowrap|wrap|wrap-reverse];//前半部分为伸缩项目的伸缩方向  后半部分为是否另起一行</span><br><span class="line">    justify-content: flex-start | flex-end | center | space-between | space-around;  //伸缩项目的对齐方式</span><br><span class="line">    align-items: flex-start | flex-end | center | baseline | stretch;  //上下对齐</span><br><span class="line">    align-content: flex-start | flex-end | center | space-between | space-around | stretch; //多根轴线的对齐方式 </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.tems</span> &#123;</span><br><span class="line">    flex：none | &lt;' flex-grow '&gt; &lt;' flex-shrink &gt;'? || &lt;' flex-basis '&gt;</span><br><span class="line">    order: &lt;integer&gt;;  //数值越小越靠前</span><br><span class="line">    align-self: auto | flex-start | flex-end | center | baseline | stretch;  //单个项目可以自定义伸缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   对于flex属性的参数解析可以参考CSS手册：</p>
+<blockquote>
+<p>&lt;’ <a href="http://css.doyoe.com/properties/flex/flex-grow.htm" target="_blank" rel="noopener">flex-grow</a> ‘&gt;：</p>
+<p>用来指定扩展比率，即剩余空间是正值时此「flex子项」相对于「flex容器」里其他「flex子项」能分配到空间比例。<br>在「flex」属性中该值如果被省略则默认为「1」</p>
+<p>&lt;’ <a href="http://css.doyoe.com/properties/flex/flex-shrink.htm" target="_blank" rel="noopener">flex-shrink</a> ‘&gt;：</p>
+<p>用来指定收缩比率，即剩余空间是负值时此「flex子项」相对于「flex容器」里其他「flex子项」能收缩的空间比例。<br>在收缩的时候收缩比率会以伸缩基准值加权<br>在「flex」属性中该值如果被省略则默认为「1」</p>
+<p>&lt;’ <a href="http://css.doyoe.com/properties/flex/flex-basis.htm" target="_blank" rel="noopener">flex-basis</a> ‘&gt;：</p>
+<p>用来指定伸缩基准值，即在根据伸缩比率计算出剩余空间的分布之前，「flex子项」长度的起始数值。<br>在「flex」属性中该值如果被省略则默认为「0%」<br>在「flex」属性中该值如果被指定为「auto」，则伸缩基准值的计算值是自身的 &lt;’ <a href="http://css.doyoe.com/properties/dimension/width.htm" target="_blank" rel="noopener">width</a> ‘&gt; 设置，如果自身的宽度没有定义，则长度取决于内容。</p>
+</blockquote>
+<p>   <img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528387809078.png?raw=true" alt="1528387809078"></p>
+<blockquote>
+<p>例子说明flex-grow，flex-shrink ，flex-basis之间的关系</p>
+</blockquote>
+<ol>
+<li>Position中Absolute和Relative</li>
+</ol>
+<ol>
+<li><h3 id="BOM篇"><a href="#BOM篇" class="headerlink" title="BOM篇"></a>BOM篇</h3></li>
+<li><p>关于浏览器内核和Javascript引擎之间的关系</p>
+</li>
+<li></li>
+</ol>
+<ol>
+<li><a href="https://mp.weixin.qq.com/s/9EkWfzsw2ZKxv5BqZ1ZuSg" target="_blank" rel="noopener">论浏览器中的scroll</a></li>
+</ol>
+<ol>
+<li></li>
+</ol>
+<ol>
+<li><h4 id="CSS属性"><a href="#CSS属性" class="headerlink" title="CSS属性"></a>CSS属性</h4></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/07/css/css_overlay/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/07/css/css_overlay/" itemprop="url">CSS Overlay技巧</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T01:29:13+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>　　对于模态框，一般都不陌生，在面试中，总会被问到有没有自己写过控件，那么模态框的实现原理是什么呢？模态框的一个特点就是在弹出框时，用户不能编辑除了模态框以外的区域。今天主要列举使用CSS实现遮罩层的方式，比较优劣，最后总结最优的一种方式（并非绝对最优，仅供参考）。</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528215690199.png?raw=true" alt="1528215690199"></p>
+<blockquote>
+<p>bootstrap的模态框</p>
+</blockquote>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="1-使用“子绝父相”进行定位"><a href="#1-使用“子绝父相”进行定位" class="headerlink" title="1.使用“子绝父相”进行定位"></a>1.使用“子绝父相”进行定位</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">head</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">        <span class="selector-tag">html</span>,</span><br><span class="line">        <span class="selector-tag">body</span> &#123;</span><br><span class="line">            <span class="attribute">min-height</span>: <span class="number">100%</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="selector-tag">body</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: relative;<span class="attribute">margin</span>: <span class="number">0px</span>;</span><br><span class="line">            <span class="attribute">background</span>: <span class="number">#ddd</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="selector-class">.overlay</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: absolute;</span><br><span class="line">            <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">            <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">            <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">            <span class="attribute">opacity</span>:<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;a href="https://www.baidu.com"&gt;百度&lt;/a&gt;</span><br><span class="line">    &lt;div class="overlay"&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528216778635.png?raw=true" alt="1528216778635"></p>
+<blockquote>
+<p>.overlay为一层透明的遮罩层，这个时候用户点击百度是没有反应的，模态框的信息可以显示在overlay的遮罩层中，且z-index高于overlay</p>
+</blockquote>
+<p>但是overlay必须是body的子元素，秉承“子绝父相”的原则。</p>
+<h4 id="2-Fixed定位解决问题"><a href="#2-Fixed定位解决问题" class="headerlink" title="2.Fixed定位解决问题"></a>2.Fixed定位解决问题</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.overlay</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed; </span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>; </span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>; </span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>; </span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">    <span class="attribute">opacity</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果由于第1种方法，Bootstrap的modal就是使用的此方法，如下图所示：</p>
+<p><img src="https://github.com/zhehuaxuan/imageHub/blob/master/CSS/1528217329330.png?raw=true" alt="1528217329330"></p>
+<p>在<a href="http://www.w3cplus.com/css/css-overlay-techniques.html" target="_blank" rel="noopener">大漠</a>的文章中还提及了outline和box-shadow，但是经过试验发现不能达到模态框的要求。</p>
+<p>所以使用第二种的方式来制作遮罩层，比较适合。</p>
+<p>参考文献：</p>
+<ol>
+<li><a href="http://www.w3cplus.com/css/css-overlay-techniques.html" target="_blank" rel="noopener">http://www.w3cplus.com/css/css-overlay-techniques.html</a></li>
+</ol>
+<p># </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/06/06/js/js_pro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1717,325 +2062,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/03/tools/vscode高效开发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZheHuaXuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhehua's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/03/tools/vscode高效开发/" itemprop="url">Visual Studio Code高效开发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T23:43:23+08:00">
-                2018-05-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Visual Studio Code是微软公司也利用Electron做了一个跨平台的编辑器，具有轻量，跨平台，易用性高等特点，我用着感觉非常的方便，下载地址如下：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a><br>下面简述vs code的配置:  </p>
-<table>
-<thead>
-<tr>
-<th>配置项</th>
-<th style="text-align:left">值</th>
-<th style="text-align:left">说明 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>“files.autoSave”</td>
-<td style="text-align:left">“onFocusChange”</td>
-<td style="text-align:left">编辑器失去焦点时，自动保存</td>
-</tr>
-</tbody>
-</table>
-<p>下面是快捷键的说明：</p>
-<table>
-<thead>
-<tr>
-<th>快捷键名称</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>「Cmd + Shift + O」</td>
-<td style="text-align:left">如何查看代码结构</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2017/12/11/ui/响应式设计/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZheHuaXuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhehua's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/11/ui/响应式设计/" itemprop="url">关于响应式设计的思考</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T00:08:10+08:00">
-                2017-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UI设计/" itemprop="url" rel="index">
-                    <span itemprop="name">UI设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>　　今天在工作中进行项目显示的时候发现网页的布局不一致。在平时开发的时候我使用的屏幕是1920×1080，而公司投影是1024×768，两者之间相差一半，所以显示的效果差异也比较大，这不得不引起我的思考，所以我先开篇，以后有关于响应式布局的问题都罗列出来，作为自己以后学习的经验。</p>
-<ol>
-<li>BootStrap能够解决响应式布局的所有问题么？</li>
-<li>在进行响应式布局设计的时候，应该先从小屏幕开始还是大屏幕？</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2090,7 +2116,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2112,7 +2138,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2165,7 +2191,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

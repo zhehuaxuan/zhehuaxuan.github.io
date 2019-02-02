@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSSOM," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="作者：Louis Lazaris 原文链接：https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/  如果您已经编写了一段时间的JavaScript，那么可以肯定您使用过一些用于处理文档对象模型（DOM）的脚本。DO">
+<meta name="keywords" content="CSSOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS对象模型（CSSOM）指南">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2019/02/13/translation/CSSOM/index.html">
+<meta property="og:site_name" content="zhehua&#39;s note">
+<meta property="og:description" content="作者：Louis Lazaris 原文链接：https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/  如果您已经编写了一段时间的JavaScript，那么可以肯定您使用过一些用于处理文档对象模型（DOM）的脚本。DOM脚本利用网页提供的一组API（或接口）来操作和处理页面上的元素。 那么，您应">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/11/cssstyledeclaration-api.png">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/11/docstylesheet.png">
+<meta property="og:updated_time" content="2019-02-02T16:25:14.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS对象模型（CSSOM）指南">
+<meta name="twitter:description" content="作者：Louis Lazaris 原文链接：https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/  如果您已经编写了一段时间的JavaScript，那么可以肯定您使用过一些用于处理文档对象模型（DOM）的脚本。DOM脚本利用网页提供的一组API（或接口）来操作和处理页面上的元素。 那么，您应">
+<meta name="twitter:image" content="https://css-tricks.com/wp-content/uploads/2018/11/cssstyledeclaration-api.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2019/02/13/translation/CSSOM/"/>
+
+
+
+
+
+  <title>CSS对象模型（CSSOM）指南 | zhehua's note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhehua's note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时光
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-nav">
+          <a href="/nav/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-send"></i> <br />
+            
+            站点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-think">
+          <a href="/think/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-grav"></i> <br />
+            
+            随想
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2019/02/13/translation/CSSOM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS对象模型（CSSOM）指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T23:43:23+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>作者：<a href="https://css-tricks.com/author/lazaris/" target="_blank" rel="noopener">Louis Lazaris</a></p>
+<p>原文链接：<a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/" target="_blank" rel="noopener">https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/</a></p>
+</blockquote>
+<p>如果您已经编写了一段时间的JavaScript，那么可以肯定您使用过一些用于处理<strong>文档对象模型（DOM）</strong>的脚本。DOM脚本利用网页提供的一组API（或接口）来操作和处理页面上的元素。</p>
+<p>那么，您应该还熟悉另一个对象模型：CSS对象模型（CSSOM），可能你已经在无意识的时候使用过它。</p>
+<p>在这篇文章中，我将介绍CSSOM的许多重要的功能，从最常见的开始，慢慢转向一些大家不清楚但很实用的小功能。</p>
+<h3 id="什么是CSSOM"><a href="#什么是CSSOM" class="headerlink" title="#什么是CSSOM?"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-0" target="_blank" rel="noopener">#</a>什么是CSSOM?</h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model" target="_blank" rel="noopener">根据MDN</a>:</p>
+<blockquote>
+<p>CSS对象模型是JavaScript处理CSS的API。它很像DOM，只是面向CSS而不是HTML。它允许用户动态地读取和修改CSS样式。 </p>
+</blockquote>
+<p>MDN的信息基于 <a href="https://drafts.csswg.org/cssom/" target="_blank" rel="noopener">官方的W3C CSSOM规范</a>. 用W3C文档来熟悉CSSOM的是一种低效的方式，也不适用于那些正在寻找一些实际编码示例的人。</p>
+<p>使用MDN显然会好得多，虽然在某些方面仍然很缺乏。因此，对于这篇文章，我试图尽力的去创建有用的代码示例来演示，这样您就可以通过实际代码解除疑惑。</p>
+<p>就像上面所说，文章从大多数前端开发人员熟悉的内容开始。里面有一些公有属性常常和DOM脚本混在一起，但是CSSOM的API还是占了很大一部分。</p>
+<h3 id="使用element-style获取内联样式"><a href="#使用element-style获取内联样式" class="headerlink" title="#使用element.style获取内联样式"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-1" target="_blank" rel="noopener">#</a>使用element.style获取内联样式</h3><p>使用JavaScript操作和获取CSS属性和值的最基本方法是通过<code>style</code>对象或属性，这个对象和属性往往对于所有的HTML元素都适用。这里有一个例子： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.style.background = <span class="string">'lightblue'</span>;</span><br></pre></td></tr></table></figure>
+<p>大多数人之前可能已经看过或用过这种语法。我可以使用<code>element.style.propertyName</code>.的格式为页面上的任何对象添加或更改CSS 。</p>
+<p>在上述例子中，我正在将<code>background</code>属性的值更改为<code>lightblue</code>。当然，<code>background</code>是“短属性”（只有一个单词组成的属性）。如果我只想更改<code>background-color</code>属性怎么办？对于任何带连字符的属性，只需将属性名称转换为驼峰法的形式，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.style.backgroundColor = <span class="string">'lightblue'</span>;</span><br></pre></td></tr></table></figure>
+<p>在大多数情况下，“短属性”以小写单词的形式表示和访问，而连字符属性用驼峰法表示。但是有一个例外是使用<code>float</code>属性。因为<code>float</code>是JavaScript中的保留字，所以您需要使用<code>cssFloat</code>（如果您支持IE8及更早版本，请使用<code>styleFloat</code>）。这类似于HTML中的<code>for</code>属性，我们使用<code>htmlFor</code> 来表示。</p>
+<p>下面是一个使用<code>style</code>属性来允许用户更改当前页面背景颜色的例子：</p>
+<iframe height="665" style="width: 100%;" scrolling="no" title="GzWBxP" src="//codepen.io/zhehuaxuan/embed/GzWBxP/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/GzWBxP/" target="_blank" rel="noopener">GzWBxP</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>我们使用JavaScript定义CSS属性和值虽然简单方法，但是使用<code>style</code>属性有一个很大的前提：<strong>只适用于元素的内联样式</strong>。</p>
+<p>当您使用该<code>style</code>属性读取CSS 时，这一点变得清晰：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.style.backgroundColor = <span class="string">'lightblue'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.body.style.backgroundColor);</span><br><span class="line"><span class="comment">// "lightblue"</span></span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，我在<code>&lt;body&gt;</code>元素上定义了一个内联样式，然后我将相同的样式输出到控制台。但是如果我尝试去读取<code>style</code>的另一个属性的值时，它将不返回任何内容 - 除非是我之前在CSS或JavaScript中定义的内联样式。例如： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.body.style.color);</span><br><span class="line"><span class="comment">// Returns nothing if inline style doesn't exist</span></span><br></pre></td></tr></table></figure>
+<p>即使我使用外部样式表的<code>color</code> 属性去修饰<code>&lt;body&gt;</code> 元素，也同样获取不到值，如下所示：</p>
+<div class="cp_embed_wrapper resizable" style="height: 434px;"><iframe name="cp_embed_2" src="https://codepen.io/impressivewebs/embed/LXPewe?height=434&amp;theme-id=1&amp;slug-hash=LXPewe&amp;default-tab=result&amp;user=impressivewebs&amp;pen-title=element.style%20Reads%20Only%20Inline%20Styles&amp;name=cp_embed_2" scrolling="no" frameborder="0" height="434" allowtransparency="true" allowfullscreen="true" allowpaymentrequest="true" title="element.style只读取内联样式" class="cp_embed_iframe " style="width: 100%; overflow: hidden; display: block; height: 100%;" id="cp_embed_LXPewe"></iframe><div class="win-size-grip" style="touch-action: none;"></div><div class="win-size-grip" style="touch-action: none;"></div><div class="win-size-grip" style="touch-action: none;"></div><div class="win-size-grip" style="touch-action: none;"></div></div>
+
+<p>通过JavaScript使用<code>element.style</code>的方式去改变元素的属性是最简单和通用的方式，但是你也看到这里很明显有很大的限制，让我们继续来看一下JavaScript还有那些更好用的方式去读取和修改我们的样式。</p>
+<h3 id="获取计算样式"><a href="#获取计算样式" class="headerlink" title="#获取计算样式"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-2" target="_blank" rel="noopener">#</a>获取计算样式</h3><p>您可以使用<code>window.getComputedStyle()</code> 方法来读取元素上的任何CSS属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.getComputedStyle(<span class="built_in">document</span>.body).background;</span><br><span class="line"><span class="comment">// "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"</span></span><br></pre></td></tr></table></figure>
+<p>哇，真实一个有意思的结果。在某种程度上，<code>window.getComputedStyle()</code>是<code>style</code>的孪生兄弟。如果直接使用<code>style</code>属性给你提供的元素实际样式信息太少，那么使用<code>window.getComputedStyle()</code>会给您一些启发。</p>
+<iframe height="465" style="width: 100%;" scrolling="no" title="使用window.getComputedStyle" src="//codepen.io/zhehuaxuan/embed/NopOMB/?height=465&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>
+
+<p>在上述示例中，<code>&lt;body&gt;</code>元素的<code>background</code>属性是使用<code>background: papayawhip;</code>定义。但<code>getComputedStyle()</code>方法返回<code>background</code>属性中的所有值，未在CSS中明确定义的那些将返回这个属性的初始（或默认）值。</p>
+<p>这意味着，对于任何属性，即使CSS中没有定义它们，使用<code>window.getComputedStyle()</code>仍可以返回所有初始值： </p>
+<iframe height="465" style="width: 100%;" scrolling="no" title="window.getComputedStyle()输出初始属性" src="//codepen.io/zhehuaxuan/embed/aXJRXN/?height=465&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>
+
+<p>类似地，比如<code>width</code>和<code>height</code>这样的属性，不管这些值是否在CSS中的任何位置定义，它将显示元素对应属性的计算值，如下面的示例所示： </p>
+<iframe height="465" style="width: 100%;" scrolling="no" title="计算元素的width和height" src="//codepen.io/zhehuaxuan/embed/PVpyra/?height=465&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>
+
+<p>尝试调整上面示例中的父元素大小以查看结果。这类似于读取<code>window.innerWidth</code>值，只是在这边是去获取指定元素上指定属性的CSS值，而不仅仅是一般的窗口或视口。</p>
+<p>这里我们使用<code>window.getComputedStyle()</code>方法中的几种方式来访问。我已经演示了其中的一种方法，它使用<strong>点符号+驼峰式属性名称</strong>的方式添加到方法的末尾。您可以在以下代码中看到三种不同的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dot notation, same as above</span></span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(el).backgroundColor;</span><br><span class="line"></span><br><span class="line"><span class="comment">// square bracket notation</span></span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(el)[<span class="string">'background-color'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// using getPropertyValue()</span></span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(el).getPropertyValue(<span class="string">'background-color'</span>);</span><br></pre></td></tr></table></figure>
+<p>上面第一种方法的形式和先前的那个例子一样。</p>
+<p>第二种方式使用中括号将CSS属性用单引号包裹起来，这种方式不推荐，代码编译器会告警。</p>
+<p>第三种使用<code>getPropertyValue()</code> 的方式。</p>
+<p>在第一个例子中，我们使用骆驼法（在这个例子中，<code>float</code>和<code>cssFloat</code>属性都可以工作），而接下来的两个方法使用相同的语法形式，使用CSS中的属性（连字符，通常被称为“烤肉箱”）。</p>
+<p>下面的示例与前一个相同，但这次使用<code>getPropertyValue()</code>访问两个元素的宽度：</p>
+<p></p><p class="codepen" data-height="465" data-theme-id="dark" data-default-tab="html,result" data-user="zhehuaxuan" data-slug-hash="pGeQOy" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;" data-pen-title="pGeQOy"><br>  <span>See the Pen <a href="https://codepen.io/zhehuaxuan/pen/pGeQOy/" target="_blank" rel="noopener"><br>  pGeQOy</a> by 宣浙华 (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>)<br>  on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span><br></p><p></p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<h3 id="获取伪元素的计算样式"><a href="#获取伪元素的计算样式" class="headerlink" title="#获取伪元素的计算样式"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-3" target="_blank" rel="noopener">#</a>获取伪元素的计算样式</h3><p>一个鲜为人知的事情就是<code>window.getComputedStyle()</code>能够获取伪元素的样式信息。你可以看到 <code>window.getComputedStyle()</code> 方法像如下形式的声明。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.getComputedStyle(<span class="built_in">document</span>.body, <span class="literal">null</span>).width;</span><br></pre></td></tr></table></figure>
+<p>请注意第二个参数, <code>null</code>, Firefox的版本4之前的需要第二个参数，这就是为什么你经常在老代码中看到它（目前所有的浏览器都不需要这个参数）。</p>
+<p>第二个参数可选，允许我们去获得当前元素的伪元素的属性，如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.box::before &#123;</span><br><span class="line">  content: 'Example';</span><br><span class="line">  display: block;</span><br><span class="line">  width: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，我们给<code>.box</code> 元素添加了一个<code>::before</code> 的伪元素，下面的JavaScript代码用于计算伪元素的属性值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.querySelector(<span class="string">'.box'</span>);</span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(box, <span class="string">'::before'</span>).width;</span><br><span class="line"><span class="comment">// "50px"</span></span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="getComputedStyle() to get styles from a pseudo-element" src="//codepen.io/zhehuaxuan/embed/XOMOoJ/?height=265&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/XOMOoJ/" target="_blank" rel="noopener">getComputedStyle() to get styles from a pseudo-element</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>您也可以为其他伪元素执行此操作<code>::first-line</code>，如以下代码和演示： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="built_in">document</span>.querySelector(<span class="string">'.box p'</span>);</span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(p, <span class="string">'::first-line'</span>).color;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="getComputedStyle() to get styles from a pseudo-element first-line" src="//codepen.io/zhehuaxuan/embed/vbxbMe/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/vbxbMe/" target="_blank" rel="noopener">getComputedStyle() to get styles from a pseudo-element first-line</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>And here’s another example using the <code>::placeholder</code> pseudo-element, which apples to <code>&lt;input&gt;</code>elements:</p>
+<p>这里有另外一个例子使用使用input标签中的<code>::placeholder</code>伪元素，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> input = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>);</span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(input, <span class="string">'::placeholder'</span>).color</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="getComputedStyle() to get styles from a ::placeholder" src="//codepen.io/zhehuaxuan/embed/GzWzVx/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/GzWzVx/" target="_blank" rel="noopener">getComputedStyle() to get styles from a ::placeholder</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<blockquote>
+<p>以上工作在最新的Firefox中，但不适用于Chrome或Edge（我已经为Chrome 提交了错误报告）。</p>
+</blockquote>
+<p>还应该注意的是，尝试访问不存在（但有效）的伪元素的样式时，浏览器会有不同的结果（<code>::banana</code>伪元素）。您可以使用以下演示在各种浏览器中查看效果： </p>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Testing getComputedStyle() on non-existent pseudo-elements" src="//codepen.io/zhehuaxuan/embed/VgpRer/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/VgpRer/" target="_blank" rel="noopener">Testing getComputedStyle() on non-existent pseudo-elements</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>作为本节的一个小点，有一个名为Firefox的方法<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getDefaultComputedStyle" target="_blank" rel="noopener"><code>getDefaultComputedStyle()</code></a>，它不是规范的一部分，可能永远不会。 </p>
+<h3 id="CSSStyleDeclaration-API"><a href="#CSSStyleDeclaration-API" class="headerlink" title="#CSSStyleDeclaration API"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-4" target="_blank" rel="noopener">#</a>CSSStyleDeclaration API</h3><p>早些时候，当我向您展示如何通过<code>style</code>对象或使用<code>getComputedStyle()</code>访问属性，在这两种情况下，这些技术都暴露了<code>CSSStyleDeclaration</code>接口。</p>
+<p>换句话说，以下两行都将返回<code>CSSStyleDeclaration</code>文档<code>body</code>元素上的对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.style;</span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
+<p>下面是这两个对象返回的快照：</p>
+<p><img src="https://css-tricks.com/wp-content/uploads/2018/11/cssstyledeclaration-api.png" alt="The CSSStyleDeclaration API in the DevTools console"></p>
+<p><code>getComputedStyle()</code>函数返回的值是只读的，使用<code>element.style</code>，获取和设置属性是可以的，但是就像先前提到的，<strong>这些只会影响document的内联样式</strong>。</p>
+<h3 id="setProperty-getPropertyValue-和item"><a href="#setProperty-getPropertyValue-和item" class="headerlink" title="#setProperty(), getPropertyValue(), 和item()"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-5" target="_blank" rel="noopener">#</a>setProperty(), getPropertyValue(), 和item()</h3><p>一旦您以上述方式之一暴露了<code>CSSStyleDeclaration</code>对象，您就可以访问许多有用的方法来读取或操作这些值。同样，<code>getComputedStyle()返回的</code>值是只读的，但是当通过<code>style</code>属性使用时，某些方法可用于获取和设置。</p>
+<p>请考虑以下代码和演示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.querySelector(<span class="string">'.box'</span>);</span><br><span class="line"></span><br><span class="line">box.style.setProperty(<span class="string">'color'</span>, <span class="string">'orange'</span>);</span><br><span class="line">box.style.setProperty(<span class="string">'font-family'</span>, <span class="string">'Georgia, serif'</span>);</span><br><span class="line">op.innerHTML = box.style.getPropertyValue(<span class="string">'color'</span>);</span><br><span class="line">op2.innerHTML = <span class="string">`<span class="subst">$&#123;box.style.item(<span class="number">0</span>)&#125;</span>, <span class="subst">$&#123;box.style.item(<span class="number">1</span>)&#125;</span>`</span>;</span><br></pre></td></tr></table></figure>
+<iframe height="265" style="width: 100%;" scrolling="no" title="Using three different methods of the CSSStyleDeclaration API" src="//codepen.io/zhehuaxuan/embed/JxWzyy/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/JxWzyy/" target="_blank" rel="noopener">Using three different methods of the CSSStyleDeclaration API</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这个例子中，我使用了三种不同的<code>style</code>对象方法： </p>
+<ul>
+<li><code>setProperty()</code>方法。这需要两个参数，每个参数都是一个字符串：属性（以常规CSS表示法）和属性值</li>
+<li><code>getPropertyValue()</code>方法。这需要一个参数，你想要获得的属性。和前面提到的<code>getComputedStyle()</code>方法一样，返回 <code>CSSStyleDeclaration</code> 对象。</li>
+<li><code>item()</code>方法。这需要使用一个参数，这需要一个参数，它是一个正整数，表示您要访问的属性的索引。返回值是该索引处的属性名称。</li>
+</ul>
+<p>注意，在我上面的简单示例中，只有两个样式添加到元素的内联CSS中。这意味着如果我要访问<code>item(2)</code>，返回值将是一个空字符串。如果我<code>getPropertyValue()</code>以前访问未在该元素的内联样式中设置的属性，也会得到相同的结果。 </p>
+<h3 id="使用removeProperty"><a href="#使用removeProperty" class="headerlink" title="# 使用removeProperty()"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-6" target="_blank" rel="noopener">#</a> 使用removeProperty()</h3><p>In addition to the three methods mentioned above, there are two others exposed on a <code>CSSStyleDeclaration</code> object. In the following code and demo, I’m using the <code>removeProperty()</code>method:</p>
+<p>除了上面提到的三种方法之外，还有另外两种方法暴露在一个<code>CSSStyleDeclaration</code>物体上。在下面的代码和示例中，我将使用<code>removeProperty()</code>方法： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">box.style.setProperty(<span class="string">'font-size'</span>, <span class="string">'1.5em'</span>);</span><br><span class="line">box.style.item(<span class="number">0</span>) <span class="comment">// "font-size"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.style.removeProperty(<span class="string">'font-size'</span>);</span><br><span class="line"><span class="built_in">document</span>.body.style.item(<span class="number">0</span>); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Using the removeProperty() method of the CSSStyleDeclaration API" src="//codepen.io/zhehuaxuan/embed/wNJOEV/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/wNJOEV/" target="_blank" rel="noopener">Using the removeProperty() method of the CSSStyleDeclaration API</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>In this case, after I set <code>font-size</code> using <code>setProperty()</code>, I log the property name to ensure it’s there. The demo then includes a button that, when clicked, will remove the property using <code>removeProperty()</code>.</p>
+<p>在这种例子中，在我使用<code>setProperty()</code>设置<code>font-size</code>，我记录属性名称，然后使用一个按钮，单击该按钮使用<code>removeProperty()</code>删除该属性。 </p>
+<h3 id="获取和设置属性的优先级"><a href="#获取和设置属性的优先级" class="headerlink" title="#获取和设置属性的优先级"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-7" target="_blank" rel="noopener">#</a>获取和设置属性的优先级</h3><p>最后，这是我在写这篇文章的时候发现了一个有趣的特性：使用<code>getPropertyPriority()</code>，看下面CodePen演示的示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">box.style.setProperty(<span class="string">'font-family'</span>, <span class="string">'Georgia, serif'</span>, <span class="string">'important'</span>);</span><br><span class="line">box.style.setProperty(<span class="string">'font-size'</span>, <span class="string">'1.5em'</span>);</span><br><span class="line"></span><br><span class="line">box.style.getPropertyPriority(<span class="string">'font-family'</span>); <span class="comment">// important</span></span><br><span class="line">op2.innerHTML = box.style.getPropertyPriority(<span class="string">'font-size'</span>); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Using getPropertyPriority() to get a property&apos;s &amp;quot;importance&amp;quot;" src="//codepen.io/zhehuaxuan/embed/wNJOLv/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/wNJOLv/" target="_blank" rel="noopener">Using getPropertyPriority() to get a property&apos;s &amp;quot;importance&amp;quot;</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在该代码的第一行，您可以看到我使用<code>setProperty()</code>方法，就像我之前一样。但是，我们在这里包含了第三个参数。第三个参数是一个可选字符串，用于定义是否希望该属性附加<code>!important</code>关键字。</p>
+<p>在我为属性设置<code>!important</code>之后，我们使用<code>getPropertyPriority()</code>方法检查该属性的优先级。如果您觉得该属性不重要，可以省略第三个参数，使用关键字<code>undefined</code>，或将第三个参数包含为空字符串。</p>
+<p>我应该在这里强调，这些方法可以与已经直接放在HTML元素<code>style</code>属性上的任何内联样式一起使用。</p>
+<p>所以，如果我有如下HTML：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"border: solid 1px red !important;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我可以使用本节中讨论的任何方法来读取或修改该样式。这里应该注意的是，由于我使用了这种内联样式的简写属性并将其设置为<code>!important</code>，因此我们使用<code>getPropertyPriority()</code>就可以把长属性的<code>important</code>返回出来，请参阅下面的代码和演示： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// These all return "important"</span></span><br><span class="line">box.style.getPropertyPriority(<span class="string">'border'</span>));</span><br><span class="line">box.style.getPropertyPriority(<span class="string">'border-top-width'</span>));</span><br><span class="line">box.style.getPropertyPriority(<span class="string">'border-bottom-width'</span>));</span><br><span class="line">box.style.getPropertyPriority(<span class="string">'border-color'</span>));</span><br><span class="line">box.style.getPropertyPriority(<span class="string">'border-style'</span>));</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Using getPropertyPriority() to check the priority of longhand properties" src="//codepen.io/zhehuaxuan/embed/xMqeZz/?height=265&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/xMqeZz/" target="_blank" rel="noopener">Using getPropertyPriority() to check the priority of longhand properties</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这个例子中，即使我只在<code>border</code>属性中显式设置了<code>style</code>属性，所有关联<code>border</code>的longhand属性也都返回<code>important</code>。 </p>
+<h3 id="CSSStyleSheet-Interface"><a href="#CSSStyleSheet-Interface" class="headerlink" title="# CSSStyleSheet Interface"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-8" target="_blank" rel="noopener">#</a> CSSStyleSheet Interface</h3><p>到目前为止，我所考虑的方法都涉及内联样式（通常不那么有用）和计算样式（这些方式很有用，但通常过于具体）。</p>
+<p>还有一个更有用的API，允许您获取具有可读写性的样式表，而不仅仅是内联样式，这就是<code>CSSStyleSheet</code>。从文档样式表访问文档属性的最简单方法是使用<code>styleSheets</code>属性。这就是<code>CSSStyleSheet接口</code>。</p>
+<p>例如，下面的使用该<code>length</code>属性来查看当前文档具有多少样式表：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.styleSheets.length; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>我可以使用从零开始的索引来引用任何文档的样式表： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.styleSheets[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<p>如果我们用console打印stylesheet ，我们将会看到下面的这些方法和属性：</p>
+<p><img src="https://css-tricks.com/wp-content/uploads/2018/11/docstylesheet.png" alt="The CSSStyleSheet Interface in the DevTools Console"></p>
+<p>这里最有用的属性是<code>cssRules</code>。此属性提供样式表中包含的所有CSS规则（包括声明块，规则，媒体规则等）。在下面，我将详细介绍如何利用此API来操作和读取外部样式表中的样式。 </p>
+<h3 id="使用Stylesheet-对象"><a href="#使用Stylesheet-对象" class="headerlink" title="#使用Stylesheet 对象"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-9" target="_blank" rel="noopener">#</a>使用Stylesheet 对象</h3><p>为了简单起见，让我们使用外部样式表，其中只包含少量规则。这里请允许我演示如何使用CSSOM访问样式表的不同部分，和DOM脚本的方式类似。</p>
+<p>这是我使用下面的样式表：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Helvetica, Arial, sans-serif;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">1024px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.component</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  <span class="attribute">border-left</span>: solid <span class="number">1px</span> <span class="number">#444</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> (max-width: <span class="number">800px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.component</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: none;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: lightgreen;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> exampleAnimation &#123;</span><br><span class="line">  <span class="selector-tag">from</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  20% &#123;</span><br><span class="line">    <span class="attribute">color</span>: orange;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="selector-tag">to</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: green;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">code</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: firebrick;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我可以在这个例子中尝试很多事情，首先，我将循环遍历样式表中的所有样式规则，并记录每个样式的选择器的值： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myRules = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules,</span><br><span class="line">    p = <span class="built_in">document</span>.querySelector(<span class="string">'p'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">of</span> myRules) &#123;</span><br><span class="line">  <span class="keyword">if</span> (i.type === <span class="number">1</span>) &#123;</span><br><span class="line">    p.innerHTML += <span class="string">`&lt;code&gt;<span class="subst">$&#123;i.selectorText&#125;</span>&lt;/code&gt;&lt;br&gt;`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="davLKB" src="//codepen.io/zhehuaxuan/embed/davLKB/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/davLKB/" target="_blank" rel="noopener">davLKB</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在上面的示例中需要注意的几件事情。首先，我缓存记录外部样式表的<code>cssRules</code>对象的引用。然后我遍历该对象中的所有规则，检查每个规则的类型。</p>
+<p>在这种情况下，我想要类型的规则<code>1</code>，它代表<code>STYLE_RULE</code>常量。其他常量包括<code>IMPORT_RULE</code>（3），<code>MEDIA_RULE</code>（4），<code>KEYFRAMES_RULE</code>（7）等。您可以<a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants" target="_blank" rel="noopener">在此MDN文章中</a>查看这些常量的完整表。</p>
+<p>当我确认规则是样式规则时，我打印每个样式规则的<code>selectorText</code>属性。展示如下结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*</span><br><span class="line">body</span><br><span class="line">main</span><br><span class="line">.component</span><br><span class="line">a:hover</span><br><span class="line">code</span><br></pre></td></tr></table></figure>
+<p><code>selectorText</code>属性表示选择器样式规则的名称。这是一个可写属性，所以如果我用<code>for</code>使用以下代码更改原始循环内特定规则的选择器： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i.selectorText === <span class="string">'a:hover'</span>) &#123;</span><br><span class="line">  i.selectorText = <span class="string">'a:hover, a:active'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Changing the Selector Text" src="//codepen.io/zhehuaxuan/embed/yZMrmE/?height=265&theme-id=dark&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/yZMrmE/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Changing the Selector Text</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这个例子中，我查询一个选择器（链接），把 <code>:hover</code> 属性查询出来，应用到 <code>:active</code> 中。而且，我可以使用字符串方法甚至是正则表达式来查找所有实例的<code>:hover</code>，然后从那里做一些事情。但这个例子已经足以证明它是工作原理了。 </p>
+<h3 id="使用CSSOM访问-media规则"><a href="#使用CSSOM访问-media规则" class="headerlink" title="#使用CSSOM访问@media规则"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-10" target="_blank" rel="noopener">#</a>使用CSSOM访问@media规则</h3><p>您会注意到我的样式表还包括媒体查询规则：@keyframes at-rule。当我搜索样式规则（类型1）时，这两个都被跳过了。我们现在找到所有<code>@media</code>规则： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myRules = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules,</span><br><span class="line">    p = <span class="built_in">document</span>.querySelector(<span class="string">'.output'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">of</span> myRules) &#123;</span><br><span class="line">  <span class="keyword">if</span> (i.type === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (j <span class="keyword">of</span> i.cssRules) &#123;</span><br><span class="line">      p.innerHTML += <span class="string">`&lt;code&gt;<span class="subst">$&#123;j.selectorText&#125;</span>&lt;/code&gt;&lt;br&gt;`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于给定的样式表，上面将产生： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">body</span><br><span class="line">.component</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Accessing @media Rules" src="//codepen.io/zhehuaxuan/embed/MLpdJz/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/MLpdJz/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Accessing @media Rules</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>正如您所看到的，在我遍历所有规则以查看是否存在<code>@media</code>规则（类型4）之后，我遍历<code>cssRules</code>的每个媒体规则对象（在这种情况下，只有一个）并记录在那个媒体规则里面的每个规则的选择器文本。</p>
+<p>因此，<code>@media</code>规则上公开的接口类似于样式表上公开的接口。<code>@media</code>但是，该规则还包含一个<code>conditionText</code>属性，如以下代码段和演示中所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myRules = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules,</span><br><span class="line">    p = <span class="built_in">document</span>.querySelector(<span class="string">'.output'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">of</span> myRules) &#123;</span><br><span class="line">  <span class="keyword">if</span> (i.type === <span class="number">4</span>) &#123;</span><br><span class="line">    p.innerHTML += <span class="string">`&lt;code&gt;<span class="subst">$&#123;i.conditionText&#125;</span>&lt;/code&gt;&lt;br&gt;`</span>;</span><br><span class="line">    <span class="comment">// (max-width: 800px) </span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Accessing @media Rules" src="//codepen.io/zhehuaxuan/embed/OdmOwd/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/OdmOwd/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Accessing @media Rules</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>此代码循环遍历所有媒体查询规则，并记录确定该规则何时适用的文本（即条件）。还有一个<code>mediaText</code>返回相同值的属性。根据规范，您可以获得或设置其中任何一个。 </p>
+<h3 id="使用CSSOM访问-keyframes规则"><a href="#使用CSSOM访问-keyframes规则" class="headerlink" title="#使用CSSOM访问@keyframes规则"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-11" target="_blank" rel="noopener">#</a>使用CSSOM访问@keyframes规则</h3><p>Now that I’ve demonstrated how to read information from a <code>@media</code> rule, let’s consider how to access a <code>@keyframes</code> rule. Here’s some code to get started:</p>
+<p>现在我已经演示了如何读取<code>@media</code>规则中的信息，现在让我们考虑如何访问<code>@keyframes</code>规则。我们从下面的代码开始： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myRules = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules,</span><br><span class="line">    p = <span class="built_in">document</span>.querySelector(<span class="string">'.output'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">of</span> myRules) &#123;</span><br><span class="line">  <span class="keyword">if</span> (i.type === <span class="number">7</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (j <span class="keyword">of</span> i.cssRules) &#123;</span><br><span class="line">     p.innerHTML += <span class="string">`&lt;code&gt;<span class="subst">$&#123;j.keyText&#125;</span>&lt;/code&gt;&lt;br&gt;`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Accessing @keyframes Rules" src="//codepen.io/zhehuaxuan/embed/mvmqzz/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/mvmqzz/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Accessing @keyframes Rules</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这个例子中，我正在查询类型为7（i.e. <code>@keyframes</code>规则）的规则。当找到一个规则时，遍历所有规则<code>cssRules</code>并记录每个规则的<code>keyText</code>属性。这种情况下的日志将是： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;0%&quot;</span><br><span class="line">&quot;20%&quot;</span><br><span class="line">&quot;100%&quot;</span><br></pre></td></tr></table></figure>
+<p>您会注意到我的原始CSS使用<code>from</code>并<code>to</code>作为第一个和最后一个关键帧，但是<code>keyText</code>属性计算这些<code>0%</code>和<code>100%</code>。<code>keyText</code>也可以设置值。在我的示例样式表中，我可以像这样硬编码： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Read the current value (0%)</span></span><br><span class="line"><span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules[<span class="number">6</span>].cssRules[<span class="number">0</span>].keyText;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Change the value to 10%</span></span><br><span class="line"><span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules[<span class="number">6</span>].cssRules[<span class="number">0</span>].keyText = <span class="string">'10%'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Read the new value (10%)</span></span><br><span class="line"><span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules[<span class="number">6</span>].cssRules[<span class="number">0</span>].keyText;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Setting @keyframes Rules" src="//codepen.io/zhehuaxuan/embed/jdmaRP/?height=465&theme-id=dark&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/jdmaRP/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Setting @keyframes Rules</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>使用此功能，我们可以动态更改Web应用程序流中的动画关键帧，也可以响应用户操作。</p>
+<p>访问<code>@keyframes</code>规则时可用的另一个属性是<code>name</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myRules = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules,</span><br><span class="line">    p = <span class="built_in">document</span>.querySelector(<span class="string">'.output'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">of</span> myRules) &#123;</span><br><span class="line">  <span class="keyword">if</span> (i.type === <span class="number">7</span>) &#123;</span><br><span class="line">    p.innerHTML += <span class="string">`&lt;code&gt;<span class="subst">$&#123;i.name&#125;</span>&lt;/code&gt;&lt;br&gt;`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Getting the name of a @keyframes rule" src="//codepen.io/zhehuaxuan/embed/JxNOQM/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/JxNOQM/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Getting the name of a @keyframes rule</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>回想一下，在CSS中，<code>@keyframes</code>规则如下所示： </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">keyframes</span> exampleAnimation &#123;</span><br><span class="line">  <span class="selector-tag">from</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  20% &#123;</span><br><span class="line">    <span class="attribute">color</span>: orange;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="selector-tag">to</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: green;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此，<code>name</code>属性允许我读取以<code>@keyframes</code>和自定义名称该规则。<code>animation-name</code>特定元素上启用动画时在属性中使用的名称相同。</p>
+<p>我在这里要提到的最后一件事是能够获取单个关键帧内的特定样式。这是一些带有演示的示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myRules = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules,</span><br><span class="line">    p = <span class="built_in">document</span>.querySelector(<span class="string">'.output'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">of</span> myRules) &#123;</span><br><span class="line">  <span class="keyword">if</span> (i.type === <span class="number">7</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (j <span class="keyword">of</span> i.cssRules) &#123;</span><br><span class="line">      p.innerHTML += <span class="string">`&lt;code&gt;<span class="subst">$&#123;j.style.color&#125;</span>&lt;/code&gt;&lt;br&gt;`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Accessing Property Values inside @keyframes Rules" src="//codepen.io/zhehuaxuan/embed/WPjdrQ/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/WPjdrQ/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Accessing Property Values inside @keyframes Rules</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这个例子中，在我找到<code>@keyframes</code>规则之后，我遍历关键帧中的每个规则（例如“from”规则，“20％”规则等）。然后，在每个规则中，我访问一个单独的<code>style</code>属性。在这种情况下，因为我知道<code>color</code>是为每个定义的唯一属性，我只是注销颜色值。</p>
+<p>这个例子的主要内容是使用<code>style</code>属性或对象。之前我展示了如何使用此属性来访问内联样式。但在这种情况下，我使用它来访问单个关键帧内的各个属性。</p>
+<p>你可能会看到这是如何开辟一些可能性的。这允许您动态修改单个关键帧的属性，这可能是由于某些用户操作或应用程序或可能是基于Web的游戏中发生的其他事件而发生的。</p>
+<h3 id="添加和删除CSS声明"><a href="#添加和删除CSS声明" class="headerlink" title="#添加和删除CSS声明"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-12" target="_blank" rel="noopener">#</a>添加和删除CSS声明</h3><p><code>CSSStyleSheet</code>可以访问两种方法，允许您从样式表中添加或删除整个规则：<code>insertRule()</code>和<code>deleteRule()</code>。让我们看看在示例中，他们两个如何操作样式表： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myStylesheet = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">console</span>.log(myStylesheet.cssRules.length); <span class="comment">// 8</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.styleSheets[<span class="number">0</span>].insertRule(<span class="string">'article &#123; line-height: 1.5; font-size: 1.5em; &#125;'</span>, myStylesheet.cssRules.length);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules.length); <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="qgmpay" src="//codepen.io/zhehuaxuan/embed/qgmpay/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/qgmpay/" target="_blank" rel="noopener">qgmpay</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这种情况下，我正在记录<code>cssRules</code>属性的长度（显示样式表最初有8个规则），然后我使用以下<code>insertRule()</code>方法将以下CSS添加为单独的规则： </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">article</span> &#123;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.5em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我<code>cssRules</code>再次记录属性的长度以确认添加了规则。</p>
+<p>该<code>insertRule()</code>方法将字符串作为第一个参数（这是必需的），包括要插入的完整样式规则（包括选择器，花括号等）。如果您正在插入一个规则，那么完整的规则，包括嵌套在at规则中的各个规则可以包含在此字符串中。</p>
+<p>第二个参数是可选的。这是一个整数，表示您希望插入规则的位置或索引。如果未包括，则默认为<code>0</code>（意味着规则将插入规则集合的开头）。如果索引恰好大于规则对象的长度，则会引发错误。</p>
+<p>该<code>deleteRule()</code>方法使用起来更简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myStylesheet = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">console</span>.log(myStylesheet.cssRules.length); <span class="comment">// 8</span></span><br><span class="line"></span><br><span class="line">myStylesheet.deleteRule(<span class="number">3</span>);</span><br><span class="line"><span class="built_in">console</span>.log(myStylesheet.cssRules.length); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the CSSStyleSheet API – Deleting Rules" src="//codepen.io/zhehuaxuan/embed/WPjdWj/?height=465&theme-id=dark&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"><br>  See the Pen <a href="https://codepen.io/zhehuaxuan/pen/WPjdWj/" target="_blank" rel="noopener">Working with the CSSStyleSheet API – Deleting Rules</a> by 宣浙华<br>  (<a href="https://codepen.io/zhehuaxuan" target="_blank" rel="noopener">@zhehuaxuan</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.<br></iframe>
+
+<p>在这个例子中，这个方法接受一个参数，该参数表示我要删除的规则的索引。</p>
+<p>使用任一方法，由于基于零的索引，作为参数传入的选定索引必须小于<code>cssRules</code>对象的长度，否则将引发错误</p>
+<h3 id="重新访问-CSSStyleDeclaration-API"><a href="#重新访问-CSSStyleDeclaration-API" class="headerlink" title="#重新访问 CSSStyleDeclaration API"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-13" target="_blank" rel="noopener">#</a>重新访问 CSSStyleDeclaration API</h3><p>之前我解释了如何访问声明为内联样式的单个属性和值。这是通过<code>element.style</code>，暴露<code>CSSStyleDeclaration</code>接口完成的。</p>
+<p><code>CSSStyleDeclaration</code>API，但是，作为<code>CSSStyleSheet</code>API的子集暴露 在一个单独的样式规则。当我向您展示如何访问<code>@keyframes</code>规则内的属性时，我已经提到了这一点。要了解其工作原理，请比较以下两个代码段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: lightblue; width: 100px; font-size: 1.3em !important;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: lightblue;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.3em</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个例子是获取内联样式的集合如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">'div'</span>).style</span><br></pre></td></tr></table></figure>
+<p><code>CSSStyleDeclaration</code>API，允许我获取<code>element.style.color</code>，<code>element.style.width</code>等属性对象。</p>
+<p>但我可以在外部样式表中的单个样式规则上公开完全相同的API。这意味着我将我对<code>style</code>属性的使用与<code>CSSStyleSheet</code>界面结合起来。</p>
+<p>因此，上面第二个示例中的CSS使用与内联版本完全相同的样式，可以像这样访问：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules[<span class="number">0</span>].style</span><br></pre></td></tr></table></figure>
+<p>这里打开一个外链样式表的一个样式规则的<code>CSSStyleDeclaration</code>对象，如果有对个样式规则，可以使用<code>cssRules[1]</code>, <code>cssRules[2]</code>, <code>cssRules[3]</code>等方式来获取。</p>
+<p>因此，在外部样式表中，在类型的单个样式规则内1，我可以访问前面提到的所有方法和属性。这包括s<code>etProperty()，getPropertyValue()，item()，removeProperty()</code>和<code>getPropertyPriority()</code>。除此之外，这些相同的功能可用于@keyframes或@media规则内的单个样式规则。</p>
+<p>这是一个代码片段和演示，演示了如何在我们的示例样式表中的单个样式规则上使用这些方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Grab the style rules for the body and main elements</span></span><br><span class="line"><span class="keyword">let</span> myBodyRule = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules[<span class="number">1</span>].style,</span><br><span class="line">    myMainRule = <span class="built_in">document</span>.styleSheets[<span class="number">0</span>].cssRules[<span class="number">2</span>].style;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set the bg color on the body</span></span><br><span class="line">myBodyRule.setProperty(<span class="string">'background-color'</span>, <span class="string">'peachpuff'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the font size of the body</span></span><br><span class="line">myBodyRule.getPropertyValue(<span class="string">'font-size'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the 5th item in the body's style rule</span></span><br><span class="line">myBodyRule.item(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Log the current length of the body style rule (8)</span></span><br><span class="line">myBodyRule.length;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Remove the line height</span></span><br><span class="line">myBodyRule.removeProperty(<span class="string">'line-height'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// log the length again (7)</span></span><br><span class="line">myBodyRule.length;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check priority of font-family (empty string)</span></span><br><span class="line">myBodyRule.getPropertyPriority(<span class="string">'font-family'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check priority of margin in the "main" style rule (!important)</span></span><br><span class="line">myMainRule.getPropertyPriority(<span class="string">'margin'</span>);</span><br></pre></td></tr></table></figure>
+<iframe height="465" style="width: 100%;" scrolling="no" title="Working with the style object of an individual style rule in an external Stylesheet" src="//codepen.io/zhehuaxuan/embed/vbmdGL/?height=465&theme-id=dark&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>
+
+<h3 id="CSS类型对象模型…未来？"><a href="#CSS类型对象模型…未来？" class="headerlink" title="#CSS类型对象模型…未来？"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-14" target="_blank" rel="noopener">#</a>CSS类型对象模型…未来？</h3><p>After everything I’ve considered in this article, it would seem odd that I’d have to break the news that it’s possible that one day the CSSOM as we know it will be mostly obsolete.</p>
+<p>在上面提过的所有内容之后，</p>
+<p>我不得不打破这样的消息，即有一天我们所知道的CSSOM很可能已经过时了。</p>
+<p>That’s because of something called the <a href="https://drafts.css-houdini.org/css-typed-om/" target="_blank" rel="noopener">CSS Typed OM</a> which is part of <a href="https://drafts.css-houdini.org/" target="_blank" rel="noopener">the Houdini Project</a>. Although some people have noted that the new Typed OM is more verbose compared to the current CSSOM, the benefits, as outlined <a href="https://developers.google.com/web/updates/2018/03/cssom" target="_blank" rel="noopener">in this article by Eric Bidelman</a>, include:</p>
+<p>那是因为称为<a href="https://drafts.css-houdini.org/css-typed-om/" target="_blank" rel="noopener">CSS Typed OM</a>的东西，它是<a href="https://drafts.css-houdini.org/" target="_blank" rel="noopener">Houdini项目的</a>一部分。虽然有些人已经注意到新的Typed OM与目前的CSSOM相比更加冗长，但<a href="https://developers.google.com/web/updates/2018/03/cssom" target="_blank" rel="noopener">Eric Bidelman在本文中</a>概述的好处包括： </p>
+<ul>
+<li>Fewer bugs</li>
+<li>Arithmetic operations and unit conversion</li>
+<li>Better performance</li>
+<li>Error handling</li>
+<li>CSS property names are always strings</li>
+</ul>
+<p>For full details on those features and a glimpse into the syntax, be sure to check out <a href="https://developers.google.com/web/updates/2018/03/cssom" target="_blank" rel="noopener">the full article</a>.</p>
+<p>As of this writing, CSS Typed OM is supported only in Chrome. You can see the progress of browser support <a href="https://www.chromestatus.com/feature/5682491075592192" target="_blank" rel="noopener">in this document</a>.</p>
+<p>在我在本文中考虑过的所有内容之后，我不得不打破这样的消息，即有一天我们所知道的CSSOM很可能已经过时了。</p>
+<p>那是因为称为<a href="https://drafts.css-houdini.org/css-typed-om/" target="_blank" rel="noopener">CSS Typed OM</a>的东西，它是<a href="https://drafts.css-houdini.org/" target="_blank" rel="noopener">Houdini项目的</a>一部分。虽然有些人已经注意到新的Typed OM与目前的CSSOM相比更加冗长，但<a href="https://developers.google.com/web/updates/2018/03/cssom" target="_blank" rel="noopener">Eric Bidelman在本文中</a>概述的好处包括：</p>
+<ul>
+<li>更少的错误</li>
+<li>算术运算和单位转换</li>
+<li>更好的性能</li>
+<li>错误处理</li>
+<li>CSS属性名称始终是字符串</li>
+</ul>
+<p>有关这些功能的完整详细信息和语法的一瞥，请务必查看<a href="https://developers.google.com/web/updates/2018/03/cssom" target="_blank" rel="noopener">完整的文章</a>。</p>
+<p>在撰写本文时，CSS Typed OM仅在Chrome中受支持。您可以<a href="https://www.chromestatus.com/feature/5682491075592192" target="_blank" rel="noopener">在本文档中</a>查看浏览器支持的进度。</p>
+<h3 id="最后小结"><a href="#最后小结" class="headerlink" title="#最后小结"></a><a href="https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/#article-header-id-15" target="_blank" rel="noopener">#</a>最后小结</h3><p>通过JavaScript操作样式表肯定不是你在每个项目中都要做的事情。使用我在这里介绍的方法和属性实现的一些复杂交互有一些非常具体的用例。</p>
+<p>如果您已经构建了某种使用这些API的工具，<a href="https://webtoolsweekly.com/?view=suggest" target="_blank" rel="noopener">我很乐意听到它</a>。我的研究只是触及了可能的表面，但我很想知道在现实世界的例子中如何使用它。</p>
+<p>我已将本文中的所有演示文稿<a href="https://codepen.io/collection/DEmrVv/" target="_blank" rel="noopener">放入CodePen集合中</a>，因此您可以根据自己的喜好随意使用它们。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSSOM/" rel="tag"># CSSOM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/26/js/gc/" rel="next" title="JS的GC整理">
+                <i class="fa fa-chevron-left"></i> JS的GC整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="ZheHuaXuan" />
+            
+              <p class="site-author-name" itemprop="name">ZheHuaXuan</p>
+              <p class="site-description motion-element" itemprop="description">知足.感恩.幸运</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zhehuaxuan" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:xuanzhehua@huawei.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是CSSOM"><span class="nav-number">1.</span> <span class="nav-text">#什么是CSSOM?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用element-style获取内联样式"><span class="nav-number">2.</span> <span class="nav-text">#使用element.style获取内联样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取计算样式"><span class="nav-number">3.</span> <span class="nav-text">#获取计算样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取伪元素的计算样式"><span class="nav-number">4.</span> <span class="nav-text">#获取伪元素的计算样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSSStyleDeclaration-API"><span class="nav-number">5.</span> <span class="nav-text">#CSSStyleDeclaration API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setProperty-getPropertyValue-和item"><span class="nav-number">6.</span> <span class="nav-text">#setProperty(), getPropertyValue(), 和item()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用removeProperty"><span class="nav-number">7.</span> <span class="nav-text"># 使用removeProperty()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取和设置属性的优先级"><span class="nav-number">8.</span> <span class="nav-text">#获取和设置属性的优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSSStyleSheet-Interface"><span class="nav-number">9.</span> <span class="nav-text"># CSSStyleSheet Interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Stylesheet-对象"><span class="nav-number">10.</span> <span class="nav-text">#使用Stylesheet 对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CSSOM访问-media规则"><span class="nav-number">11.</span> <span class="nav-text">#使用CSSOM访问@media规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CSSOM访问-keyframes规则"><span class="nav-number">12.</span> <span class="nav-text">#使用CSSOM访问@keyframes规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加和删除CSS声明"><span class="nav-number">13.</span> <span class="nav-text">#添加和删除CSS声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新访问-CSSStyleDeclaration-API"><span class="nav-number">14.</span> <span class="nav-text">#重新访问 CSSStyleDeclaration API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS类型对象模型…未来？"><span class="nav-number">15.</span> <span class="nav-text">#CSS类型对象模型…未来？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后小结"><span class="nav-number">16.</span> <span class="nav-text">#最后小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZheHuaXuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
