@@ -1,5 +1,5 @@
 # zhehuaxuan.github.io
-个人高质量博客，博客地址请猛戳[这里](https://zhehuaxuan.github.io/)，欢迎大家访问阅读，您的star是我的动力！
+个人高质量博客，博客地址请猛戳☞[这里](https://zhehuaxuan.github.io/)，欢迎大家访问阅读，您的**star**是我的动力！
 
 ## 最新文章
 
