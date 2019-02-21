@@ -389,22 +389,24 @@
 <p>目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。</p>
 <h2 id="JavaScript新建对象的过程"><a href="#JavaScript新建对象的过程" class="headerlink" title="JavaScript新建对象的过程"></a>JavaScript新建对象的过程</h2><p>在ES5中定义一个函数来创建对象，如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"xuan"</span>)</span><br></pre></td></tr></table></figure>
-<p>JavaScript调用new的过程主要由下面四步组成：</p>
+<p>JavaScript调用<strong>new</strong>的过程主要由下面四步组成：</p>
+<blockquote>
 <ol>
 <li>新生成一个对象</li>
 <li>链接到原型中</li>
 <li>绑定this</li>
 <li>返回新对象</li>
 </ol>
+</blockquote>
 <p>下面跟着我按照这个思路来创建对象：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//Todo</span></span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,<span class="string">"xuan"</span>);<span class="comment">//create(ObjectName,...arguments)</span></span><br></pre></td></tr></table></figure>
-<p>我们使用如上所示的函数来模拟new对象。</p>
+<p>我们使用如上所示的函数来模拟<strong>new</strong>对象。</p>
 <p>首先第一步新建一个对象：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,<span class="string">"xuan"</span>);</span><br></pre></td></tr></table></figure>
-<p>现在已经创建并返回一个对象，当然现在打印出来肯定是一个普通的对象，流程还没有走完，我们接着往下看。第二步链接到原型中。</p>
+<p>现在已经创建并返回一个对象，当然现在打印出来肯定是一个普通的对象，毕竟流程还没有走完，我们接着往下看。第二步链接到原型中。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">constructor</span> = [].shift.call(arguments);</span><br><span class="line">    console.log(<span class="keyword">constructor</span>);</span><br><span class="line">    console.log(arguments);</span><br><span class="line">    obj.__proto__ = <span class="keyword">constructor</span>.prototype;</span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190221235358202.png" alt="image-20190221235358202"></p>
-<p>现在把构造函数和参数都打印出来了。没问题，第三步绑定this，如下：</p>
+<p>现在把构造函数和参数都打印出来了。没问题！第三步绑定this，如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments)</span><br><span class="line">  obj.__proto__ = <span class="keyword">constructor</span>.prototype</span><br><span class="line">  <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  console.log(obj);  </span><br><span class="line">  return obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222002407145.png" alt="image-20190222002407145"></p>
 <p>打印结果实现new对象的效果。</p>
@@ -414,12 +416,17 @@
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222002825742.png" alt="image-20190222002825742"></p>
 <p>我们执行一下我们构建的函数效果如下：</p>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222002932127.png" alt="image-20190222002932127"></p>
-<p>所以我们要处理第三步绑定this中apply函数的返回值：</p>
+<p>发现不一致，所以我们要处理第三步绑定this中apply函数的返回值：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments)</span><br><span class="line">  obj.__proto__ = <span class="keyword">constructor</span>.prototype</span><br><span class="line">  //<span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  if(res)&#123;</span><br><span class="line">     <span class="keyword">return</span> res;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> obj;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,<span class="string">"xuan"</span>);</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222003313618.png" alt="image-20190222003313618"></p>
-<p>完美！我们思考一下这里的res返回值有三种情况：undefined，基本类型，对象。</p>
-<p>如果res是undefined时，返回obj；如果res是基本类型我们也返回obj，如果res是对象我们返回res对象。</p>
+<p>完美！</p>
+<p>现在我们思考一下这里的res返回值有三种情况：undefined，基本类型，对象。</p>
+<blockquote>
+<p>如果res是undefined时，返回obj；</p>
+<p>如果res是基本类型我们也返回obj；</p>
+<p>如果res是对象我们返回res对象；</p>
+</blockquote>
 <p>综合一下：</p>
 <p>如果返回的res对象是Object类型那么返回res，否则返回obj。当然其他的判断条件也是可以的。最后代码优化如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments)</span><br><span class="line">  obj.__proto__ = <span class="keyword">constructor</span>.prototype</span><br><span class="line">  //<span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  return res instanceof Object?res:obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
