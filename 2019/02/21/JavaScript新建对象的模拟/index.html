@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后面我将推出《JavaScript进阶系列》，大家跟我一起走向进阶之路">
+<meta name="description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习">
 <meta name="keywords" content="JavaScript Object">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript模拟新建对象">
+<meta property="og:title" content="JavaScript进阶之模拟new Object()过程">
 <meta property="og:url" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
-<meta property="og:description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后面我将推出《JavaScript进阶系列》，大家跟我一起走向进阶之路吧。 JavaScript新建对象的过程在ES5中定义一个函数来创建对象，如下：">
+<meta property="og:description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。 JavaScript新建对象的过">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190221235358202.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222002407145.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222002825742.png">
-<meta property="og:image" content="https://zhehuaxuan.github.io/Users/user/Documents/github/blog/source/_posts/JavaScript新建对象的模拟/image-20190222002932127.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222002932127.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222003313618.png">
-<meta property="og:updated_time" content="2019-02-21T16:53:06.445Z">
+<meta property="og:updated_time" content="2019-02-21T16:57:15.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript模拟新建对象">
-<meta name="twitter:description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后面我将推出《JavaScript进阶系列》，大家跟我一起走向进阶之路吧。 JavaScript新建对象的过程在ES5中定义一个函数来创建对象，如下：">
+<meta name="twitter:title" content="JavaScript进阶之模拟new Object()过程">
+<meta name="twitter:description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。 JavaScript新建对象的过">
 <meta name="twitter:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190221235358202.png">
 
 
@@ -132,7 +132,7 @@
 
 
 
-  <title>JavaScript模拟新建对象 | zhehua's note</title>
+  <title>JavaScript进阶之模拟new Object()过程 | zhehua's note</title>
   
 
 
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript模拟新建对象</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript进阶之模拟new Object()过程</h1>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
 
       
         <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。</p>
-<p>目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后面我将推出《JavaScript进阶系列》，大家跟我一起走向进阶之路吧。</p>
+<p>目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。</p>
 <h2 id="JavaScript新建对象的过程"><a href="#JavaScript新建对象的过程" class="headerlink" title="JavaScript新建对象的过程"></a>JavaScript新建对象的过程</h2><p>在ES5中定义一个函数来创建对象，如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"xuan"</span>)</span><br></pre></td></tr></table></figure>
 <p>JavaScript调用new的过程主要由下面四步组成：</p>
@@ -416,7 +416,7 @@
 <p>效果如下:</p>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222002825742.png" alt="image-20190222002825742"></p>
 <p>我们执行一下我们构建的函数效果如下：</p>
-<p><img src="/Users/user/Documents/github/blog/source/_posts/JavaScript新建对象的模拟/image-20190222002932127.png" alt="image-20190222002932127"></p>
+<p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222002932127.png" alt="image-20190222002932127"></p>
 <p>所以我们要处理第三步绑定this中apply函数的返回值：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments)</span><br><span class="line">  obj.__proto__ = <span class="keyword">constructor</span>.prototype</span><br><span class="line">  //<span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  if(res)&#123;</span><br><span class="line">     <span class="keyword">return</span> res;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> obj;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,<span class="string">"xuan"</span>);</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
