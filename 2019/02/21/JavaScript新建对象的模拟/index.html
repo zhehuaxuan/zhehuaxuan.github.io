@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222003313618.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222192124090.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222193001990.png">
-<meta property="og:updated_time" content="2019-02-22T11:44:10.421Z">
+<meta property="og:updated_time" content="2019-02-22T12:02:22.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript进阶之模拟new Object()过程">
 <meta name="twitter:description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。 JavaScript新建对象的过">
@@ -455,7 +455,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">arguments</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>);</span><br></pre></td></tr></table></figure>
 <p>结果如下</p>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222193001990.png" alt="image-20190222193001990"></p>
-<p>不是数组。我们展开发现他跟数组很像，查一下资料发现这个对象是类数组。里面没有shift函数，直接调用shift会报错。我们使用使用Array.from(arguments)将arguments转成数组，然后在调用shift函数也是一种思路。但是在这里我们使用apply最适合。所以下述代码是模拟new Object()的最优代码:</p>
+<p>不是数组。我们展开发现他跟数组很像，查一下资料发现这个对象是<strong>类数组</strong>。里面没有shift函数，直接调用shift会报错。我们使用使用Array.from(arguments)将arguments转成数组，然后在调用shift函数也是一种思路。但是在这里我们使用apply最适合。所以下述代码是模拟new Object()的最优代码:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments);</span><br><span class="line">  let obj = Object.create(<span class="keyword">constructor</span>.prototype);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  return res instanceof Object?res:obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
 <p>还有更优的实现方法，请大佬们不吝拍砖！</p>
 
