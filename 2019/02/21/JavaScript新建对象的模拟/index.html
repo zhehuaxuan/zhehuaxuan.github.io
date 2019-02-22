@@ -92,7 +92,9 @@
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222002825742.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222002932127.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222003313618.png">
-<meta property="og:updated_time" content="2019-02-21T17:08:44.940Z">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222192124090.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/02/21/JavaScript新建对象的模拟/image-20190222193001990.png">
+<meta property="og:updated_time" content="2019-02-22T11:44:10.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript进阶之模拟new Object()过程">
 <meta name="twitter:description" content="写在前面的话前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。 目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。 JavaScript新建对象的过">
@@ -391,25 +393,27 @@
         <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>前端的入门相对简单，相对于其他方向天花板可能会相对较低。但是在市场上一个优秀的前端依旧是很抢手的。能够站在金字塔上的人往往寥寥无几。</p>
 <p>目前前端也已经一年半了，在公司的知识栈相对落后，就业形势不容乐观，所以有必要自己琢磨，往中高级前端进阶。后续我将推出《JavaScript进阶系列》，一方面是一个监督自己学习的一个过程，另一方面也会给看到的童鞋一些启发。</p>
 <h2 id="JavaScript新建对象的过程"><a href="#JavaScript新建对象的过程" class="headerlink" title="JavaScript新建对象的过程"></a>JavaScript新建对象的过程</h2><p>在ES5中定义一个函数来创建对象，如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"xuan"</span>)</span><br></pre></td></tr></table></figure>
-<p>JavaScript调用<strong>new</strong>的过程主要由下面四步组成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"xuan"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person.name);<span class="comment">//输出：xuan</span></span><br><span class="line"><span class="built_in">console</span>.log(person.getName());<span class="comment">//输出：xuan</span></span><br></pre></td></tr></table></figure>
+<p>我们看到当我们新建一个对象，我们就可以访问构造器中的指向<strong>this</strong>的属性，还可以访问原型中的属性。我们不妨把JavaScript调用<strong>new</strong>的过程主要由下面四步组成：</p>
 <blockquote>
 <ol>
-<li>新生成一个对象</li>
-<li>链接到原型中</li>
+<li>新生成一个空对象</li>
+<li>将空对象链接到原型中</li>
 <li>绑定this</li>
 <li>返回新对象</li>
 </ol>
 </blockquote>
 <p>下面跟着我按照这个思路来创建对象：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//Todo</span></span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,<span class="string">"xuan"</span>);<span class="comment">//create(ObjectName,...arguments)</span></span><br></pre></td></tr></table></figure>
-<p>我们使用如上所示的函数来模拟<strong>new</strong>对象。</p>
+<p>我们使用如上所示的函数来模拟<strong>new</strong>关键字。</p>
 <p>首先第一步新建一个对象：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,<span class="string">"xuan"</span>);</span><br></pre></td></tr></table></figure>
-<p>现在已经创建并返回一个对象，当然现在打印出来肯定是一个普通的对象，毕竟流程还没有走完，我们接着往下看。第二步链接到原型中。</p>
+<p>现在已经创建并返回一个对象，当然现在打印出来肯定是一个普通的对象，毕竟流程还没有走完，我们接着往下看。</p>
+<p>第二步链接到原型中：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">constructor</span> = [].shift.call(arguments);</span><br><span class="line">    console.log(<span class="keyword">constructor</span>);</span><br><span class="line">    console.log(arguments);</span><br><span class="line">    obj.__proto__ = <span class="keyword">constructor</span>.prototype;</span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190221235358202.png" alt="image-20190221235358202"></p>
-<p>现在把构造函数和参数都打印出来了。没问题！第三步绑定this，如下：</p>
+<p>现在把构造函数和参数都打印出来了。没问题！</p>
+<p>第三步绑定this，如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments)</span><br><span class="line">  obj.__proto__ = <span class="keyword">constructor</span>.prototype</span><br><span class="line">  <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  console.log(obj);  </span><br><span class="line">  return obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222002407145.png" alt="image-20190222002407145"></p>
 <p>打印结果实现new对象的效果。</p>
@@ -433,6 +437,27 @@
 <p>综合一下：</p>
 <p>如果返回的res对象是Object类型那么返回res，否则返回obj。当然其他的判断条件也是可以的。最后代码优化如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments)</span><br><span class="line">  obj.__proto__ = <span class="keyword">constructor</span>.prototype</span><br><span class="line">  //<span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  return res instanceof Object?res:obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
+<h2 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h2><p>现在的代码已经完美了么？我们先来提几个问题。</p>
+<blockquote>
+<ol>
+<li>new Object()创建的对象纯净么？</li>
+<li>为啥使用[].shift.call()来进行参数分割？arguments是一个数组么？</li>
+</ol>
+</blockquote>
+<h3 id="new-Object-创建的对象纯净么？"><a href="#new-Object-创建的对象纯净么？" class="headerlink" title="new Object()创建的对象纯净么？"></a>new Object()创建的对象纯净么？</h3><p>首先什么是纯净？我们定义一个对象的<code>__proto__</code>属性为空的对象是一个纯净的对象。</p>
+<p>在第二步的时候中已经改变的obj的原型链，所以无论它前面的原型链是咋样的都无所谓，但是为了保证对象的纯净性，我们有必要引出<code>Object.create()</code>，该方法创建一个新对象，使用现有的对象来提供新创建的对象的<code>__proto__</code>。我们来看一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person1 = <span class="built_in">Object</span>.create(&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>打印如下:</p>
+<p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222192124090.png" alt="image-20190222192124090"></p>
+<p>我们看到person1的<code>__proto__</code>指向了<code>{}</code>对象，所以我们在上述代码中直接修改如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments);</span><br><span class="line">  let obj = Object.create(<span class="keyword">constructor</span>.prototype);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  return res instanceof Object?res:obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
+<h3 id="为啥使用-shift-call-来进行参数分割？arguments是一个数组么？"><a href="#为啥使用-shift-call-来进行参数分割？arguments是一个数组么？" class="headerlink" title="为啥使用[].shift.call()来进行参数分割？arguments是一个数组么？"></a>为啥使用[].shift.call()来进行参数分割？arguments是一个数组么？</h3><p>首先我们知道arguments是函数传入的参数，那么这个参数是数组么？我们打印一下便知：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">arguments</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>);</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<p><img src="/2019/02/21/JavaScript新建对象的模拟/image-20190222193001990.png" alt="image-20190222193001990"></p>
+<p>不是数组。我们展开发现他跟数组很像，查一下资料发现这个对象是类数组。里面没有shift函数，直接调用shift会报错。我们使用使用Array.from(arguments)将arguments转成数组，然后在调用shift函数也是一种思路。但是在这里我们使用apply最适合。所以下述代码是模拟new Object()的最优代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="keyword">constructor</span> = [].shift.call(arguments);</span><br><span class="line">  let obj = Object.create(<span class="keyword">constructor</span>.prototype);</span><br><span class="line">  let res = <span class="keyword">constructor</span>.apply(obj, arguments);</span><br><span class="line">  return res instanceof Object?res:obj;</span><br><span class="line">&#125;</span><br><span class="line">person = create(Person,"xuan");</span><br></pre></td></tr></table></figure>
+<p>还有更优的实现方法，请大佬们不吝拍砖！</p>
 
       
     </div>
@@ -623,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面的话"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript新建对象的过程"><span class="nav-number">2.</span> <span class="nav-text">JavaScript新建对象的过程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面的话"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript新建对象的过程"><span class="nav-number">2.</span> <span class="nav-text">JavaScript新建对象的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几个问题"><span class="nav-number">3.</span> <span class="nav-text">几个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-Object-创建的对象纯净么？"><span class="nav-number">3.1.</span> <span class="nav-text">new Object()创建的对象纯净么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥使用-shift-call-来进行参数分割？arguments是一个数组么？"><span class="nav-number">3.2.</span> <span class="nav-text">为啥使用[].shift.call()来进行参数分割？arguments是一个数组么？</span></a></li></ol></li></ol></div>
             
 
           </div>
