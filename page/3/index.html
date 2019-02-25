@@ -292,6 +292,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/20/communication/HTTP的用户认证方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/20/communication/HTTP的用户认证方式/" itemprop="url">HTTP的用户认证方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T15:27:13+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/通信/" itemprop="url" rel="index">
+                    <span itemprop="name">通信</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="HTTP的用户认证方式"><a href="#HTTP的用户认证方式" class="headerlink" title="HTTP的用户认证方式"></a>HTTP的用户认证方式</h3><h4 id="1-Basic认证"><a href="#1-Basic认证" class="headerlink" title="1. Basic认证"></a>1. Basic认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717218205.png" alt="1526717218205"></p>
+<ul>
+<li>步骤一：当请求的资源需要 BASIC 认证时，服务器会随状态码 401 Authorization Required，返回带 WWW-Authenticate 首部字段的响应。该字段内包含认证的方式（BASIC） 及Request-URI 安全域字符串（realm）</li>
+<li>步骤二：客户端将用户 ID 及密码发送给服务器，如上图所示</li>
+<li>步骤三：对认证信息的正确性进行验证。如验证通过，则返回一条包含 Request-URI 资源的响应</li>
+</ul>
+<p><strong>缺点：</strong>使用Base64编码，安全性不高，并且认证使用上不够便捷灵活</p>
+<h4 id="2-Digest认证"><a href="#2-Digest认证" class="headerlink" title="2. Digest认证"></a>2. Digest认证</h4><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526717389002.png" alt="1526717389002"></p>
+<p>DIGEST 认证提供了高于 BASIC 认证的安全等级，但是和 HTTPS 的客户端认证相比仍旧很弱。DIGEST 认证提供防止密码被窃听的保护机制，但并不存在防止用户伪装的保护机制。</p>
+<h4 id="3-SSL认证"><a href="#3-SSL认证" class="headerlink" title="3. SSL认证"></a>3. SSL认证</h4><p>SSL 客户端认证采用双因素认证</p>
+<blockquote>
+<p>双因素认证就是指，认证过程中不仅需要用户名，密码这一个因素，还需要申请认证者提供其他持有信息。与其组合使用的认证方式就是双因素认证</p>
+<p>第一个认证因素的 SSL 客户端证书用来认证客户端计算机</p>
+<p>另一个认证因素的密码则用来确定这是用户本人的行为。</p>
+</blockquote>
+<h4 id="4-基于表单的认证"><a href="#4-基于表单的认证" class="headerlink" title="4. 基于表单的认证"></a>4. 基于表单的认证</h4><h5 id="4-1-Session-管理及-Cookie-应用"><a href="#4-1-Session-管理及-Cookie-应用" class="headerlink" title="4.1 Session 管理及 Cookie 应用"></a>4.1 Session 管理及 Cookie 应用</h5><p><img src="https://github.com/zhehuaxuan/web_full_stack/raw/master/%E5%85%A8%E6%A0%88/%E9%80%9A%E4%BF%A1/imgs/1526718629646.png" alt="1526718629646"></p>
+<ul>
+<li>步骤一：客户端发送登录信息：ID和密码，使用Https进行传输保证安全性</li>
+<li>步骤二：服务器验证ID和密码，如果认证通过那么创建session，并且把sessionId通过Set-Cookie的形式发送给客户端，为减轻跨站脚本攻击（XSS）造成的损失，建议事先在 Cookie 内加上 httponly 属性</li>
+<li>步骤三：客户端获取到set-Cookie的响应头以后，就会将cookie保存在浏览器进程中不同于一般的cookie，会把cookie的信息保存在客户端所在的磁盘中，并且在后续发送的Http请求中都会以key-value</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/05/19/communication/HTTPS协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1282,7 +1444,7 @@ Singleton.getInstance().publicMethod();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1304,7 +1466,7 @@ Singleton.getInstance().publicMethod();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
