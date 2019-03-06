@@ -109,8 +109,8 @@
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/phpcode1520358163TxhEt5.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/98c5ee483d3b1d15a6028724289501ee.png">
 <meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306224747300.png">
-<meta property="og:image" content="https://zhehuaxuan.github.io/Users/user/Documents/github/blog/source/_posts/跟underscore一起学如何写函数库/image-20190306230712917.png">
-<meta property="og:updated_time" content="2019-03-06T16:29:18.841Z">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306230712917.png">
+<meta property="og:updated_time" content="2019-03-06T16:33:32.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跟underscore一起学如何写函数库">
 <meta name="twitter:description" content="目的Underscore 是一个 JavaScript 工具库，它提供了一整套函数式编程的实用功能，但是没有扩展任何 JavaScript 内置对象。 本文主要用于梳理和研究underscore内部是如何组织和处理函数的。 通过这篇文章，我们可以：  了解underscore在函数组织方面的巧妙构思； 为自己书写函数库提供一定思路；  我们开始！ 自己写个函数库前端的小伙伴一定不会对jQuery陌">
@@ -569,7 +569,7 @@
 <p>我们再执行以下代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]));</span><br><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">1</span>));</span><br><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
-<p><img src="/Users/user/Documents/github/blog/source/_posts/跟underscore一起学如何写函数库/image-20190306230712917.png" alt="image-20190306230712917"></p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306230712917.png" alt="image-20190306230712917"></p>
 <p>Perfect！</p>
 <p>这个函数在我们的浏览器中使用已经没有问题。</p>
 <p>但是在Node中呢？所以下面引出新的问题。</p>
