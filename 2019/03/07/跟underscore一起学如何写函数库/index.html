@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="underscore 封装," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="目的Underscore 是一个 JavaScript 工具库，它提供了一整套函数式编程的实用功能，但是没有扩展任何 JavaScript 内置对象。 本文主要用于梳理和研究underscore内部是如何组织和处理函数的。 通过这篇文章，我们可以：  了解underscore在函数组织方面的巧妙构思； 为自己书写函数库">
+<meta name="keywords" content="underscore 封装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跟underscore一起学如何写函数库">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/index.html">
+<meta property="og:site_name" content="zhehua&#39;s note">
+<meta property="og:description" content="目的Underscore 是一个 JavaScript 工具库，它提供了一整套函数式编程的实用功能，但是没有扩展任何 JavaScript 内置对象。 本文主要用于梳理和研究underscore内部是如何组织和处理函数的。 通过这篇文章，我们可以：  了解underscore在函数组织方面的巧妙构思； 为自己书写函数库提供一定思路；  我们开始！ 自己写个函数库前端的小伙伴一定不会对jQuery陌">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190305235718888.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306000334727.png">
+<meta property="og:image" content="http://p3.pstatp.com/large/pgc-image/1523714090989c11ac2a799">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306201849178.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306235445836.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306214133549.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/phpcode1539082657ex9plP.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190307000429320.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306214554433.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306214848922.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306214932983.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/Thu%20Mar%2007%202019%2000:08:10%20GMT+0800%20(CST">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306215555025.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/20170606015124803.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306215729756.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/DoiNZIvT.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306220704637.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306221231484.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/1507598461-2836.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/phpcode1520358163TxhEt5.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/98c5ee483d3b1d15a6028724289501ee.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190306224747300.png">
+<meta property="og:image" content="https://zhehuaxuan.github.io/Users/user/Documents/github/blog/source/_posts/跟underscore一起学如何写函数库/image-20190306230712917.png">
+<meta property="og:updated_time" content="2019-03-06T16:29:18.841Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跟underscore一起学如何写函数库">
+<meta name="twitter:description" content="目的Underscore 是一个 JavaScript 工具库，它提供了一整套函数式编程的实用功能，但是没有扩展任何 JavaScript 内置对象。 本文主要用于梳理和研究underscore内部是如何组织和处理函数的。 通过这篇文章，我们可以：  了解underscore在函数组织方面的巧妙构思； 为自己书写函数库提供一定思路；  我们开始！ 自己写个函数库前端的小伙伴一定不会对jQuery陌">
+<meta name="twitter:image" content="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/image-20190305235718888.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/"/>
+
+
+
+
+
+  <title>跟underscore一起学如何写函数库 | zhehua's note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhehua's note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时光
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-nav">
+          <a href="/nav/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-send"></i> <br />
+            
+            站点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-think">
+          <a href="/think/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-grav"></i> <br />
+            
+            随想
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2019/03/07/跟underscore一起学如何写函数库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">跟underscore一起学如何写函数库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T22:49:38+08:00">
+                2019-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/underscore/" itemprop="url" rel="index">
+                    <span itemprop="name">underscore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p><a href="http://github.com/jashkenas/underscore/" target="_blank" rel="noopener">Underscore</a> 是一个 JavaScript 工具库，它提供了一整套函数式编程的实用功能，但是没有扩展任何 JavaScript 内置对象。</p>
+<p>本文主要用于梳理和研究underscore内部是如何组织和处理函数的。</p>
+<p>通过这篇文章，我们可以：</p>
+<blockquote>
+<p>了解underscore在函数组织方面的巧妙构思；</p>
+<p>为自己书写函数库提供一定思路；</p>
+</blockquote>
+<p>我们开始！</p>
+<h2 id="自己写个函数库"><a href="#自己写个函数库" class="headerlink" title="自己写个函数库"></a>自己写个函数库</h2><p>前端的小伙伴一定不会对jQuery陌生，经常使用<code>$.xxxx</code>的形式进行进行调用，underscore也使用<code>_.xxxx</code>，如果自己在ES5语法中写过自定义模块的话，就可以撸出下面一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//定义</span></span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">var</span> _ = &#123;&#125;;</span><br><span class="line">    _.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    root._ = _;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<p>在Chrome浏览器中打开之后，打印出如下结果：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190305235718888.png" alt="image-20190305235718888"></p>
+<p>我们看到在全局对象下有一个<code>_</code>属性，属性下面挂载了自定义函数，我们不妨使用<code>_.first(xxxx)</code>在全局环境下直接调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]));</span><br><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">1</span>));</span><br><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306000334727.png" alt="image-20190306000334727"></p>
+<p>没问题，我们的函数库制作完成了，我们一般直接这么用，也不会有太大问题。</p>
+<h2 id="underscore是怎么做的？"><a href="#underscore是怎么做的？" class="headerlink" title="underscore是怎么做的？"></a>underscore是怎么做的？</h2><p>underscore正是基于上述代码的完善，那么underscore是如何接着往下做的呢？容我娓娓道来！</p>
+<h3 id="对兼容性的考虑"><a href="#对兼容性的考虑" class="headerlink" title="对兼容性的考虑"></a>对兼容性的考虑</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Establish the root object, `window` (`self`) in the browser, `global`</span></span><br><span class="line"><span class="comment">// on the server, or `this` in some virtual machines. We use `self`</span></span><br><span class="line"><span class="comment">// instead of `window` for `WebWorker` support.</span></span><br><span class="line"><span class="keyword">var</span> root = <span class="keyword">typeof</span> self == <span class="string">'object'</span> &amp;&amp; self.self === self &amp;&amp; self ||</span><br><span class="line">              <span class="keyword">typeof</span> global == <span class="string">'object'</span> &amp;&amp; global.global === global &amp;&amp; global ||</span><br><span class="line">              <span class="keyword">this</span> ||</span><br><span class="line">              &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面是<a href="https://underscorejs.org/" target="_blank" rel="noopener">underscore1.9.1</a>IIFE函数中的源码，对应于我们上面自己写的<code>var root = this;</code>。</p>
+<p>在源码中作者也解释了：创建root对象，并且给root赋值：</p>
+<blockquote>
+<p>浏览器端：window也可以是window.self或者直接self</p>
+<p>服务端（node）：global</p>
+<p>WebWorker：self</p>
+<p>虚拟机：this</p>
+</blockquote>
+<p>underscore充分考虑了兼容性。</p>
+<h3 id="支持两种不同风格的函数调用"><a href="#支持两种不同风格的函数调用" class="headerlink" title="支持两种不同风格的函数调用"></a>支持两种不同风格的函数调用</h3><p>在underscore中我们可以使用两种方式调用函数：</p>
+<ol>
+<li>函数式的调用：<code>console.log(_.first([1,2,3,4]));</code></li>
+<li>对象式调用：<code>console.log(_([1,2,3,4])).first();</code></li>
+</ol>
+<p>在underscore中，它们返回的结果都是相同的。</p>
+<p>第一种方式没有问题，难点就是第二种方式的调用调用。</p>
+<h4 id="对象式调用的实现"><a href="#对象式调用的实现" class="headerlink" title="对象式调用的实现"></a>对象式调用的实现</h4><p>解决这个问题要达到两个目的：</p>
+<ol>
+<li><code>_</code>是一个函数，并且调用返回一个对象；</li>
+<li>这个对象依然能够调用挂载在<code>_</code>对象上声明的方法。</li>
+</ol>
+<p>我们来看看underscore对于<code>_</code>的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> _) <span class="keyword">return</span> obj;</span><br><span class="line">      <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> _)) <span class="keyword">return</span> <span class="keyword">new</span> _(obj);</span><br><span class="line">      <span class="keyword">this</span>._wrapped = obj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><img src="http://p3.pstatp.com/large/pgc-image/1523714090989c11ac2a799" alt="ç¸éåç"></p>
+<p>不怕，我们不妨调用<code>_([1,2,3,4]))</code>看看他是怎么执行的！</p>
+<p><strong>第一步</strong>：<code>if (obj instanceof _) return obj;</code>传入的对象及其原型链上有<code>_</code>类型的对象，则返回自身。我们这里的<code>[1,2,3,4]</code>显然不是，跳过。</p>
+<p><strong>第二步</strong>：<code>if (!(this instanceof _)) return new _(obj);</code>，如果当前的this对象及其原型链上没有<code>_</code>类型的对象，那么执行<code>new</code>操作。调用<code>_([1,2,3,4]))</code>时，<code>this</code>为<code>window</code>，那么<code>(this instanceof _)</code>为<code>false</code>，所以我们执行<code>new _([1,2,3,4])</code>。</p>
+<p><strong>第三步</strong>：执行<code>new _([1,2,3,4])</code>，继续调用<code>_</code>函数，这时</p>
+<blockquote>
+<p><code>obj</code>为<code>[1,2,3,4]</code></p>
+<p>this为一个新对象，并且这个对象的<code>__proto__</code>指向<code>_.prototype</code>(对于new对象执行有疑问，请猛戳<a href="https://juejin.im/post/5c6ed96ae51d450da463513c" target="_blank" rel="noopener">此处</a>)</p>
+</blockquote>
+<p>此时</p>
+<blockquote>
+<p>(obj instanceof _)为<code>false</code></p>
+<p>(obj instanceof _)为<code>true</code></p>
+</blockquote>
+<p>所以此处会执行<code>this._wrapped = obj;</code>，在新对象中，添加<code>_wrapped</code>属性，将`[1,2,3,4]挂载进去。</p>
+<p>综合上述函数实现的效果就是：</p>
+<p><code>_([1,2,3,4]))&lt;=====&gt;new _([1,2,3,4])</code></p>
+<p>然后执行如下构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._wrapped = obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后得到的对象为：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306201849178.png" alt="image-20190306201849178"></p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306235445836.png" alt="image-20190306235445836"></p>
+<p>我们执行如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]));</span><br><span class="line"><span class="built_in">console</span>.log(_.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).__proto__ == _.prototype);</span><br></pre></td></tr></table></figure>
+<p>看一下打印的信息：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306214133549.png" alt="image-20190306214133549"></p>
+<p>这表明通过<code>_（obj）</code>构建出来的对象确实具有两个特征：</p>
+<ol>
+<li>下面挂载了我们传入的对象/数组</li>
+<li>对象的<code>_proto_</code>属性指向<code>_</code>的<code>prototype</code></li>
+</ol>
+<p>到此我们已经完成了第一个问题。</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/phpcode1539082657ex9plP.png" alt="ãææ­£æ¯ä¸ªå¤©æ è¡¨æåãçåçæå°çµæ"></p>
+<p>接着解决第二个问题：</p>
+<p><strong>这个对象依然能够调用挂载在<code>_</code>对象上声明的方法</strong></p>
+<p>我们先来执行如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).first();</span><br></pre></td></tr></table></figure>
+<p>此时JavaScript执行器会先去找<code>_([1,2,3,4])</code>返回的对象上是否有<code>first</code>属性，如果没有就会顺着对象的原型链上去找<code>first</code>属性，直到找到并执行它。</p>
+<p>我们发现<code>_([1,2,3,4])</code>返回的对象属性和原型链上都没有<code>first</code>！</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190307000429320.png" alt="image-20190307000429320"></p>
+<p>那我们自己先在<code>_.prototype</code>上面加一个上去试一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//定义</span></span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">typeof</span> self == <span class="string">'object'</span> &amp;&amp; self.self === self &amp;&amp; self ||</span><br><span class="line">    <span class="keyword">typeof</span> global == <span class="string">'object'</span> &amp;&amp; global.global === global &amp;&amp; global ||</span><br><span class="line">    <span class="keyword">this</span> ||</span><br><span class="line">    &#123;&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> _) <span class="keyword">return</span> obj;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> _)) <span class="keyword">return</span> <span class="keyword">new</span> _(obj);</span><br><span class="line">        <span class="keyword">this</span>._wrapped = obj;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">    _.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    _.prototype.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    root._ = _;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>我们在执行打印一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]));</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306214554433.png" alt="image-20190306214554433"></p>
+<p>原型链上找到了<code>first</code>函数，我们可以调用<code>first</code>函数了。如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).first());</span><br></pre></td></tr></table></figure>
+<p>可惜报错了：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306214848922.png" alt="image-20190306214848922"></p>
+<p>于是调试一下：<br><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306214932983.png" alt="image-20190306214932983"></p>
+<p>我们发现<code>arr</code>是<code>undefined</code>，但是我们希望<code>arr</code>是<code>[1,2,3,4]</code>。</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/Thu Mar 07 2019 00:08:10 GMT+0800 (CST" alt="ãä¸æ è¡¨æåãçåçæå°çµæ">.png)</p>
+<p>我们马上改一下<code>_.prototype.first</code>的实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">typeof</span> self == <span class="string">'object'</span> &amp;&amp; self.self === self &amp;&amp; self ||</span><br><span class="line">    <span class="keyword">typeof</span> global == <span class="string">'object'</span> &amp;&amp; global.global === global &amp;&amp; global ||</span><br><span class="line">    <span class="keyword">this</span> ||</span><br><span class="line">    &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> _) <span class="keyword">return</span> obj;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> _)) <span class="keyword">return</span> <span class="keyword">new</span> _(obj);</span><br><span class="line">        <span class="keyword">this</span>._wrapped = obj;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">    _.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    _.prototype.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        arr = <span class="keyword">this</span>._wrapped;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    root._ = _;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>我们在执行一下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).first());</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306215555025.png" alt="image-20190306215555025"></p>
+<p>我们的效果似乎已经达到了！</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/20170606015124803.png" alt="ãèµ è¡¨æåãçåçæå°çµæ"></p>
+<p>现在我们执行下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).first(<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<p>调试一下：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306215729756.png" alt="image-20190306215729756"></p>
+<p>凉凉了。</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/DoiNZIvT.png" alt="ãåå è¡¨æåãçåçæå°çµæ"></p>
+<p>其实我们希望的是：</p>
+<blockquote>
+<p> 将<code>[1,2,3,4]</code>和<code>2</code>以<code>arguments</code>的形式传入first函数</p>
+</blockquote>
+<p>我们再来改一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//_.prototype.first = function(arr,n=0)&#123;</span></span><br><span class="line">    <span class="comment">// arr = this._wrapped;</span></span><br><span class="line">    <span class="comment">// if(n==0) return arr[0];</span></span><br><span class="line">    <span class="comment">// return arr.slice(0,n);</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line">_.prototype.first=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 搜集待传入的参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>._wrapped;</span><br><span class="line">    <span class="keyword">var</span> args = [that].concat(<span class="built_in">Array</span>.from(<span class="built_in">arguments</span>));</span><br><span class="line">    <span class="built_in">console</span>.log(args); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们再执行下面代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).first(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>看一下打印的效果：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306220704637.png" alt="image-20190306220704637"></p>
+<p>参数都已经拿到了。</p>
+<p>我们调用函数一下<code>first</code>函数，我们继续改代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_.prototype.first=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">      * 搜集待传入的参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="keyword">var</span> that = <span class="keyword">this</span>._wrapped;</span><br><span class="line">     <span class="keyword">var</span> args = [that].concat(<span class="built_in">Array</span>.from(<span class="built_in">arguments</span>));</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">      * 调用在_属性上的first函数</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     <span class="keyword">return</span> _.first(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样一来_.prototype上面的函数的实际实现都省掉了，相当于做一层<strong>代理</strong>，调用一下。</p>
+<p>一举两得！</p>
+<p>执行一下最初我们的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(_.first([1,2,3,4]));</span><br><span class="line">console.log(_.first([1,2,3,4],1));</span><br><span class="line">console.log(_.first([1,2,3,4],3));</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306221231484.png" alt="image-20190306221231484"></p>
+<p>现在好像我们所有的问题都解决了。</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/1507598461-2836.png" alt="ãèµ è¡¨æåãçåçæå°çµæ"></p>
+<p>但是似乎每声明一个函数都得在原型链上也声明一个相同名字的函数。形如下面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">_.a = <span class="function"><span class="keyword">function</span>(<span class="params">args</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//a的实现</span></span><br><span class="line">&#125;</span><br><span class="line">_.prototype.a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//调用_.a(args)</span></span><br><span class="line">&#125;</span><br><span class="line">_.b = <span class="function"><span class="keyword">function</span>(<span class="params">args</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//b的实现</span></span><br><span class="line">&#125;</span><br><span class="line">_.prototype.b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//调用_.b(args)</span></span><br><span class="line">&#125;</span><br><span class="line">_.c = <span class="function"><span class="keyword">function</span>(<span class="params">args</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//c的实现</span></span><br><span class="line">&#125;</span><br><span class="line">_.prototype.c = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//调用_.c(args)</span></span><br><span class="line">&#125;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line"><span class="number">1000</span>个函数之后...</span><br></pre></td></tr></table></figure>
+<p>会不会觉得太恐怖了!</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/phpcode1520358163TxhEt5.png" alt="ãå®³æ è¡¨æåãçåçæå°çµæ"></p>
+<p>我们能不能改成如下这样呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">_.a = function(args)&#123;</span><br><span class="line">    //a的实现</span><br><span class="line">&#125;</span><br><span class="line">_.b = function(args)&#123;</span><br><span class="line">    //b的实现</span><br><span class="line">&#125;</span><br><span class="line">_.c = function(args)&#123;</span><br><span class="line">    //c的实现</span><br><span class="line">&#125;</span><br><span class="line">1000个函数之后...</span><br><span class="line">_.mixin = function()&#123;</span><br><span class="line">    //将_属性中声明的函数都挂载在_prototype上面</span><br><span class="line">&#125;</span><br><span class="line">_.mixin(_);</span><br></pre></td></tr></table></figure>
+<p>上面这么做好处大大的：</p>
+<p><strong>我们可以专注于函数库的实现，不用机械式的复写prototype上的函数</strong>。</p>
+<p>underscore也正是这么做的！</p>
+<p>我们看看<code>mixin</code>函数在underscore中的源码实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add your own custom functions to the Underscore object.</span></span><br><span class="line">_.mixin = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">   _.each(_.functions(obj), <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> func = _[name] = obj[name];</span><br><span class="line">      _.prototype[name] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">var</span> args = [<span class="keyword">this</span>._wrapped];</span><br><span class="line">          push.apply(args, <span class="built_in">arguments</span>);</span><br><span class="line">          <span class="keyword">return</span> chainResult(<span class="keyword">this</span>, func.apply(_, args));</span><br><span class="line">      &#125;;</span><br><span class="line">   &#125;);</span><br><span class="line">    <span class="keyword">return</span> _;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// Add all of the Underscore functions to the wrapper object.</span></span><br><span class="line">_.mixin(_);</span><br></pre></td></tr></table></figure>
+<p>有了上面的铺垫，这个代码一点都不难看懂，首先调用<code>_.each</code>函数，形式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_.each(arrs, function(item) &#123;</span><br><span class="line">    //遍历arrs数组中的每一个元素</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们一想就明白，我们在<code>_</code>对象属性上实现了自己定义的函数，那么现在要把它们挂载到<code>_</code>的<code>prototype</code>属性上面，当然先要遍历它们了。</p>
+<p>所以我们可以猜到<code>_.functions(obj)</code>肯定返回的是一个数组，而且这个数组肯定是存储<code>_</code>对象属性上面关于我们实现的各个函数的信息。</p>
+<p>我们看一下<code>_.function(obj)</code>的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_.functions = _.methods = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> names = [];</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   **  遍历对象中的属性</span></span><br><span class="line"><span class="comment">   **/</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      <span class="comment">//如果属性值是函数，那么存入names数组中</span></span><br><span class="line">     <span class="keyword">if</span> (_.isFunction(obj[key])) names.push(key);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> names.sort();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>确实是这样的！</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/98c5ee483d3b1d15a6028724289501ee.png" alt="ãæè² è¡¨æåãçåçæå°çµæ"></p>
+<p>我们把上述实现的代码整合起来：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 保证兼容性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">typeof</span> self == <span class="string">'object'</span> &amp;&amp; self.self === self &amp;&amp; self ||</span><br><span class="line">    <span class="keyword">typeof</span> global == <span class="string">'object'</span> &amp;&amp; global.global === global &amp;&amp; global ||</span><br><span class="line">    <span class="keyword">this</span> ||</span><br><span class="line">    &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在调用_(obj)时，让其执行new _(obj),并将obj挂载在_wrapped属性之下</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> _) <span class="keyword">return</span> obj;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> _)) <span class="keyword">return</span> <span class="keyword">new</span> _(obj);</span><br><span class="line">        <span class="keyword">this</span>._wrapped = obj;</span><br><span class="line">      &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//自己实现的first函数</span></span><br><span class="line">    _.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断是否是函数</span></span><br><span class="line">    _.isFunction = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> obj == <span class="string">'function'</span> || <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//遍历生成数组存储_对象的函数值属性</span></span><br><span class="line">    _.functions = _.methods = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> names = [];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">          <span class="keyword">if</span> (_.isFunction(obj[key])) names.push(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> names.sort();</span><br><span class="line">      &#125;;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//自己实现的遍历数组的函数</span></span><br><span class="line">    _.each = <span class="function"><span class="keyword">function</span>(<span class="params">arrs,callback</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;arrs.length;i++)&#123;</span><br><span class="line">            callback(arrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> ArrayProto = <span class="built_in">Array</span>.prototype;</span><br><span class="line">    <span class="keyword">var</span> push = ArrayProto.push;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//underscore实现的mixin函数</span></span><br><span class="line">    _.mixin = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(_.functions(obj)); <span class="comment">//我们打印一下_.functions(_)到底存储了什么？</span></span><br><span class="line">        _.each(_.functions(obj), <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">var</span> func = _[name] = obj[name];</span><br><span class="line">           _.prototype[name] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">               <span class="keyword">var</span> args = [<span class="keyword">this</span>._wrapped];</span><br><span class="line">               push.apply(args, <span class="built_in">arguments</span>);</span><br><span class="line">               <span class="keyword">return</span> func.apply(_, args);</span><br><span class="line">           &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">         <span class="keyword">return</span> _;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行minxin函数</span></span><br><span class="line">    _.mixin(_);</span><br><span class="line">    root._ = _;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>我们看一下<code>_.functions(obj)</code>返回的打印信息：</p>
+<p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306224747300.png" alt="image-20190306224747300"></p>
+<p>确实是<code>_</code>中自定义函数的属性值。</p>
+<p>我们再来分析一下each中callback遍历各个属性的实现逻辑。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = _[name] = obj[name];</span><br><span class="line"> _.prototype[name] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">var</span> args = [<span class="keyword">this</span>._wrapped];</span><br><span class="line">      push.apply(args, <span class="built_in">arguments</span>);</span><br><span class="line">     <span class="keyword">return</span> func.apply(_, args);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>第一句：<code>func</code>变量存储每个自定义函数</p>
+<p>第二句： <code>_.prototype[name]=function();</code>在_.prototype上面也声明相同属性的函数</p>
+<p>第三句：<code>args</code>变量存储<code>_wrapped</code>下面挂载的值</p>
+<p>第四句：跟<code>var args = [that].concat(Array.from(arguments));</code>作用相似，将两边的参数结合起来</p>
+<p>第五句：执行<code>func</code>变量指向的函数，执行<code>apply</code>函数，将上下文对象<code>_</code>和待传入的参数`args``传入即可。</p>
+<p>我们再执行以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]));</span><br><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">1</span>));</span><br><span class="line"><span class="built_in">console</span>.log(_.first([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="/Users/user/Documents/github/blog/source/_posts/跟underscore一起学如何写函数库/image-20190306230712917.png" alt="image-20190306230712917"></p>
+<p>Perfect！</p>
+<p>这个函数在我们的浏览器中使用已经没有问题。</p>
+<p>但是在Node中呢？所以下面引出新的问题。</p>
+<h3 id="再回归兼容性问题"><a href="#再回归兼容性问题" class="headerlink" title="再回归兼容性问题"></a>再回归兼容性问题</h3><p>我们知道在Node中，我们是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a.js</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">module</span>.exports = a;</span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">require</span>(<span class="string">'./a.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(b) <span class="comment">//打印1</span></span><br></pre></td></tr></table></figure>
+<p>那么：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> _ = <span class="built_in">require</span>(<span class="string">'./underscore.js'</span>)</span><br><span class="line">_([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).first(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>我们也希望上述的代码能够在Node中执行。</p>
+<p>所以<code>root._ = _</code>是不够的。</p>
+<p>underscore是怎么做的呢？</p>
+<p>如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> exports != <span class="string">'undefined'</span> &amp;&amp; !exports.nodeType) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> != <span class="string">'undefined'</span> &amp;&amp; !<span class="built_in">module</span>.nodeType &amp;&amp; <span class="built_in">module</span>.exports) &#123;</span><br><span class="line">        exports = <span class="built_in">module</span>.exports = _;</span><br><span class="line">    &#125;</span><br><span class="line">    exports._ = _;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    root._ = _;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们看到当全局属性exports不存在或者不是DOM节点时，说明它在浏览器中，所以：</p>
+<p><code>root._ = _;</code></p>
+<p>如果exports存在，那么就是在Node环境下，我们再来进行判断：</p>
+<p>如果module存在，并且不是DOM节点，并且module.exports也存在的话，那么执行：</p>
+<p><code>exports = module.exports = _;</code></p>
+<p>在统一执行：</p>
+<p><code>exports._ = _;</code></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>下面是最后整合的阉割版underscore代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 保证兼容性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">typeof</span> self == <span class="string">'object'</span> &amp;&amp; self.self === self &amp;&amp; self ||</span><br><span class="line">    <span class="keyword">typeof</span> global == <span class="string">'object'</span> &amp;&amp; global.global === global &amp;&amp; global ||</span><br><span class="line">    <span class="keyword">this</span> ||</span><br><span class="line">    &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在调用_(obj)时，让其执行new _(obj),并将obj挂载在_wrapped属性之下</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> _) <span class="keyword">return</span> obj;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> _)) <span class="keyword">return</span> <span class="keyword">new</span> _(obj);</span><br><span class="line">        <span class="keyword">this</span>._wrapped = obj;</span><br><span class="line">      &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//自己实现的first函数</span></span><br><span class="line">    _.first = <span class="function"><span class="keyword">function</span>(<span class="params">arr,n=<span class="number">0</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> arr.slice(<span class="number">0</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断是否是函数</span></span><br><span class="line">    _.isFunction = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> obj == <span class="string">'function'</span> || <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//遍历生成数组存储_对象的函数值属性</span></span><br><span class="line">    _.functions = _.methods = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> names = [];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">          <span class="keyword">if</span> (_.isFunction(obj[key])) names.push(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> names.sort();</span><br><span class="line">      &#125;;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//自己实现的遍历数组的函数</span></span><br><span class="line">    _.each = <span class="function"><span class="keyword">function</span>(<span class="params">arrs,callback</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;arrs.length;i++)&#123;</span><br><span class="line">            callback(arrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> ArrayProto = <span class="built_in">Array</span>.prototype;</span><br><span class="line">    <span class="keyword">var</span> push = ArrayProto.push;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//underscore实现的mixin函数</span></span><br><span class="line">    _.mixin = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        _.each(_.functions(obj), <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> func = _[name] = obj[name];</span><br><span class="line">           _.prototype[name] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">               <span class="keyword">var</span> args = [<span class="keyword">this</span>._wrapped];</span><br><span class="line">               push.apply(args, <span class="built_in">arguments</span>);</span><br><span class="line">               <span class="keyword">return</span> func.apply(_, args);</span><br><span class="line">           &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> _;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行minxin函数</span></span><br><span class="line">    _.mixin(_);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> exports != <span class="string">'undefined'</span> &amp;&amp; !exports.nodeType) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> != <span class="string">'undefined'</span> &amp;&amp; !<span class="built_in">module</span>.nodeType &amp;&amp; <span class="built_in">module</span>.exports) &#123;</span><br><span class="line">            exports = <span class="built_in">module</span>.exports = _;</span><br><span class="line">        &#125;</span><br><span class="line">        exports._ = _;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        root._ = _;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>欢迎各位大佬拍砖！同时您的点赞是我写作的动力~谢谢。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/underscore-封装/" rel="tag"># underscore 封装</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/translation/CSSOM/" rel="next" title="【译】CSS对象模型（CSSOM）指南">
+                <i class="fa fa-chevron-left"></i> 【译】CSS对象模型（CSSOM）指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="ZheHuaXuan" />
+            
+              <p class="site-author-name" itemprop="name">ZheHuaXuan</p>
+              <p class="site-description motion-element" itemprop="description">知足.感恩.幸运</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zhehuaxuan" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:xuanzhehua@huawei.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自己写个函数库"><span class="nav-number">2.</span> <span class="nav-text">自己写个函数库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#underscore是怎么做的？"><span class="nav-number">3.</span> <span class="nav-text">underscore是怎么做的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对兼容性的考虑"><span class="nav-number">3.1.</span> <span class="nav-text">对兼容性的考虑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持两种不同风格的函数调用"><span class="nav-number">3.2.</span> <span class="nav-text">支持两种不同风格的函数调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象式调用的实现"><span class="nav-number">3.2.1.</span> <span class="nav-text">对象式调用的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再回归兼容性问题"><span class="nav-number">3.3.</span> <span class="nav-text">再回归兼容性问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZheHuaXuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
