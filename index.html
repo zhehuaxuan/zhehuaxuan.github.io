@@ -419,7 +419,7 @@
 <li>对象式调用：<code>console.log(_([1,2,3,4])).first();</code></li>
 </ol>
 <p>在underscore中，它们返回的结果都是相同的。</p>
-<p>第一种方式没有问题，难点就是第二种方式的调用调用。</p>
+<p>第一种方式没有问题，难点就是第二种方式的调用。</p>
 <h4 id="对象式调用的实现"><a href="#对象式调用的实现" class="headerlink" title="对象式调用的实现"></a>对象式调用的实现</h4><p>解决这个问题要达到两个目的：</p>
 <ol>
 <li><code>_</code>是一个函数，并且调用返回一个对象；</li>
@@ -434,14 +434,14 @@
 <p><strong>第三步</strong>：执行<code>new _([1,2,3,4])</code>，继续调用<code>_</code>函数，这时</p>
 <blockquote>
 <p><code>obj</code>为<code>[1,2,3,4]</code></p>
-<p>this为一个新对象，并且这个对象的<code>__proto__</code>指向<code>_.prototype</code>(对于new对象执行有疑问，请猛戳<a href="https://juejin.im/post/5c6ed96ae51d450da463513c" target="_blank" rel="noopener">此处</a>)</p>
+<p><code>this</code>为一个新对象，并且这个对象的<code>__proto__</code>指向<code>_.prototype</code>(对于new对象执行有疑问，请猛戳<a href="https://juejin.im/post/5c6ed96ae51d450da463513c" target="_blank" rel="noopener">此处</a>)</p>
 </blockquote>
 <p>此时</p>
 <blockquote>
-<p>(obj instanceof _)为<code>false</code></p>
-<p>(obj instanceof _)为<code>true</code></p>
+<p><code>(obj instanceof _)</code>为<code>false</code></p>
+<p><code>(this instanceof _)</code>为<code>true</code></p>
 </blockquote>
-<p>所以此处会执行<code>this._wrapped = obj;</code>，在新对象中，添加<code>_wrapped</code>属性，将`[1,2,3,4]挂载进去。</p>
+<p>所以此处会执行<code>this._wrapped = obj;</code>，在新对象中，添加<code>_wrapped</code>属性，将<code>[1,2,3,4]</code>挂载进去。</p>
 <p>综合上述函数实现的效果就是：</p>
 <p><code>_([1,2,3,4]))&lt;=====&gt;new _([1,2,3,4])</code></p>
 <p>然后执行如下构造函数：</p>
@@ -455,7 +455,7 @@
 <p><img src="/2019/03/07/跟underscore一起学如何写函数库/image-20190306214133549.png" alt="image-20190306214133549"></p>
 <p>这表明通过<code>_（obj）</code>构建出来的对象确实具有两个特征：</p>
 <ol>
-<li>下面挂载了我们传入的对象/数组</li>
+<li>下面挂载了我们传入的对象或数组</li>
 <li>对象的<code>_proto_</code>属性指向<code>_</code>的<code>prototype</code></li>
 </ol>
 <p>到此我们已经完成了第一个问题。</p>
