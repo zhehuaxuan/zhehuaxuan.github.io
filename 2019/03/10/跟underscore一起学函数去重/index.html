@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构,算法," />
+  <meta name="keywords" content="underscore,uniq," />
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="引子数组去重是一个老生常谈的话题，在面试中也经常会被问道。对于去重，有两种主流思想：   先排序，线性遍历后去重，时间复杂度O(n*log2n)； 使用哈希，空间换时间，时间复杂度O(n);   上一篇文章，我分析了underscore的函数是如何组织的，我们能够依照这种方法书写自己的函数库，这篇文章，来看看关于函数去">
-<meta name="keywords" content="数据结构,算法">
+<meta name="keywords" content="underscore,uniq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跟underscore一起学函数去重">
-<meta property="og:url" content="https://zhehuaxuan.github.io/2019/02/28/数组的去重/index.html">
+<meta property="og:url" content="https://zhehuaxuan.github.io/2019/03/10/跟underscore一起学函数去重/index.html">
 <meta property="og:site_name" content="zhehua&#39;s note">
 <meta property="og:description" content="引子数组去重是一个老生常谈的话题，在面试中也经常会被问道。对于去重，有两种主流思想：   先排序，线性遍历后去重，时间复杂度O(n*log2n)； 使用哈希，空间换时间，时间复杂度O(n);   上一篇文章，我分析了underscore的函数是如何组织的，我们能够依照这种方法书写自己的函数库，这篇文章，来看看关于函数去重underscore是如何做的？ Underscore的去重功能介绍under">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/12/1697143f219fdc6b?w=331&h=120&f=png&s=8871">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/12/16971b1006947270?w=297&h=75&f=png&s=7020">
-<meta property="og:updated_time" content="2019-03-13T13:56:03.060Z">
+<meta property="og:updated_time" content="2019-03-13T14:03:19.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跟underscore一起学函数去重">
 <meta name="twitter:description" content="引子数组去重是一个老生常谈的话题，在面试中也经常会被问道。对于去重，有两种主流思想：   先排序，线性遍历后去重，时间复杂度O(n*log2n)； 使用哈希，空间换时间，时间复杂度O(n);   上一篇文章，我分析了underscore的函数是如何组织的，我们能够依照这种方法书写自己的函数库，这篇文章，来看看关于函数去重underscore是如何做的？ Underscore的去重功能介绍under">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="https://zhehuaxuan.github.io/2019/02/28/数组的去重/"/>
+  <link rel="canonical" href="https://zhehuaxuan.github.io/2019/03/10/跟underscore一起学函数去重/"/>
 
 
 
@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2019/02/28/数组的去重/">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2019/03/10/跟underscore一起学函数去重/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZheHuaXuan">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T01:08:20+08:00">
-                2019-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T01:08:20+08:00">
+                2019-03-10
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript进阶系列/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript进阶系列</span>
+                  <a href="/categories/Underscore源码系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Underscore源码系列</span>
                   </a>
                 </span>
 
@@ -443,9 +443,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/underscore/" rel="tag"># underscore</a>
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/uniq/" rel="tag"># uniq</a>
           
         </div>
       
@@ -458,8 +458,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/26/JavaScript进阶之模拟call和apply/" rel="next" title="JavaScript进阶之模拟call,apply和bind">
-                <i class="fa fa-chevron-left"></i> JavaScript进阶之模拟call,apply和bind
+              <a href="/2019/03/07/跟underscore一起学如何写函数库/" rel="next" title="跟underscore一起学如何写函数库">
+                <i class="fa fa-chevron-left"></i> 跟underscore一起学如何写函数库
               </a>
             
           </div>
@@ -467,10 +467,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/03/2019年写作计划/" rel="prev" title="2019年写作计划">
-                2019年写作计划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,7 +558,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -573,7 +569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
