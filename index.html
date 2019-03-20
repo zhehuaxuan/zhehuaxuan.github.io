@@ -292,6 +292,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2019/03/20/JavaScript进阶之继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZheHuaXuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhehua's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/JavaScript进阶之继承/" itemprop="url">JavaScript进阶之继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T22:09:47+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript进阶系列/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript进阶系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h3><p><strong>封装</strong>，<strong>继承</strong>和<strong>多态</strong>是面向对象的三大特性。</p>
+<p><strong>继承</strong>是JavaScript老生常谈的问题，也基础中的基础。最基本的就是知道JS中继承种类，优缺点并能够手写例子。下面我引用掘金Oliveryoung老兄一篇文章的思维导图，他的这篇文章写的很棒。可以<a href="https://juejin.im/post/5c8e409ee51d4534977bc557" target="_blank" rel="noopener">点击</a>。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995b7a53f34c25?w=1545&amp;h=573&amp;f=png&amp;s=67590" alt=""><br>继承相关的文章实在是过多，纠结了很久还是落笔，主要原因是：</p>
+<blockquote>
+<ol>
+<li>继承也是JavaScript进阶系列的组成部分，同时也是自己对于知识点的梳理；</li>
+<li>对于刚好看到这篇文章的小伙伴，可以温故知新；</li>
+<li>把自己的理解写出来，有错误的能够指出，一起进步；  </li>
+</ol>
+</blockquote>
+<p>下面我以思维导图为依据，根据不同思路，给出不同的继承方式，扫盲这块知识点。</p>
+<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>利用JavaScript原型链的，把父对象链到子对象的原型中一些特性，我举如下的例子，并给出代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类对象</span></span><br><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.compose = [<span class="string">"head"</span>,<span class="string">"body"</span>,<span class="string">"legs"</span>]; <span class="comment">//小动物的组成部分</span></span><br><span class="line">    <span class="keyword">this</span>.statistics = &#123;<span class="attr">count</span>:<span class="number">0</span>&#125;; <span class="comment">//小动物的数量</span></span><br><span class="line">    <span class="keyword">this</span>.category = <span class="string">"animal"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//子类对象        </span></span><br><span class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.category = <span class="string">"cat"</span>;</span><br><span class="line">      <span class="keyword">this</span>.name = name; <span class="comment">//小动物名称</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal(); <span class="comment">//原型链继承</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">var</span> tom = <span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">tom.compose.push(<span class="string">"blue eyes"</span>);</span><br><span class="line">tom.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br></pre></td></tr></table></figure></p>
+<p>打印结果如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995b8c3ee084a8?w=543&amp;h=309&amp;f=png&amp;s=27556" alt=""></p>
+<p>下面是对象之间的关联关系。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995b9304be70ff?w=547&amp;h=419&amp;f=png&amp;s=25930" alt=""></p>
+<blockquote>
+<p><code>tom</code>猫的<code>_proto_</code>属性指向<code>Cat.prototype</code>，而<code>Cat.prototype = new Animal()</code>将<strong>Animal对象的”一切”都继承了下来</strong>。</p>
+</blockquote>
+<p>我们接着执行如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jemmy = <span class="keyword">new</span> Cat(<span class="string">"jemmy"</span>);</span><br><span class="line">jemmy.compose.push(<span class="string">"black eyes"</span>);</span><br><span class="line">jemmy.statistics.count++</span><br><span class="line"><span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>打印结果：<br><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995c008f2fd3a9?w=500&amp;h=135&amp;f=png&amp;s=15425" alt=""></p>
+<p>公有引用属性（<code>statistics</code>）没有问题，但是私有引用属性（<code>compose</code>）被污染，所以原型链继承缺点：</p>
+<blockquote>
+<ol>
+<li>污染私有引用属性</li>
+<li>无法向父对象传参</li>
+</ol>
+</blockquote>
+<h3 id="构造器继承"><a href="#构造器继承" class="headerlink" title="构造器继承"></a>构造器继承</h3><p>既然私有引用属（<code>compose</code>）属性不能挂载在<code>Cat.prototype</code>，那我们把它挂载在自雷对象上，使用<code>call</code>或者<code>apply</code>来改变<code>context</code>，不熟悉<code>call</code>和<code>apply</code>请猛戳<a href="https://juejin.im/post/5c702a1651882561dd7b76df" target="_blank" rel="noopener">这里</a>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类</span></span><br><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span> (<span class="params">category</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">    <span class="keyword">this</span>.statistics = &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    Animal.call(<span class="keyword">this</span>,<span class="string">"cat"</span>);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> tom = <span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">tom.compose.push(<span class="string">"blue eyes"</span>);</span><br><span class="line">tom.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br><span class="line"><span class="keyword">var</span> jemmy = <span class="keyword">new</span> Cat(<span class="string">"Jemmy"</span>);</span><br><span class="line">jemmy.compose.push(<span class="string">"black eyes"</span>);</span><br><span class="line">jemmy.statistics.count++</span><br><span class="line"><span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>打印结果如下：<br><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995c04de3a42b2?w=600&amp;h=210&amp;f=png&amp;s=28720" alt=""><br>对象之间的关系图如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/20/1699b301aa6eff3a?w=1282&amp;h=722&amp;f=png&amp;s=53352" alt=""></p>
+<p>构造器继承解决了原型链继承的两大问题，但是又暴露了<strong>公有引用属性不能共享的问题</strong>。矫枉过正！</p>
+<p>我们把公有引用属性使用原型链继承，私有引用属性使用构造器继承，引出组合继承（<strong>构造器+原型组合继承</strong>）</p>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p>我们将<code>compose</code>属性挂载在对象属性上，<code>statistics</code>属性挂载在原型上，结合前两种继承：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类</span></span><br><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span> (<span class="params">category</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//私有属性</span></span><br><span class="line">    <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">    <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype.statistics = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;; <span class="comment">//公有属性放在父对象的原型上</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    Animal.call(<span class="keyword">this</span>,<span class="string">"cat"</span>);<span class="comment">//将非共享的属性通过call加入到子对象中</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype =  Animal.prototype; <span class="comment">//挂载到子对象的原型中</span></span><br><span class="line"><span class="comment">// console.log(Cat.prototype.constructor == Animal)  //true</span></span><br><span class="line">Cat.prototype.constructor = Cat;<span class="comment">//纠正子对象的构造函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> tom = <span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">tom.compose.push(<span class="string">"blue eyes"</span>);</span><br><span class="line">tom.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br><span class="line"><span class="keyword">var</span> jemmy = <span class="keyword">new</span> Cat(<span class="string">"Jemmy"</span>);</span><br><span class="line">jemmy.compose.push(<span class="string">"black eyes"</span>);</span><br><span class="line">jemmy.statistics.count++</span><br><span class="line"><span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/20/1699b28c5cc101dd?w=1054&amp;h=556&amp;f=png&amp;s=108501" alt=""><br>对象之间的关系图如下：<br><img src="https://user-gold-cdn.xitu.io/2019/3/20/1699b3b130ee38ca?w=1192&amp;h=862&amp;f=png&amp;s=90597" alt=""><br>融合原型链继承和构造函数继承的优点，也是常见的继承策略。</p>
+<h3 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h3><p>原型继承主要利用ES5出现的Object.create()函数，这里改写一下上述的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span> (<span class="params">category</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">            <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">            <span class="keyword">this</span>.statistics = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line"><span class="keyword">var</span> tom = <span class="built_in">Object</span>.create(animal);</span><br><span class="line">tom.name = <span class="string">"Tom"</span>;</span><br><span class="line">tom.category = <span class="string">"cat"</span>;</span><br><span class="line">tom.compose.push(<span class="string">"blue eyes"</span>);</span><br><span class="line">tom.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> jemmy = <span class="built_in">Object</span>.create(animal);</span><br><span class="line">jemmy.name = <span class="string">"Jemmy"</span>;</span><br><span class="line">jemmy.category = <span class="string">"cat"</span>;</span><br><span class="line">jemmy.compose.push(<span class="string">"black eyes"</span>);</span><br><span class="line">jemmy.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>对象结构如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995c13de6eb789?w=627&amp;h=248&amp;f=png&amp;s=28475" alt=""><br>原型继承和原型链继承一样，只是使用Object.create()的方式进行继承。</p>
+<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p>鉴于原型式继承的封装性不是很好，寄生式继承主要用于解决这个问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类</span></span><br><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span> (<span class="params">category</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">    <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">    <span class="keyword">this</span>.statistics = &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//把原型式继承封装成一个create函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params">parent, name, category, eyes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(parent);</span><br><span class="line">    obj.name = name;</span><br><span class="line">    obj.category = category;</span><br><span class="line">    obj.compose.push(eyes);</span><br><span class="line">    obj.statistics.count++;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line"><span class="keyword">var</span> tom = create(animal, <span class="string">"Tom"</span>, <span class="string">"cat"</span>, <span class="string">"blue eyes"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br><span class="line"><span class="keyword">var</span> jemmy = create(animal, <span class="string">"Jemmy"</span>, <span class="string">"cat"</span>, <span class="string">"black eyes"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>这种方式比原型式继承封装性更好。但是缺点还是没解决的。在寄生式基础上，结合构造器继承，就是<strong>寄生组合式继承</strong>。</p>
+<h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><p>寄生组合式继承，更多了还是利用组合式继承的思想。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类</span></span><br><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span> (<span class="params">category</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//私有属性</span></span><br><span class="line">    <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">    <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal.prototype = &#123;</span><br><span class="line">    <span class="comment">//公有属性，还是放在原型上</span></span><br><span class="line">    statistics : &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//把私有属性通过call继承过来</span></span><br><span class="line">    Animal.call(<span class="keyword">this</span>,<span class="string">"cat"</span>);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">proto</span>(<span class="params">Son,Parent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//其实就是把组合继承的原型部分封装了一下</span></span><br><span class="line">    Son.prototype = <span class="built_in">Object</span>.create(Parent.prototype);</span><br><span class="line">    Son.prototype.constructor = Son;</span><br><span class="line">&#125;</span><br><span class="line">proto(Cat,Animal);</span><br><span class="line">   </span><br><span class="line"><span class="keyword">var</span> tom = <span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">tom.compose.push(<span class="string">"blue eyes"</span>);</span><br><span class="line">tom.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br><span class="line"><span class="keyword">var</span> jemmy = <span class="keyword">new</span> Cat(<span class="string">"Jemmy"</span>);</span><br><span class="line">jemmy.compose.push(<span class="string">"black eyes"</span>);</span><br><span class="line">jemmy.statistics.count++</span><br><span class="line">    <span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>打印结果和组合式继承一致：<br><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995c17024774dc" alt=""></p>
+<p>总结一下，JavaScript的继承的思想主要由下面两条构成：</p>
+<blockquote>
+<ol>
+<li>将私有属性通过<code>call/apply</code>在子对象构造函数中调用，直接继承</li>
+<li>将公有属性通过原型链继承</li>
+</ol>
+</blockquote>
+<p>组合式继承和寄生组合式继承只是实现方式的不同，思想是一致的。</p>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p><code>class</code>和<code>extends</code>的出现，使继承变得简单！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(category)&#123;</span><br><span class="line">        <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">        <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal.prototype.statistics =  &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"cat"</span>);</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> tom = <span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">tom.compose.push(<span class="string">"blue eyes"</span>);</span><br><span class="line">tom.statistics.count++;</span><br><span class="line"><span class="built_in">console</span>.log(tom);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> jemmy = <span class="keyword">new</span> Cat(<span class="string">"Jemmy"</span>);</span><br><span class="line">jemmy.compose.push(<span class="string">"black eyes"</span>);</span><br><span class="line">jemmy.statistics.count++</span><br><span class="line"><span class="built_in">console</span>.log(jemmy);</span><br></pre></td></tr></table></figure>
+<p>打印结果如下：<br><img src="https://user-gold-cdn.xitu.io/2019/3/19/16995c1bce244a06?w=532&amp;h=259&amp;f=png&amp;s=29607" alt=""><br>我们使用babel转成ES5语法，快速转换地址<a href="https://babeljs.io/repl#?babili=false&amp;browsers=&amp;build=&amp;builtIns=false&amp;spec=false&amp;loose=false&amp;code_lz=AQ0jGA2CGDOvAIIDsCWBbakDeAoMBo4A9srAC4BOAruOcZQBTjTkCmA5gwJ4CUehQaHIALVLAB0JdAAdisNsAC8wANoAiEW2gATdQBpg6gEbEd3A0cidY6gLoBufEMGjxU1px7LgLdl0puYAAfYKNoNExIdScXUABfZ0JEpIIUDCwJGUpienJuGTYJClZxclRwBBVgbF9iamRyAC5gAAZgFKEoOAQAYVZgNgAPdmQdBHSogTi6sipaeiZkaHQ2flSZ4FhqQqZ1P3VeWM3hMUll1Z8LtmO4xKF4oA&amp;debug=false&amp;forceAllTransforms=false&amp;shippedProposals=false&amp;circleciRepo=&amp;evaluate=false&amp;fileSize=false&amp;timeTravel=false&amp;sourceType=module&amp;lineWrap=true&amp;presets=es2015%2Creact%2Cstage-2&amp;prettier=false&amp;targets=&amp;version=7.3.4" target="_blank" rel="noopener">这里</a>：<br>转换结果如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_typeof</span>(<span class="params">obj</span>) </span>&#123; <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Symbol</span> === <span class="string">"function"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Symbol</span>.iterator === <span class="string">"symbol"</span>) &#123; _typeof = <span class="function"><span class="keyword">function</span> <span class="title">_typeof</span>(<span class="params">obj</span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">typeof</span> obj; &#125;; &#125; <span class="keyword">else</span> &#123; _typeof = <span class="function"><span class="keyword">function</span> <span class="title">_typeof</span>(<span class="params">obj</span>) </span>&#123; <span class="keyword">return</span> obj &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Symbol</span> === <span class="string">"function"</span> &amp;&amp; obj.constructor === <span class="built_in">Symbol</span> &amp;&amp; obj !== <span class="built_in">Symbol</span>.prototype ? <span class="string">"symbol"</span> : <span class="keyword">typeof</span> obj; &#125;; &#125; <span class="keyword">return</span> _typeof(obj); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_possibleConstructorReturn</span>(<span class="params">self, call</span>) </span>&#123; <span class="keyword">if</span> (call &amp;&amp; (_typeof(call) === <span class="string">"object"</span> || <span class="keyword">typeof</span> call === <span class="string">"function"</span>)) &#123; <span class="keyword">return</span> call; &#125; <span class="keyword">return</span> _assertThisInitialized(self); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_assertThisInitialized</span>(<span class="params">self</span>) </span>&#123; <span class="keyword">if</span> (self === <span class="keyword">void</span> <span class="number">0</span>) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">"this hasn't been initialised - super() hasn't been called"</span>); &#125; <span class="keyword">return</span> self; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123; </span><br><span class="line">    _getPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf ? <span class="built_in">Object</span>.getPrototypeOf : </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123; </span><br><span class="line">        <span class="keyword">return</span> o.__proto__ || <span class="built_in">Object</span>.getPrototypeOf(o); </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> _getPrototypeOf(o); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">"function"</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123; </span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Super expression must either be null or a function"</span>); </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">//子类的原型指向一个以（subClass为构造函数，superClass.prototype中的对象属性）的对象</span></span><br><span class="line">    subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123; </span><br><span class="line">        <span class="keyword">constructor</span>: &#123; value: subClass, <span class="attr">writable</span>: <span class="literal">true</span>, <span class="attr">configurable</span>: <span class="literal">true</span> &#125; &#125;); </span><br><span class="line">    <span class="keyword">if</span> (superClass) _setPrototypeOf(subClass, superClass); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123; </span><br><span class="line">    _setPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf || </span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span></span><br><span class="line"><span class="function">    	</span>&#123; o.__proto__ = p; <span class="keyword">return</span> o; &#125;; </span><br><span class="line">    <span class="keyword">return</span> _setPrototypeOf(o, p); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">left, right</span>) </span>&#123; <span class="keyword">if</span> (right != <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">"undefined"</span> &amp;&amp; right[<span class="built_in">Symbol</span>.hasInstance]) &#123; <span class="keyword">return</span> right[<span class="built_in">Symbol</span>.hasInstance](left); &#125; <span class="keyword">else</span> &#123; <span class="keyword">return</span> left <span class="keyword">instanceof</span> right; &#125; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123; <span class="keyword">if</span> (!_instanceof(instance, Constructor)) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Cannot call a class as a function"</span>); &#125; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">category</span>) </span>&#123;</span><br><span class="line">  _classCallCheck(<span class="keyword">this</span>, Animal);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.compose = [<span class="string">"head"</span>, <span class="string">"body"</span>, <span class="string">"legs"</span>];</span><br><span class="line">  <span class="keyword">this</span>.category = category || <span class="string">"animal"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Animal.prototype.statistics = &#123;</span><br><span class="line">  count: <span class="number">0</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Cat =</span><br><span class="line"><span class="comment">/*#__PURE__*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">_Animal</span>) </span>&#123;</span><br><span class="line">  _inherits(Cat, _Animal);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _this;</span><br><span class="line"></span><br><span class="line">    _classCallCheck(<span class="keyword">this</span>, Cat);</span><br><span class="line"></span><br><span class="line">    _this = _possibleConstructorReturn(<span class="keyword">this</span>, _getPrototypeOf(Cat).call(<span class="keyword">this</span>, <span class="string">"cat"</span>));</span><br><span class="line">    _this.name = name;</span><br><span class="line">    <span class="keyword">return</span> _this;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Cat;</span><br><span class="line">&#125;(Animal);</span><br></pre></td></tr></table></figure></p>
+<p>大家可以仔细看看这段代码，写的挺有意思的，看懂了基本上也就理解继承了。在这里<br><code>_inherits(Cat, _Animal)</code>跟寄生组合式继承中的<code>proto(Cat,Animal)</code>一样，<code>_getPrototypeOf(Cat).call(this, &quot;cat&quot;)</code>和<code>Animal.call(this,&quot;cat&quot;);</code>也一样，值得一提的是ES6中的<code>super(xxx)</code>就是将父类的构造函数使用<code>call</code>进行传参。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/16" target="_blank" rel="noopener">JavaScript深入之继承的多种方式和优缺点 </a></li>
+<li><a href="https://juejin.im/post/5c8e409ee51d4534977bc557#heading-0" target="_blank" rel="noopener">一文看懂 JS 继承</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2019/03/10/跟underscore一起学函数去重/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2270,204 +2476,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhehuaxuan.github.io/2018/07/10/js/difficulty/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZheHuaXuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhehua's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/10/js/difficulty/" itemprop="url">Javascript原生释疑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T16:43:23+08:00">
-                2018-07-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASCRIPT/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASCRIPT</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-ES基础知识"><a href="#1-ES基础知识" class="headerlink" title="1.ES基础知识"></a>1.ES基础知识</h4><ol>
-<li><p>JS的基本数据类型</p>
-<ul>
-<li><p>Boolean</p>
-</li>
-<li><p>String</p>
-</li>
-<li><p>Number</p>
-</li>
-<li><p>Null</p>
-</li>
-<li><p>Undefined</p>
-</li>
-<li><p>Symbol(ES6)</p>
-<blockquote>
-<p>注：原始类型不包含Object</p>
-</blockquote>
-<p><strong>typeof</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> xxx;</span><br><span class="line"><span class="comment">//返回：undefined boolean number string object function、symbol 只比基本类型多了object和function</span></span><br><span class="line"><span class="comment">//注意点：</span></span><br><span class="line"><span class="comment">//1.typeof null结果是object  </span></span><br><span class="line"><span class="comment">//2.typeof [1, 2]结果是object typeof 没有array类型  引用类型只有function和object</span></span><br><span class="line"><span class="comment">//3.typeof Symbol() 用typeof获取symbol类型的值得到的是symbo</span></span><br></pre></td></tr></table></figure>
-<p><strong>instanceof</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">//true or false</span></span><br></pre></td></tr></table></figure>
-<p>instanceof和typeof的细节，可以移步<a href="http://localhost:4000/2018/06/06/js/js_pro/" target="_blank" rel="noopener">这里</a></p>
-</li>
-</ul>
-</li>
-</ol>
-<h4 id="1-offsetWidth、clientWidth、scrollWidth、width的区别"><a href="#1-offsetWidth、clientWidth、scrollWidth、width的区别" class="headerlink" title="1. offsetWidth、clientWidth、scrollWidth、width的区别"></a>1. offsetWidth、clientWidth、scrollWidth、width的区别</h4><table>
-<thead>
-<tr>
-<th>属性值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>offsetWidth</td>
-<td>真实的width+padding+border</td>
-</tr>
-<tr>
-<td>clientWidth</td>
-<td>真实的width+padding</td>
-</tr>
-<tr>
-<td>style.width</td>
-<td>返回DOM真实的width</td>
-</tr>
-<tr>
-<td>scrollWidth</td>
-<td>返回元素的宽度（包括元素宽度、内边距和溢出尺寸，不包括边框和外边距），无溢出的情况，与clientWidth相同</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2517,7 +2530,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2539,7 +2552,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
